@@ -35,7 +35,7 @@ I'm going to make this window function like built-in stats that can be shown whi
 
 -- No there will not be any dynamic stats within this project because 1. You can't obtain this info manually and 2. Going down this road leads to all sorts of unfair tools like map hacks.
 
-#### Stage 2 - after match ended
+#### Stage 3 - after match ended
 Now that we have a full replay file we can display tons of detailed stats like damage taken, self healing, objective counters (collected/lost coins, damage done to immortals etc). I hope that with help of community we can develop an extensive replay analyzer lib that can be used by this app and hotslogs.
 
 Development details
