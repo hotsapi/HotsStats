@@ -62,27 +62,25 @@
 		</DataTemplate>
 
 	</Window.Resources>
-	<Border BorderThickness="3, 0" BorderBrush="#1e1a24">
-		<Border BorderThickness="0, 3" BorderBrush="#4b4750">
-			<Grid Background="#140c24">
-				<Image Source="Resources/close.png" Stretch="None" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Right" MouseDown="Image_MouseDown" />
-				<StackPanel Margin="40, 50, 40, 40">
-					<StackPanel Orientation="Horizontal" Margin="0, 0, 0, 4">
-						<TextBlock Text="Player" FontWeight="Bold" FontSize="12" Foreground="#5f6dc4" VerticalAlignment="Center" Margin="26, 0, 0, 0" Width="120" Effect="{StaticResource ResourceKey=TextShadow}" />
-						<StackPanel Width="80">
-							<TextBlock Text="MMR" FontWeight="Bold" FontSize="12" Foreground="#5f6dc4" HorizontalAlignment="Center" Effect="{StaticResource ResourceKey=TextShadow}" />
-						</StackPanel>
-						<TextBlock Text="Player" FontWeight="Bold" FontSize="12" Foreground="#5f6dc4" VerticalAlignment="Center" Margin="40, 0, 0, 0" Width="120" Effect="{StaticResource ResourceKey=TextShadow}" />
-						<StackPanel Width="80">
-							<TextBlock Text="MMR" FontWeight="Bold" FontSize="12" Foreground="#5f6dc4" HorizontalAlignment="Center" Effect="{StaticResource ResourceKey=TextShadow}" />
-						</StackPanel>
+	<Border BorderThickness="2" BorderBrush="#b4b1e6">
+		<Grid Background="#140c24">
+			<Image Source="Resources/close.png" Stretch="None" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Right" MouseDown="Image_MouseDown" />
+			<StackPanel Margin="40, 50, 40, 40">
+				<StackPanel Orientation="Horizontal" Margin="0, 0, 0, 4">
+					<TextBlock Text="Player" FontWeight="Bold" FontSize="12" Foreground="#5f6dc4" VerticalAlignment="Center" Margin="26, 0, 0, 0" Width="120" Effect="{StaticResource ResourceKey=TextShadow}" />
+					<StackPanel Width="80">
+						<TextBlock Text="MMR" FontWeight="Bold" FontSize="12" Foreground="#5f6dc4" HorizontalAlignment="Center" Effect="{StaticResource ResourceKey=TextShadow}" />
 					</StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<ItemsControl ItemsSource="{Binding Players}" Width="230" ItemTemplate="{StaticResource BlueRow}" x:Name="Team1" />
-						<ItemsControl ItemsSource="{Binding Players}" Width="230" Margin="20, 0, 0, 0" ItemTemplate="{StaticResource RedRow}" x:Name="Team2" />
+					<TextBlock Text="Player" FontWeight="Bold" FontSize="12" Foreground="#5f6dc4" VerticalAlignment="Center" Margin="40, 0, 0, 0" Width="120" Effect="{StaticResource ResourceKey=TextShadow}" />
+					<StackPanel Width="80">
+						<TextBlock Text="MMR" FontWeight="Bold" FontSize="12" Foreground="#5f6dc4" HorizontalAlignment="Center" Effect="{StaticResource ResourceKey=TextShadow}" />
 					</StackPanel>
 				</StackPanel>
-			</Grid>
-		</Border>
+				<StackPanel Orientation="Horizontal">
+					<ItemsControl ItemsSource="{Binding Players}" Width="230" ItemTemplate="{StaticResource BlueRow}" x:Name="Team1" />
+					<ItemsControl ItemsSource="{Binding Players}" Width="230" Margin="20, 0, 0, 0" ItemTemplate="{StaticResource RedRow}" x:Name="Team2" />
+				</StackPanel>
+			</StackPanel>
+		</Grid>
 	</Border>
 </Window>

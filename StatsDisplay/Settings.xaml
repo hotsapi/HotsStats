@@ -6,16 +6,17 @@
         xmlns:local="clr-namespace:StatsDisplay"
         mc:Ignorable="d"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="Settings" Height="186.4" Width="208.8">
+        Title="Settings" Height="191.4" Width="260.8">
 	<Grid>
 		<StackPanel Margin="20">
 			<CheckBox IsChecked="{Binding Enabled}" Content="Enabled" />
-			<DockPanel LastChildFill="True" Margin="0, 8">
-				<TextBlock Text="BattleTag" Margin="0, 0, 4, 0" VerticalAlignment="Center"/>
+			<DockPanel LastChildFill="True" Margin="0, 8, 0, 0">
+				<TextBlock Text="Your BattleTag" Margin="0, 0, 4, 0" VerticalAlignment="Center"/>
 				<TextBox Text="{Binding BattleTag}"></TextBox>
 			</DockPanel>
+			<TextBlock Text="So that app knows on which team you are" Margin="0, 0, 0, 8" FontSize="10" Foreground="DimGray" />
 			<CheckBox IsChecked="{Binding AutoClose}" Content="Close Automatically" x:Name="AutoCloseCheck"/>
-			<Button Content="test" Click="Button_Click" />
 		</StackPanel>
+		<Button Content="test" Click="Button_Click" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20" Padding="8, 0" />
 	</Grid>
 </Window>

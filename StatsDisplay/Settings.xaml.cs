@@ -45,7 +45,7 @@ namespace StatsDisplay
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-			ProcessLobbyFile(@"replay.server.battlelobby.3");
+			ProcessLobbyFile(@"replay.server.battlelobby");
 		}
 	}
 }
