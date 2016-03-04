@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using Heroes.ReplayParser;
 
 namespace StatsFetcher
 {
@@ -61,13 +62,6 @@ namespace StatsFetcher
 			Gold = 4,
 			Silver = 5,
 			Bronze = 6
-		}
-
-		public enum GameMode
-		{
-			QuickMatch,
-			HeroLeague,
-			TeamLeague
 		}
 	}
 }

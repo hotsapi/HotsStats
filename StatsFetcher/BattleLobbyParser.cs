@@ -22,6 +22,18 @@ namespace StatsFetcher
 			this.data = data;
 		}
 
+		public Game Parse()
+		{
+			var game = new Game();
+			game.Region = ExtractRegion();
+			var tags = ExtractBattleTags();
+			game.Players = tags.Select(tag => new PlayerProfile(tag, game.Region)).ToList();
+			for (int i = 0; i < game.Players.Count; i++) {
+				game.Players[i].Team = i >= 5 ? 0 : 1;
+			}
+			return game;
+		}
+
 		// Since we don't know structure of this file we will search for anything that looks like BattleTag
 		// We will look for '#' symbol with digits on the right and letters to the left, prefixed with string length
 		// We know that BattleTags reside at file end after large '0' padding

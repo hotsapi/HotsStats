@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using StatsFetcher;
 using System.Threading;
+using Heroes.ReplayParser;
 
 namespace StatsDisplay
 {
@@ -34,11 +35,11 @@ namespace StatsDisplay
 			InitializeComponent();
 		}
 
-		public MainWindow(List<PlayerProfile> players, string myAccount, bool autoClose)
+		public MainWindow(Game game, string myAccount, bool autoClose)
 		{
 			InitializeComponent();
 
-			Players = players;
+			Players = game.Players;
 			MyAccount = myAccount;
 
 			Me = Players.Where(p => p.BattleTag == MyAccount || p.Name == MyAccount).FirstOrDefault();
@@ -92,7 +93,7 @@ namespace StatsDisplay
 				new PlayerProfile("Player 5#123", Region.EU),
 			};
 			foreach (var p in Players) {
-				p.Ranks[PlayerProfile.GameMode.QuickMatch] = new PlayerProfile.MmrValue(PlayerProfile.GameMode.QuickMatch, 2200, null, null);
+				p.Ranks[GameMode.QuickMatch] = new PlayerProfile.MmrValue(GameMode.QuickMatch, 2200, null, null);
 			}
 			Me = Players.Where(p => p.BattleTag == MyAccount).FirstOrDefault();
 			MyTeam = 0;

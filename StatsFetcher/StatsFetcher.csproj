@@ -53,6 +53,7 @@
     <Compile Include="EventArgs.cs" />
     <Compile Include="FileMonitor.cs" />
     <Compile Include="FileProcessor.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="PlayerProfile.cs" />
     <Compile Include="ProfileFetcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

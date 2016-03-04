@@ -38,9 +38,9 @@ namespace StatsDisplay
 			if (!Enabled)
 				return;
 
-			var profiles = await FileProcessor.ProcessLobbyFile(path);
+			var game = await FileProcessor.ProcessLobbyFile(path);
 
-			new MainWindow(profiles, BattleTag, AutoCloseCheck.IsChecked == true).Show();
+			new MainWindow(game, BattleTag, AutoCloseCheck.IsChecked == true).Show();
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)

@@ -10,30 +10,25 @@ namespace StatsFetcher
 {
 	public static class FileProcessor
 	{
-		public static async Task<List<PlayerProfile>> ProcessLobbyFile(string path)
+		public static async Task<Game> ProcessLobbyFile(string path)
 		{
-			var p = new BattleLobbyParser(path);
-			var region = p.ExtractRegion();
-			var tags = p.ExtractBattleTags();
-			var f = new ProfileFetcher(tags, region);
-			var profiles = await f.FetchBasicProfiles();
-			for (int i = 0; i < profiles.Count; i++) {
-				profiles[i].Team = i >= 5 ? 0 : 1;
-			}
-			return profiles;
+			var game = new BattleLobbyParser(path).Parse();
+			await new ProfileFetcher(game).FetchBasicProfiles();
+			return game;
 		}
 
-		public static void ProcessReplay(string path, List<PlayerProfile> profiles)
+		public static void ProcessReplay(string path, Game game)
 		{
 			var tmpPath = Path.GetTempFileName();
 			File.Copy(path, tmpPath, overwrite: true);
 			var replay = ParseReplay(tmpPath);
-			foreach (var profile in profiles) {
+			foreach (var profile in game.Players) {
 				var player = replay.Players.Where(p => p.Name == profile.Name).Single();
 				profile.Hero = player.Character;
 				profile.HeroLevel = player.CharacterLevel;
 			}
-			// todo: return replay.Map; replay.GameMode;
+			game.Map = replay.Map;
+			game.GameMode = replay.GameMode;
 		}
 
 		public static Replay ParseReplay(string fileName)
