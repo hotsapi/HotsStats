@@ -62,6 +62,16 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Heroes.ReplayParser\Heroes.ReplayParser\Heroes.ReplayParser.csproj">
+      <Project>{aaf78d53-a1da-424a-b1aa-09895eab3b2b}</Project>
+      <Name>Heroes.ReplayParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Heroes.ReplayParser\MpqTool\MpqTool.csproj">
+      <Project>{fa50e172-836b-47bb-8745-60595e4fb12a}</Project>
+      <Name>MpqTool</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
