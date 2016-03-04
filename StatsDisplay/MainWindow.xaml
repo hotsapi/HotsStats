@@ -1,0 +1,88 @@
+﻿<Window x:Class="StatsDisplay.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StatsDisplay"
+		xmlns:fetcher="clr-namespace:StatsFetcher;assembly=StatsFetcher"
+        mc:Ignorable="d"
+		DataContext="{Binding RelativeSource={RelativeSource Self}}"
+		d:DataContext="{Binding Source={StaticResource DesignViewModel}}"
+        Title="MainWindow" Height="auto" Width="auto" SizeToContent="WidthAndHeight"
+		WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True">
+	<Window.Resources>
+		<local:MockViewModel x:Key="DesignViewModel"/>
+
+		<LinearGradientBrush x:Key="BlueRowBrush" StartPoint="0,0" EndPoint="0, 1">
+			<LinearGradientBrush.GradientStops>
+				<GradientStop Offset="0.0" Color="#0f1232" />
+				<GradientStop Offset="1.0" Color="#12173c" />
+			</LinearGradientBrush.GradientStops>
+		</LinearGradientBrush>
+
+		<LinearGradientBrush x:Key="RedRowBrush" StartPoint="0,0" EndPoint="0, 1">
+			<LinearGradientBrush.GradientStops>
+				<GradientStop Offset="0.0" Color="#250c18" />
+				<GradientStop Offset="1.0" Color="#330c18" />
+			</LinearGradientBrush.GradientStops>
+		</LinearGradientBrush>
+
+		<DropShadowEffect x:Key="TextShadow" ShadowDepth="1"
+						Direction="330"
+						Color="Black"
+						Opacity="1"
+						BlurRadius="0"/>
+
+		<DataTemplate DataType="{x:Type fetcher:PlayerProfile}" x:Key="BlueRow" x:Name="BlueRow">
+			<StackPanel Orientation="Horizontal">
+				<Border BorderBrush="#56eefe" BorderThickness="3, 0, 0, 0" CornerRadius="3" Margin="0, 1, 3, 1" />
+				<Border BorderThickness="1" BorderBrush="#2a2d53" Height="40" Margin="0, 1" Background="{StaticResource BlueRowBrush}">
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" Foreground="#c9ffff" VerticalAlignment="Center" Margin="20, 0, 0, 0" Width="120" />
+						<StackPanel VerticalAlignment="Center" Width="80">
+							<TextBlock Text="{Binding QmMmr}" FontWeight="DemiBold" FontSize="14" Foreground="#8b9eea" HorizontalAlignment="Center" Effect="{StaticResource ResourceKey=TextShadow}" />
+						</StackPanel>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+		</DataTemplate>
+
+		<DataTemplate DataType="{x:Type fetcher:PlayerProfile}" x:Key="RedRow" x:Name="RedRow">
+			<StackPanel Orientation="Horizontal">
+				<Border BorderBrush="#fe5656" BorderThickness="3, 0, 0, 0" CornerRadius="3" Margin="0, 1, 3, 1" />
+				<Border BorderThickness="1" BorderBrush="#4a2431" Height="40" Margin="0, 1" Background="{StaticResource RedRowBrush}">
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" Foreground="#c9ffff" VerticalAlignment="Center" Margin="20, 0, 0, 0" Width="120" />
+						<StackPanel VerticalAlignment="Center" Width="80">
+							<TextBlock Text="{Binding QmMmr}" FontWeight="DemiBold" FontSize="14" Foreground="#8b9eea" HorizontalAlignment="Center" Effect="{StaticResource ResourceKey=TextShadow}" />
+						</StackPanel>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+		</DataTemplate>
+
+	</Window.Resources>
+	<Border BorderThickness="3, 0" BorderBrush="#1e1a24">
+		<Border BorderThickness="0, 3" BorderBrush="#4b4750">
+			<Grid Background="#140c24">
+				<Image Source="Resources/close.png" Stretch="None" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Right" MouseDown="Image_MouseDown" />
+				<StackPanel Margin="40, 50, 40, 40">
+					<StackPanel Orientation="Horizontal" Margin="0, 0, 0, 4">
+						<TextBlock Text="Player" FontWeight="Bold" FontSize="12" Foreground="#5f6dc4" VerticalAlignment="Center" Margin="26, 0, 0, 0" Width="120" Effect="{StaticResource ResourceKey=TextShadow}" />
+						<StackPanel Width="80">
+							<TextBlock Text="MMR" FontWeight="Bold" FontSize="12" Foreground="#5f6dc4" HorizontalAlignment="Center" Effect="{StaticResource ResourceKey=TextShadow}" />
+						</StackPanel>
+						<TextBlock Text="Player" FontWeight="Bold" FontSize="12" Foreground="#5f6dc4" VerticalAlignment="Center" Margin="40, 0, 0, 0" Width="120" Effect="{StaticResource ResourceKey=TextShadow}" />
+						<StackPanel Width="80">
+							<TextBlock Text="MMR" FontWeight="Bold" FontSize="12" Foreground="#5f6dc4" HorizontalAlignment="Center" Effect="{StaticResource ResourceKey=TextShadow}" />
+						</StackPanel>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<ItemsControl ItemsSource="{Binding Players}" Width="230" ItemTemplate="{StaticResource BlueRow}" x:Name="Team1" />
+						<ItemsControl ItemsSource="{Binding Players}" Width="230" Margin="20, 0, 0, 0" ItemTemplate="{StaticResource RedRow}" x:Name="Team2" />
+					</StackPanel>
+				</StackPanel>
+			</Grid>
+		</Border>
+	</Border>
+</Window>

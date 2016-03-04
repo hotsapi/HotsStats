@@ -1,0 +1,21 @@
+﻿<Window x:Class="StatsDisplay.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StatsDisplay"
+        mc:Ignorable="d"
+		DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="Settings" Height="186.4" Width="208.8">
+	<Grid>
+		<StackPanel Margin="20">
+			<CheckBox IsChecked="{Binding Enabled}" Content="Enabled" />
+			<DockPanel LastChildFill="True" Margin="0, 8">
+				<TextBlock Text="BattleTag" Margin="0, 0, 4, 0" VerticalAlignment="Center"/>
+				<TextBox Text="{Binding BattleTag}"></TextBox>
+			</DockPanel>
+			<CheckBox IsChecked="{Binding AutoClose}" Content="Close Automatically" x:Name="AutoCloseCheck"/>
+			<Button Content="test" Click="Button_Click" />
+		</StackPanel>
+	</Grid>
+</Window>
