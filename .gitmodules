@@ -1,0 +1,3 @@
+[submodule "Heroes.ReplayParser"]
+	path = Heroes.ReplayParser
+	url = git@github.com:poma/Heroes.ReplayParser.git
