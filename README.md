@@ -44,8 +44,14 @@ Here's how app currently works. During loading screen game creates battlelobby a
 
 Then I get MMR from HotsLogs JSON API. If we want more stats such as total games count and heroes win rate we will need to parse HTML profile.
 
+Code style
+-------------------
+While I'm the only one actively developing this project I use coding style that I like. Later on if there will be more contributors I plan to convery it to common conventions. Currently I use tabs for indentantion amd C style brackets.
+
 Current To Do list
 ---------------------
+* Error reporting
+* Rework GUI to use proper MVVM pattern
 * Make stats window look more like hots stats
 * Allow to move it
 * Remember setting and window positions
