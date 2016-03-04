@@ -41,15 +41,18 @@ namespace StatsFetcher
 		{
 			var url = $"https://www.hotslogs.com/API/Players/{(int)region}/{tag.Replace('#', '_')}";
 			var str = await web.GetStringAsync(url);
-			var p = new PlayerProfile { BattleTag = tag, Region = region };
+			var p = new PlayerProfile(tag, region);
 			if (string.IsNullOrWhiteSpace(str) || str == "null")
 				return p;
 			try {
 				dynamic json = JObject.Parse(str);
-				p.HotslogsId = json.PlayerID;			
-				p.QmMmr = json.LeaderboardRankings[0].CurrentMMR;
+				p.HotslogsId = json.PlayerID;
+				foreach (var r in json.LeaderboardRankings) {
+					var mode = (PlayerProfile.GameMode)Enum.Parse(typeof(PlayerProfile.GameMode), (string)r.GameMode);
+					p.Ranks[mode] = new PlayerProfile.MmrValue(mode, (int)r.CurrentMMR, (PlayerProfile.League?)(int?)r.LeagueID, (int?)r.LeagueRank);
+				}
 			}
-			catch { }
+			catch (Exception e) { /* some dirty exception swallow */ }
 			return p;
 		}
 

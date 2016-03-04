@@ -85,12 +85,15 @@ namespace StatsDisplay
 		public MockViewModel()
 		{
 			Players = new List<PlayerProfile> {
-				new PlayerProfile { BattleTag = "Player 1#123", QmMmr = 2200, Team = 0 },
-				new PlayerProfile { BattleTag = "Player 2#123", QmMmr = 2200, Team = 0 },
-				new PlayerProfile { BattleTag = "Player 3#123", QmMmr = 2200, Team = 0 },
-				new PlayerProfile { BattleTag = "Player 4#123", QmMmr = 2200, Team = 0 },
-				new PlayerProfile { BattleTag = "Player 5#123", QmMmr = 2200, Team = 0 }
+				new PlayerProfile("Player 1#123", Region.EU),
+				new PlayerProfile("Player 2#123", Region.EU),
+				new PlayerProfile("Player 3#123", Region.EU),
+				new PlayerProfile("Player 4#123", Region.EU),
+				new PlayerProfile("Player 5#123", Region.EU),
 			};
+			foreach (var p in Players) {
+				p.Ranks[PlayerProfile.GameMode.QuickMatch] = new PlayerProfile.MmrValue(PlayerProfile.GameMode.QuickMatch, 2200, null, null);
+			}
 			Me = Players.Where(p => p.BattleTag == MyAccount).FirstOrDefault();
 			MyTeam = 0;
 		}

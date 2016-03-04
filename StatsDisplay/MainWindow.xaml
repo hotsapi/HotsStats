@@ -40,7 +40,7 @@
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" Foreground="#c9ffff" VerticalAlignment="Center" Margin="20, 0, 0, 0" Width="120" />
 						<StackPanel VerticalAlignment="Center" Width="80">
-							<TextBlock Text="{Binding QmMmr}" FontWeight="DemiBold" FontSize="14" Foreground="#8b9eea" HorizontalAlignment="Center" Effect="{StaticResource ResourceKey=TextShadow}" />
+							<TextBlock Text="{Binding Ranks[QuickMatch].Mmr}" FontWeight="DemiBold" FontSize="14" Foreground="#8b9eea" HorizontalAlignment="Center" Effect="{StaticResource ResourceKey=TextShadow}" />
 						</StackPanel>
 					</StackPanel>
 				</Border>
@@ -54,7 +54,7 @@
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" Foreground="#c9ffff" VerticalAlignment="Center" Margin="20, 0, 0, 0" Width="120" />
 						<StackPanel VerticalAlignment="Center" Width="80">
-							<TextBlock Text="{Binding QmMmr}" FontWeight="DemiBold" FontSize="14" Foreground="#8b9eea" HorizontalAlignment="Center" Effect="{StaticResource ResourceKey=TextShadow}" />
+							<TextBlock Text="{Binding Ranks[QuickMatch].Mmr}" FontWeight="DemiBold" FontSize="14" Foreground="#8b9eea" HorizontalAlignment="Center" Effect="{StaticResource ResourceKey=TextShadow}" />
 						</StackPanel>
 					</StackPanel>
 				</Border>
