@@ -20,22 +20,25 @@
 	</Window.Resources>
 	<StackPanel Margin="40, 50, 40, 40">
 		<StackPanel Orientation="Horizontal" Margin="0, 0, 0, 4" Style="{StaticResource TableHeader}">
-			<Label Content="Player" Margin="26, 0, 0, 0" Width="120" HorizontalContentAlignment="Left" />
+			<Label Content="Player" Margin="26, 0, 0, 0" Width="100" HorizontalContentAlignment="Left" />
 			<Label Content="MMR" Width="80" />
-			<Label Content="Player" Margin="50, 0, 0, 0" Width="120" HorizontalContentAlignment="Left" />
+			<Label Content="Link" Width="25" />
+			<Label Content="Player" Margin="50, 0, 0, 0" Width="100" HorizontalContentAlignment="Left" />
 			<Label Content="MMR" Width="80" />
+			<Label Content="Link" Width="25" />
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<StackPanel.Resources>
 				<DataTemplate DataType="{x:Type fetcher:PlayerProfile}">
 					<StackPanel Orientation="Horizontal">
-						<Label Content="{Binding Name}" Style="{StaticResource RowLargeText}" Width="120" />
+						<Label Content="{Binding Name}" Style="{StaticResource RowLargeText}" Width="100" />
 						<Label Content="{Binding Ranks[QuickMatch].Mmr}" Width="80" />
+						<Image Source="{DynamicResource PlayerLink}" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center" Margin="0, 4, 10, 0" Tag="{Binding Link}" MouseDown="Image_MouseDown" />
 					</StackPanel>
 				</DataTemplate>
 			</StackPanel.Resources>
-			<ItemsControl ItemsSource="{Binding Players}" Width="230" ItemTemplate="{StaticResource BlueRow}" x:Name="Team1" />
-			<ItemsControl ItemsSource="{Binding Players}" Width="230" Margin="20, 0, 0, 0" ItemTemplate="{StaticResource RedRow}" x:Name="Team2" />
+			<ItemsControl ItemsSource="{Binding Players}" ItemTemplate="{StaticResource BlueRow}" x:Name="Team1" />
+			<ItemsControl ItemsSource="{Binding Players}" Margin="20, 0, 0, 0" ItemTemplate="{StaticResource RedRow}" x:Name="Team2" />
 		</StackPanel>
 		<StackPanel Orientation="Horizontal" Margin="0, 8, 0, 0">
 			<DockPanel x:Name="mmr1_container" Style="{StaticResource BlueControl}" Width="246" Margin="0" LastChildFill="True">

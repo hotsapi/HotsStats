@@ -16,6 +16,8 @@
 		
 		<SolidColorBrush x:Key="RowLargeTextBrush" Color="#CCFFFF" />
 		<SolidColorBrush x:Key="RowSmallTextBrush" Color="#8C9FEB" />
+		
+		<BitmapImage x:Key="PlayerLink" UriSource="Resources/linkBlue.png" />
 	</ResourceDictionary>
 
 	<ResourceDictionary x:Key="RedRowBrushes">
@@ -31,6 +33,8 @@
 
 		<SolidColorBrush x:Key="RowLargeTextBrush" Color="#FFAFC4" />
 		<SolidColorBrush x:Key="RowSmallTextBrush" Color="#ED9090" />
+		
+		<BitmapImage x:Key="PlayerLink" UriSource="Resources/linkRed.png" />
 	</ResourceDictionary>
 	
 	<SolidColorBrush x:Key="TableHeaderBrush" Color="#5f6dc4" />

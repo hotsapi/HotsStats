@@ -57,8 +57,8 @@ namespace StatsDisplay
 			Team1.ItemTemplate = this.Resources[MyTeam == 0 ? "BlueRow" : "RedRow" ] as DataTemplate;
 			Team2.ItemTemplate = this.Resources[MyTeam == 1 ? "BlueRow" : "RedRow" ] as DataTemplate;
 
-			mmr1_label.Content = "Average MMR: " + (int)team1.Average(p => p.Ranks[GameMode.QuickMatch].Mmr);
-			mmr2_label.Content = "Average MMR: " + (int)team2.Average(p => p.Ranks[GameMode.QuickMatch].Mmr);
+			mmr1_label.Content = "Average MMR: " + (int)team1.Average(p => p.Ranks[GameMode.QuickMatch]?.Mmr);
+			mmr2_label.Content = "Average MMR: " + (int)team2.Average(p => p.Ranks[GameMode.QuickMatch]?.Mmr);
 			mmr1_container.Style = this.Resources[MyTeam == 0 ? "BlueControl" : "RedControl"] as Style;
 			mmr2_container.Style = this.Resources[MyTeam == 1 ? "BlueControl" : "RedControl"] as Style;
 
@@ -67,6 +67,13 @@ namespace StatsDisplay
 					Thread.Sleep(10000);
 					Dispatcher.BeginInvoke(new Action(() => { Close(); }));
 				});
+		}
+
+		private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			var link = (sender as Image).Tag as string;
+			if (link != null)
+				System.Diagnostics.Process.Start(link);
 		}
 	}
 }
