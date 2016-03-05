@@ -1,4 +1,4 @@
-﻿<Window x:Class="StatsDisplay.MainWindow"
+﻿<local:HeroesWindow x:Class="StatsDisplay.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,8 +8,7 @@
         mc:Ignorable="d"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
 		d:DataContext="{Binding Source={StaticResource DesignViewModel}}"
-        Title="MainWindow" Height="auto" Width="auto" SizeToContent="WidthAndHeight"
-		WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True">
+        Title="MainWindow" WindowStartupLocation="CenterScreen">
 	<Window.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -18,29 +17,24 @@
 			<local:MockViewModel x:Key="DesignViewModel"/>
 		</ResourceDictionary>
 	</Window.Resources>
-	<Border BorderThickness="2" BorderBrush="{StaticResource WindowBorderBrush}">
-		<Grid Background="{StaticResource WindowBorderBrush}">
-			<Image Source="Resources/close.png" Stretch="None" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Right" MouseDown="Image_MouseDown" />
-			<StackPanel Margin="40, 50, 40, 40">
-				<StackPanel Orientation="Horizontal" Margin="0, 0, 0, 4" Style="{StaticResource TableHeader}">
-					<Label Content="Player" Margin="26, 0, 0, 0" Width="120" HorizontalContentAlignment="Left" />
-					<Label Content="MMR" Width="80" />
-					<Label Content="Player" Margin="50, 0, 0, 0" Width="120" HorizontalContentAlignment="Left" />
-					<Label Content="MMR" Width="80" />
-				</StackPanel>
-				<StackPanel Orientation="Horizontal">
-					<StackPanel.Resources>
-						<DataTemplate DataType="{x:Type fetcher:PlayerProfile}">
-							<StackPanel Orientation="Horizontal">
-								<Label Content="{Binding Name}" Style="{StaticResource RowLargeText}" Width="120" />
-								<Label Content="{Binding Ranks[QuickMatch].Mmr}" Width="80" />
-							</StackPanel>
-						</DataTemplate>
-					</StackPanel.Resources>
-					<ItemsControl ItemsSource="{Binding Players}" Width="230" ItemTemplate="{StaticResource BlueRow}" x:Name="Team1" />
-					<ItemsControl ItemsSource="{Binding Players}" Width="230" Margin="20, 0, 0, 0" ItemTemplate="{StaticResource RedRow}" x:Name="Team2" />
-				</StackPanel>
-			</StackPanel>
-		</Grid>
-	</Border>
-</Window>
+	<StackPanel Margin="40, 50, 40, 40">
+		<StackPanel Orientation="Horizontal" Margin="0, 0, 0, 4" Style="{StaticResource TableHeader}">
+			<Label Content="Player" Margin="26, 0, 0, 0" Width="120" HorizontalContentAlignment="Left" />
+			<Label Content="MMR" Width="80" />
+			<Label Content="Player" Margin="50, 0, 0, 0" Width="120" HorizontalContentAlignment="Left" />
+			<Label Content="MMR" Width="80" />
+		</StackPanel>
+		<StackPanel Orientation="Horizontal">
+			<StackPanel.Resources>
+				<DataTemplate DataType="{x:Type fetcher:PlayerProfile}">
+					<StackPanel Orientation="Horizontal">
+						<Label Content="{Binding Name}" Style="{StaticResource RowLargeText}" Width="120" />
+						<Label Content="{Binding Ranks[QuickMatch].Mmr}" Width="80" />
+					</StackPanel>
+				</DataTemplate>
+			</StackPanel.Resources>
+			<ItemsControl ItemsSource="{Binding Players}" Width="230" ItemTemplate="{StaticResource BlueRow}" x:Name="Team1" />
+			<ItemsControl ItemsSource="{Binding Players}" Width="230" Margin="20, 0, 0, 0" ItemTemplate="{StaticResource RedRow}" x:Name="Team2" />
+		</StackPanel>
+	</StackPanel>
+</local:HeroesWindow>

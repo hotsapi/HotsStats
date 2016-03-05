@@ -34,8 +34,8 @@
 	</ResourceDictionary>
 	
 	<SolidColorBrush x:Key="TableHeaderBrush" Color="#5f6dc4" />
-	<SolidColorBrush x:Key="WindowBorderBrush" Color="#140c24" />
-	<SolidColorBrush x:Key="WindowBackgroundBrush" Color="#b4b1e6" />
+	<SolidColorBrush x:Key="WindowBorderBrush" Color="#b4b1e6" />
+	<SolidColorBrush x:Key="WindowBackgroundBrush" Color="#140c24" />
 
 
 	<DropShadowEffect x:Key="TextShadow" 
@@ -98,5 +98,26 @@
 	<DataTemplate x:Key="BlueRow" Resources="{StaticResource BlueRowBrushes}">
 		<ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource RowTemplate}" />
 	</DataTemplate>
+
+	<Style TargetType="{x:Type local:HeroesWindow}" x:Key="HeroesWindow">
+		<Setter Property="Width" Value="auto" />
+		<Setter Property="Height" Value="auto" />
+		<Setter Property="SizeToContent" Value="WidthAndHeight" />
+		<Setter Property="WindowStyle" Value="None" />
+		<Setter Property="ResizeMode" Value="NoResize" />
+		<Setter Property="Topmost" Value="True" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type local:HeroesWindow}">
+					<Border BorderThickness="2" BorderBrush="{StaticResource WindowBorderBrush}">
+						<Grid Background="{StaticResource WindowBackgroundBrush}">
+							<Image x:Name="closeButton" Source="Resources/close.png" Stretch="None" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Right" />
+							<ContentPresenter />
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 
 </ResourceDictionary>

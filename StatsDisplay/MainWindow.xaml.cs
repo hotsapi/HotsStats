@@ -21,7 +21,7 @@ namespace StatsDisplay
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class MainWindow : HeroesWindow
 	{
 		public List<PlayerProfile> Players { get; set; }
 		public Region Region { get; set; }
@@ -66,11 +66,6 @@ namespace StatsDisplay
 					Thread.Sleep(10000);
 					Dispatcher.BeginInvoke(new Action(() => { Close(); }));
 				});
-		}
-
-		private void Image_MouseDown(object sender, MouseButtonEventArgs e)
-		{
-			Close();
 		}
 	}
 
