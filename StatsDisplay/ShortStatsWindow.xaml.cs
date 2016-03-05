@@ -21,30 +21,24 @@ namespace StatsDisplay
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : HeroesWindow
+	public partial class ShortStatsWindow : HeroesWindow
 	{
+		public Properties.Settings Settings { get { return Properties.Settings.Default; } }
 		public Game game { get; set; }
-
 		public string MyAccount { get; set; }
 		public PlayerProfile Me { get; set; }
 		public int MyTeam { get; set; }
 
-		//public int mmr1 { get; set; }
-		//public int mmr2 { get; set; }
-
-		public MainWindow()
-		{
-			InitializeComponent();
-		}
-
-		public MainWindow(Game game, string myAccount, bool autoClose)
+		public ShortStatsWindow()
 		{
 			InitializeComponent();
 
-			this.game = game;
-			MyAccount = myAccount;
+			if (Settings.ShortStatsWindowTop <= 0)
+				WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-			Me = game.Players.Where(p => p.BattleTag == MyAccount || p.Name == MyAccount).FirstOrDefault();
+			game = App.game;
+
+			Me = game.Players.Where(p => p.BattleTag == Settings.BattleTag || p.Name == Settings.BattleTag).FirstOrDefault();
 			MyTeam = Me?.Team ?? 0;
 
 			// time for some quick ugly hacks
@@ -68,37 +62,11 @@ namespace StatsDisplay
 			mmr1_container.Style = this.Resources[MyTeam == 0 ? "BlueControl" : "RedControl"] as Style;
 			mmr2_container.Style = this.Resources[MyTeam == 1 ? "BlueControl" : "RedControl"] as Style;
 
-			if (autoClose)
+			if (Settings.AutoClose)
 				ThreadPool.QueueUserWorkItem(a => {
 					Thread.Sleep(10000);
 					Dispatcher.BeginInvoke(new Action(() => { Close(); }));
 				});
-		}
-	}
-
-	public class MockViewModel
-	{
-		public List<PlayerProfile> Players { get; set; }
-		public Region Region { get; set; }
-
-		public string MyAccount { get; set; } = "Player 4#123";
-		public int MyTeam { get; set; }
-		public PlayerProfile Me { get; set; }
-
-		public MockViewModel()
-		{
-			Players = new List<PlayerProfile> {
-				new PlayerProfile("Player 1#123", Region.EU),
-				new PlayerProfile("Player 2#123", Region.EU),
-				new PlayerProfile("Player 3#123", Region.EU),
-				new PlayerProfile("Player 4#123", Region.EU),
-				new PlayerProfile("Player 5#123", Region.EU),
-			};
-			foreach (var p in Players) {
-				p.Ranks[GameMode.QuickMatch] = new PlayerProfile.MmrValue(GameMode.QuickMatch, 2200, null, null);
-			}
-			Me = Players.Where(p => p.BattleTag == MyAccount).FirstOrDefault();
-			MyTeam = 0;
 		}
 	}
 }

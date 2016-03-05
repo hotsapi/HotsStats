@@ -18,29 +18,30 @@ namespace StatsDisplay
 	/// <summary>
 	/// Interaction logic for Settings.xaml
 	/// </summary>
-	public partial class Settings : Window
+	public partial class SettingsWindow : Window
 	{
-		public bool Enabled { get; set; } = true;
-		public bool AutoClose { get; set; } = false;
-		public string BattleTag { get; set; }
+		public Properties.Settings Settings { get { return Properties.Settings.Default; } }
 
 
-		public Settings()
+		public SettingsWindow()
 		{
 			InitializeComponent();
+			if (Settings.SettingsWindowTop <= 0)
+				WindowStartupLocation = WindowStartupLocation.CenterScreen;
 			var mon = new FileMonitor();
 			mon.BattleLobbyCreated += (o, e) => Dispatcher.BeginInvoke(new Action(() => { ProcessLobbyFile(e.Data); }));
 			mon.StartWatchingForLobby();
+			Closing += (o, e) => Settings.Save();
 		}
 
 		private async void ProcessLobbyFile(string path)
 		{
-			if (!Enabled)
+			if (!Settings.Enabled)
 				return;
 
-			var game = await FileProcessor.ProcessLobbyFile(path);
+			App.game = await FileProcessor.ProcessLobbyFile(path);
 
-			new MainWindow(game, BattleTag, AutoCloseCheck.IsChecked == true).Show();
+			new ShortStatsWindow().Show();
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)
