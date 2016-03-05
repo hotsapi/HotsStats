@@ -23,12 +23,14 @@ namespace StatsDisplay
 	/// </summary>
 	public partial class MainWindow : HeroesWindow
 	{
-		public List<PlayerProfile> Players { get; set; }
-		public Region Region { get; set; }
+		public Game game { get; set; }
 
 		public string MyAccount { get; set; }
 		public PlayerProfile Me { get; set; }
 		public int MyTeam { get; set; }
+
+		//public int mmr1 { get; set; }
+		//public int mmr2 { get; set; }
 
 		public MainWindow()
 		{
@@ -39,15 +41,15 @@ namespace StatsDisplay
 		{
 			InitializeComponent();
 
-			Players = game.Players;
+			this.game = game;
 			MyAccount = myAccount;
 
-			Me = Players.Where(p => p.BattleTag == MyAccount || p.Name == MyAccount).FirstOrDefault();
+			Me = game.Players.Where(p => p.BattleTag == MyAccount || p.Name == MyAccount).FirstOrDefault();
 			MyTeam = Me?.Team ?? 0;
 
 			// time for some quick ugly hacks
-			var team1 = Players.Where(p => p.Team == 0).ToList();
-			var team2 = Players.Where(p => p.Team == 1).ToList();
+			var team1 = game.Players.Where(p => p.Team == 0).ToList();
+			var team2 = game.Players.Where(p => p.Team == 1).ToList();
 			if (team1.Contains(Me)) {
 				team1.Remove(Me);
 				team1.Insert(0, Me);
@@ -60,6 +62,11 @@ namespace StatsDisplay
 			Team2.ItemsSource = team2;
 			Team1.ItemTemplate = this.Resources[MyTeam == 0 ? "BlueRow" : "RedRow" ] as DataTemplate;
 			Team2.ItemTemplate = this.Resources[MyTeam == 1 ? "BlueRow" : "RedRow" ] as DataTemplate;
+
+			mmr1_label.Content = "Average MMR: " + (int)team1.Average(p => p.Ranks[GameMode.QuickMatch].Mmr);
+			mmr2_label.Content = "Average MMR: " + (int)team2.Average(p => p.Ranks[GameMode.QuickMatch].Mmr);
+			mmr1_container.Style = this.Resources[MyTeam == 0 ? "BlueControl" : "RedControl"] as Style;
+			mmr2_container.Style = this.Resources[MyTeam == 1 ? "BlueControl" : "RedControl"] as Style;
 
 			if (autoClose)
 				ThreadPool.QueueUserWorkItem(a => {

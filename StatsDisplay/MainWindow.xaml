@@ -36,5 +36,13 @@
 			<ItemsControl ItemsSource="{Binding Players}" Width="230" ItemTemplate="{StaticResource BlueRow}" x:Name="Team1" />
 			<ItemsControl ItemsSource="{Binding Players}" Width="230" Margin="20, 0, 0, 0" ItemTemplate="{StaticResource RedRow}" x:Name="Team2" />
 		</StackPanel>
+		<StackPanel Orientation="Horizontal" Margin="0, 8, 0, 0">
+			<DockPanel x:Name="mmr1_container" Style="{StaticResource BlueControl}" Width="246" Margin="0" LastChildFill="True">
+				<Label x:Name="mmr1_label" Content="Average MMR: 1800" FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Center" />
+			</DockPanel>
+			<DockPanel x:Name="mmr2_container" Style="{StaticResource RedControl}" Width="246" Margin="0" LastChildFill="True">
+				<Label x:Name="mmr2_label" Content="Average MMR: 2300" FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Center" />
+			</DockPanel>
+		</StackPanel>
 	</StackPanel>
 </local:HeroesWindow>

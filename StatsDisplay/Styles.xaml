@@ -99,6 +99,9 @@
 		<ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource RowTemplate}" />
 	</DataTemplate>
 
+	<Style x:Key="RedControl" Resources="{StaticResource RedRowBrushes}" />
+	<Style x:Key="BlueControl" Resources="{StaticResource BlueRowBrushes}" />
+
 	<Style TargetType="{x:Type local:HeroesWindow}" x:Key="HeroesWindow">
 		<Setter Property="Width" Value="auto" />
 		<Setter Property="Height" Value="auto" />
