@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using StatsFetcher;
 using System.IO;
+using System.Reflection;
 
 namespace StatsDisplay
 {
@@ -26,6 +27,8 @@ namespace StatsDisplay
 		public SettingsWindow()
 		{
 			InitializeComponent();
+			var v = Assembly.GetExecutingAssembly().GetName().Version;
+			Title = $"HotsStats v{v.Major}.{v.Minor}";
 			if (Settings.SettingsWindowTop <= 0)
 				WindowStartupLocation = WindowStartupLocation.CenterScreen;
 			var mon = new FileMonitor();
