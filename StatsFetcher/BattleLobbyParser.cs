@@ -29,7 +29,7 @@ namespace StatsFetcher
 			var tags = ExtractBattleTags();
 			game.Players = tags.Select(tag => new PlayerProfile(game, tag, game.Region)).ToList();
 			for (int i = 0; i < game.Players.Count; i++) {
-				game.Players[i].Team = i >= 5 ? 0 : 1;
+				game.Players[i].Team = i >= 5 ? 1 : 0;
 			}
 			return game;
 		}
