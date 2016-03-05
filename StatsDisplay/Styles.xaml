@@ -1,0 +1,102 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:StatsDisplay"
+					xmlns:fetcher="clr-namespace:StatsFetcher;assembly=StatsFetcher">
+
+	<ResourceDictionary x:Key="BlueRowBrushes">
+		<LinearGradientBrush x:Key="RowBackgroundBrush" StartPoint="0,0" EndPoint="0, 1">
+			<LinearGradientBrush.GradientStops>
+				<GradientStop Offset="0.0" Color="#0f1232" />
+				<GradientStop Offset="1.0" Color="#12173c" />
+			</LinearGradientBrush.GradientStops>
+		</LinearGradientBrush>
+
+		<SolidColorBrush x:Key="RowSideHighlightBrush" Color="#56eefe" />
+		<SolidColorBrush x:Key="RowBorderBrush" Color="#2a2d53" />
+		
+		<SolidColorBrush x:Key="RowLargeTextBrush" Color="#CCFFFF" />
+		<SolidColorBrush x:Key="RowSmallTextBrush" Color="#8C9FEB" />
+	</ResourceDictionary>
+
+	<ResourceDictionary x:Key="RedRowBrushes">
+		<LinearGradientBrush x:Key="RowBackgroundBrush" StartPoint="0,0" EndPoint="0, 1">
+			<LinearGradientBrush.GradientStops>
+				<GradientStop Offset="0.0" Color="#250c18" />
+				<GradientStop Offset="1.0" Color="#330c18" />
+			</LinearGradientBrush.GradientStops>
+		</LinearGradientBrush>
+
+		<SolidColorBrush x:Key="RowSideHighlightBrush" Color="#fe5656" />
+		<SolidColorBrush x:Key="RowBorderBrush" Color="#4a2431" />
+
+		<SolidColorBrush x:Key="RowLargeTextBrush" Color="#FFAFC4" />
+		<SolidColorBrush x:Key="RowSmallTextBrush" Color="#ED9090" />
+	</ResourceDictionary>
+	
+	<SolidColorBrush x:Key="TableHeaderBrush" Color="#5f6dc4" />
+	<SolidColorBrush x:Key="WindowBorderBrush" Color="#140c24" />
+	<SolidColorBrush x:Key="WindowBackgroundBrush" Color="#b4b1e6" />
+
+
+	<DropShadowEffect x:Key="TextShadow" 
+					ShadowDepth="1"
+					Direction="330"
+					Color="Black"
+					Opacity="1"
+					BlurRadius="0"/>
+
+	<Style TargetType="Label" x:Key="RowSmallText">
+		<Setter Property="Padding" Value="0" />
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="HorizontalContentAlignment" Value="Center" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="FontWeight" Value="DemiBold" />
+		<Setter Property="Foreground" Value="{DynamicResource RowSmallTextBrush}" />
+		<Setter Property="Effect" Value="{StaticResource ResourceKey=TextShadow}" />
+	</Style>
+
+	<Style TargetType="Label" x:Key="RowLargeText">
+		<Setter Property="Padding" Value="0" />
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="FontWeight" Value="Bold" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="Margin" Value="20, 0, 0, 0" />
+		<Setter Property="Foreground" Value="{DynamicResource RowLargeTextBrush}" />
+	</Style>
+
+	<Style x:Key="TableHeader">
+		<Style.Resources>
+			<Style TargetType="Label">
+				<Setter Property="Padding" Value="0" />
+				<Setter Property="FontSize" Value="12" />
+				<Setter Property="FontWeight" Value="Bold" />
+				<Setter Property="VerticalAlignment" Value="Center" />
+				<Setter Property="HorizontalContentAlignment" Value="Center" />
+				<Setter Property="Foreground" Value="{StaticResource TableHeaderBrush}" />
+				<Setter Property="Effect" Value="{StaticResource ResourceKey=TextShadow}" />
+			</Style>
+		</Style.Resources>
+	</Style>
+	
+	<DataTemplate DataType="{x:Type fetcher:PlayerProfile}" x:Key="RowTemplate">
+		<StackPanel Orientation="Horizontal">
+			<Border BorderBrush="{DynamicResource RowSideHighlightBrush}" BorderThickness="3, 0, 0, 0" CornerRadius="3" Margin="0, 1, 3, 1" />
+			<Border BorderThickness="1" BorderBrush="{DynamicResource RowBorderBrush}" Height="40" Margin="0, 1" Background="{DynamicResource RowBackgroundBrush}">
+				<ContentPresenter Content="{Binding}">
+					<ContentPresenter.Resources>
+						<Style TargetType="Label" BasedOn="{StaticResource RowSmallText}" />
+					</ContentPresenter.Resources>
+				</ContentPresenter>
+			</Border>
+		</StackPanel>
+	</DataTemplate>
+
+	<DataTemplate x:Key="RedRow" Resources="{StaticResource RedRowBrushes}">
+		<ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource RowTemplate}" />
+	</DataTemplate>
+
+	<DataTemplate x:Key="BlueRow" Resources="{StaticResource BlueRowBrushes}">
+		<ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource RowTemplate}" />
+	</DataTemplate>
+
+</ResourceDictionary>

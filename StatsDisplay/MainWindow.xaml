@@ -11,72 +11,32 @@
         Title="MainWindow" Height="auto" Width="auto" SizeToContent="WidthAndHeight"
 		WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True">
 	<Window.Resources>
-		<local:MockViewModel x:Key="DesignViewModel"/>
-
-		<LinearGradientBrush x:Key="BlueRowBrush" StartPoint="0,0" EndPoint="0, 1">
-			<LinearGradientBrush.GradientStops>
-				<GradientStop Offset="0.0" Color="#0f1232" />
-				<GradientStop Offset="1.0" Color="#12173c" />
-			</LinearGradientBrush.GradientStops>
-		</LinearGradientBrush>
-
-		<LinearGradientBrush x:Key="RedRowBrush" StartPoint="0,0" EndPoint="0, 1">
-			<LinearGradientBrush.GradientStops>
-				<GradientStop Offset="0.0" Color="#250c18" />
-				<GradientStop Offset="1.0" Color="#330c18" />
-			</LinearGradientBrush.GradientStops>
-		</LinearGradientBrush>
-
-		<DropShadowEffect x:Key="TextShadow" ShadowDepth="1"
-						Direction="330"
-						Color="Black"
-						Opacity="1"
-						BlurRadius="0"/>
-
-		<DataTemplate DataType="{x:Type fetcher:PlayerProfile}" x:Key="BlueRow" x:Name="BlueRow">
-			<StackPanel Orientation="Horizontal">
-				<Border BorderBrush="#56eefe" BorderThickness="3, 0, 0, 0" CornerRadius="3" Margin="0, 1, 3, 1" />
-				<Border BorderThickness="1" BorderBrush="#2a2d53" Height="40" Margin="0, 1" Background="{StaticResource BlueRowBrush}">
-					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" Foreground="#c9ffff" VerticalAlignment="Center" Margin="20, 0, 0, 0" Width="120" />
-						<StackPanel VerticalAlignment="Center" Width="80">
-							<TextBlock Text="{Binding Ranks[QuickMatch].Mmr}" FontWeight="DemiBold" FontSize="14" Foreground="#8b9eea" HorizontalAlignment="Center" Effect="{StaticResource ResourceKey=TextShadow}" />
-						</StackPanel>
-					</StackPanel>
-				</Border>
-			</StackPanel>
-		</DataTemplate>
-
-		<DataTemplate DataType="{x:Type fetcher:PlayerProfile}" x:Key="RedRow" x:Name="RedRow">
-			<StackPanel Orientation="Horizontal">
-				<Border BorderBrush="#fe5656" BorderThickness="3, 0, 0, 0" CornerRadius="3" Margin="0, 1, 3, 1" />
-				<Border BorderThickness="1" BorderBrush="#4a2431" Height="40" Margin="0, 1" Background="{StaticResource RedRowBrush}">
-					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" Foreground="#c9ffff" VerticalAlignment="Center" Margin="20, 0, 0, 0" Width="120" />
-						<StackPanel VerticalAlignment="Center" Width="80">
-							<TextBlock Text="{Binding Ranks[QuickMatch].Mmr}" FontWeight="DemiBold" FontSize="14" Foreground="#8b9eea" HorizontalAlignment="Center" Effect="{StaticResource ResourceKey=TextShadow}" />
-						</StackPanel>
-					</StackPanel>
-				</Border>
-			</StackPanel>
-		</DataTemplate>
-
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Styles.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<local:MockViewModel x:Key="DesignViewModel"/>
+		</ResourceDictionary>
 	</Window.Resources>
-	<Border BorderThickness="2" BorderBrush="#b4b1e6">
-		<Grid Background="#140c24">
+	<Border BorderThickness="2" BorderBrush="{StaticResource WindowBorderBrush}">
+		<Grid Background="{StaticResource WindowBorderBrush}">
 			<Image Source="Resources/close.png" Stretch="None" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Right" MouseDown="Image_MouseDown" />
 			<StackPanel Margin="40, 50, 40, 40">
-				<StackPanel Orientation="Horizontal" Margin="0, 0, 0, 4">
-					<TextBlock Text="Player" FontWeight="Bold" FontSize="12" Foreground="#5f6dc4" VerticalAlignment="Center" Margin="26, 0, 0, 0" Width="120" Effect="{StaticResource ResourceKey=TextShadow}" />
-					<StackPanel Width="80">
-						<TextBlock Text="MMR" FontWeight="Bold" FontSize="12" Foreground="#5f6dc4" HorizontalAlignment="Center" Effect="{StaticResource ResourceKey=TextShadow}" />
-					</StackPanel>
-					<TextBlock Text="Player" FontWeight="Bold" FontSize="12" Foreground="#5f6dc4" VerticalAlignment="Center" Margin="40, 0, 0, 0" Width="120" Effect="{StaticResource ResourceKey=TextShadow}" />
-					<StackPanel Width="80">
-						<TextBlock Text="MMR" FontWeight="Bold" FontSize="12" Foreground="#5f6dc4" HorizontalAlignment="Center" Effect="{StaticResource ResourceKey=TextShadow}" />
-					</StackPanel>
+				<StackPanel Orientation="Horizontal" Margin="0, 0, 0, 4" Style="{StaticResource TableHeader}">
+					<Label Content="Player" Margin="26, 0, 0, 0" Width="120" HorizontalContentAlignment="Left" />
+					<Label Content="MMR" Width="80" />
+					<Label Content="Player" Margin="50, 0, 0, 0" Width="120" HorizontalContentAlignment="Left" />
+					<Label Content="MMR" Width="80" />
 				</StackPanel>
 				<StackPanel Orientation="Horizontal">
+					<StackPanel.Resources>
+						<DataTemplate DataType="{x:Type fetcher:PlayerProfile}">
+							<StackPanel Orientation="Horizontal">
+								<Label Content="{Binding Name}" Style="{StaticResource RowLargeText}" Width="120" />
+								<Label Content="{Binding Ranks[QuickMatch].Mmr}" Width="80" />
+							</StackPanel>
+						</DataTemplate>
+					</StackPanel.Resources>
 					<ItemsControl ItemsSource="{Binding Players}" Width="230" ItemTemplate="{StaticResource BlueRow}" x:Name="Team1" />
 					<ItemsControl ItemsSource="{Binding Players}" Width="230" Margin="20, 0, 0, 0" ItemTemplate="{StaticResource RedRow}" x:Name="Team2" />
 				</StackPanel>
