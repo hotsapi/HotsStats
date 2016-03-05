@@ -41,6 +41,8 @@
 	<SolidColorBrush x:Key="WindowBorderBrush" Color="#b4b1e6" />
 	<SolidColorBrush x:Key="WindowBackgroundBrush" Color="#140c24" />
 
+	<SolidColorBrush x:Key="RowSideHighlightSelectedBrush" Color="#FEE854" />
+	<SolidColorBrush x:Key="RowBorderSelectedBrush" Color="#56483A" />
 
 	<DropShadowEffect x:Key="TextShadow" 
 					ShadowDepth="1"
@@ -84,8 +86,29 @@
 	
 	<DataTemplate DataType="{x:Type fetcher:PlayerProfile}" x:Key="RowTemplate">
 		<StackPanel Orientation="Horizontal">
-			<Border BorderBrush="{DynamicResource RowSideHighlightBrush}" BorderThickness="3, 0, 0, 0" CornerRadius="3" Margin="0, 1, 3, 1" />
-			<Border BorderThickness="1" BorderBrush="{DynamicResource RowBorderBrush}" Height="40" Margin="0, 1" Background="{DynamicResource RowBackgroundBrush}">
+			<Border BorderThickness="3, 0, 0, 0" CornerRadius="3" Margin="0, 1, 3, 1">
+				<Border.Style>
+					<Style TargetType="Border">
+						<Setter Property="BorderBrush" Value="{DynamicResource RowSideHighlightBrush}" />
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding IsMe}" Value="True">
+								<Setter Property="BorderBrush" Value="{StaticResource RowSideHighlightSelectedBrush}" />
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</Border.Style>
+			</Border>
+			<Border BorderThickness="1" Height="40" Margin="0, 1" Background="{DynamicResource RowBackgroundBrush}">
+				<Border.Style>
+					<Style TargetType="Border">
+						<Setter Property="BorderBrush" Value="{DynamicResource RowBorderBrush}" />
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding IsMe}" Value="True">
+								<Setter Property="BorderBrush" Value="{StaticResource RowBorderSelectedBrush}" />
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</Border.Style>
 				<ContentPresenter Content="{Binding}">
 					<ContentPresenter.Resources>
 						<Style TargetType="Label" BasedOn="{StaticResource RowSmallText}" />

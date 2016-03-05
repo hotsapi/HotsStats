@@ -7,10 +7,12 @@ namespace StatsFetcher
 {
 	public class PlayerProfile
 	{
-		public PlayerProfile(string battleTag, Region region)
+		public Game Game { get; private set; }
+		public PlayerProfile(Game game, string battleTag, Region region)
 		{
 			BattleTag = battleTag;
 			Region = region;
+			Game = game;
 			Ranks = new Dictionary<GameMode, MmrValue> {
 				{ GameMode.QuickMatch, null },
 				{ GameMode.HeroLeague, null },
@@ -33,7 +35,11 @@ namespace StatsFetcher
 		public string Name { get { return BattleTag.Split('#')[0]; } }
 		public string Link { get { return HotslogsId == null ? null : $"http://www.hotslogs.com/Player/Profile?PlayerID={HotslogsId}"; } }
 
-		
+		// using this properties greatly simplifies style bingings in gui
+		public bool IsMe { get { return Game.Me == this; } }
+		public bool IsMyTeam { get { return Game.Me?.Team == Team; } }
+
+
 		public class MmrValue
 		{
 			public int Mmr { get; set; }

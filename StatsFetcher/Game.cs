@@ -11,5 +11,6 @@ namespace StatsFetcher
 		public string Map { get; set; }
 		public GameMode GameMode { get; set; }
 		public Region Region { get; set; }
+		public PlayerProfile Me { get; set; }
 	}
 }

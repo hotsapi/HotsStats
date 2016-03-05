@@ -24,10 +24,6 @@ namespace StatsDisplay
 	public partial class ShortStatsWindow : HeroesWindow
 	{
 		public Properties.Settings Settings { get { return Properties.Settings.Default; } }
-		public Game game { get; set; }
-		public string MyAccount { get; set; }
-		public PlayerProfile Me { get; set; }
-		public int MyTeam { get; set; }
 
 		public ShortStatsWindow()
 		{
@@ -36,10 +32,9 @@ namespace StatsDisplay
 			if (Settings.ShortStatsWindowTop <= 0)
 				WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-			game = App.game;
-
-			Me = game.Players.Where(p => p.BattleTag == Settings.BattleTag || p.Name == Settings.BattleTag).FirstOrDefault();
-			MyTeam = Me?.Team ?? 0;
+			var game = App.game;
+			var Me = game.Me;
+			var MyTeam = Me?.Team ?? 0;
 
 			// time for some quick ugly hacks
 			var team1 = game.Players.Where(p => p.Team == 0).ToList();

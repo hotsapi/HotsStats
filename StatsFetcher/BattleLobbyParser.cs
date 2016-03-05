@@ -27,7 +27,7 @@ namespace StatsFetcher
 			var game = new Game();
 			game.Region = ExtractRegion();
 			var tags = ExtractBattleTags();
-			game.Players = tags.Select(tag => new PlayerProfile(tag, game.Region)).ToList();
+			game.Players = tags.Select(tag => new PlayerProfile(game, tag, game.Region)).ToList();
 			for (int i = 0; i < game.Players.Count; i++) {
 				game.Players[i].Team = i >= 5 ? 0 : 1;
 			}

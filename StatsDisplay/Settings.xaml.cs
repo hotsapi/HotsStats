@@ -40,6 +40,7 @@ namespace StatsDisplay
 				return;
 
 			App.game = await FileProcessor.ProcessLobbyFile(path);
+			App.game.Me = App.game.Players.Where(p => p.BattleTag == Settings.BattleTag || p.Name == Settings.BattleTag).FirstOrDefault();
 
 			new ShortStatsWindow().Show();
 		}

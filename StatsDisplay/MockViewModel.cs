@@ -19,11 +19,11 @@ namespace StatsDisplay
 		public MockViewModel()
 		{
 			Players = new List<PlayerProfile> {
-				new PlayerProfile("Player 1#123", Region.EU),
-				new PlayerProfile("Player 2#123", Region.EU),
-				new PlayerProfile("Player 3#123", Region.EU),
-				new PlayerProfile("Player 4#123", Region.EU),
-				new PlayerProfile("Player 5#123", Region.EU),
+				new PlayerProfile(null, "Player 1#123", Region.EU),
+				new PlayerProfile(null, "Player 2#123", Region.EU),
+				new PlayerProfile(null, "Player 3#123", Region.EU),
+				new PlayerProfile(null, "Player 4#123", Region.EU),
+				new PlayerProfile(null, "Player 5#123", Region.EU),
 			};
 			foreach (var p in Players) {
 				p.Ranks[GameMode.QuickMatch] = new PlayerProfile.MmrValue(GameMode.QuickMatch, 2200, null, null);
