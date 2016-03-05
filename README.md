@@ -55,7 +55,5 @@ Current To Do list
 * Error reporting
 * Rework GUI to use proper MVVM pattern
 * Make stats window look more like hots stats
-* Allow to move it
-* Remember setting and window positions
 * Rework ugly settings window
 * Fix BattleTag extraction algorithm
