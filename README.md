@@ -42,7 +42,7 @@ Now that we have a full replay file we can display tons of detailed stats like d
 
 Development details
 ------------------
-Here's how the app currently works. During loading screen the game creates the battlelobby and tracker files. Battlelobby is one of a few replay files not documented by Blizzard. Since I have no idea about the file structure I just search for anything that looks like a battle tag. If anyone finds how to extract current map and heroes from this file it would be awesome. Detailed info about replay files can be fount on [wiki page](https://github.com/poma/HotsStats/wiki/Details-on-partial-replays)
+Here's how the app currently works. During loading screen the game creates the battlelobby and tracker files. Battlelobby is one of a few replay files not documented by Blizzard. Since I have no idea about the file structure I just search for anything that looks like a battle tag. If anyone finds how to extract current map and heroes from this file it would be awesome. Detailed info about replay files can be found on [wiki page](https://github.com/poma/HotsStats/wiki/Details-on-partial-replays)
 
 Then I get MMR from HotsLogs JSON API. If we want more stats such as total games count and heroes win rate we will need to parse HTML profile.
 
