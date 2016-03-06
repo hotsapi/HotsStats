@@ -106,5 +106,65 @@ namespace StatsDisplay.Properties {
                 this["ShortStatsWindowLeft"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int FullStatsWindowTop {
+            get {
+                return ((int)(this["FullStatsWindowTop"]));
+            }
+            set {
+                this["FullStatsWindowTop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int FullStatsWindowLeft {
+            get {
+                return ((int)(this["FullStatsWindowLeft"]));
+            }
+            set {
+                this["FullStatsWindowLeft"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int RecapStatsWindowTop {
+            get {
+                return ((int)(this["RecapStatsWindowTop"]));
+            }
+            set {
+                this["RecapStatsWindowTop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int RecapStatsWindowLeft {
+            get {
+                return ((int)(this["RecapStatsWindowLeft"]));
+            }
+            set {
+                this["RecapStatsWindowLeft"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoShow {
+            get {
+                return ((bool)(this["AutoShow"]));
+            }
+            set {
+                this["AutoShow"] = value;
+            }
+        }
     }
 }

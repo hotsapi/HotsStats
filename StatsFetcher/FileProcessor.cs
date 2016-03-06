@@ -17,11 +17,11 @@ namespace StatsFetcher
 			return game;
 		}
 
-		public static void ProcessReplay(string path, Game game)
+		public static void ProcessRejoin(string path, Game game)
 		{
 			var tmpPath = Path.GetTempFileName();
 			File.Copy(path, tmpPath, overwrite: true);
-			var replay = ParseReplay(tmpPath);
+			var replay = ParseRejoin(tmpPath);
 			foreach (var profile in game.Players) {
 				var player = replay.Players.Where(p => p.Name == profile.Name).Single();
 				profile.Hero = player.Character;
@@ -31,7 +31,7 @@ namespace StatsFetcher
 			game.GameMode = replay.GameMode;
 		}
 
-		public static Replay ParseReplay(string fileName)
+		public static Replay ParseRejoin(string fileName)
 		{
 			try {
 				var replay = new Replay();

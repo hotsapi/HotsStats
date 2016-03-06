@@ -22,6 +22,8 @@ namespace StatsDisplay
 	public partial class SettingsWindow : Window
 	{
 		public Properties.Settings Settings { get { return Properties.Settings.Default; } }
+		private Window currentWindow;
+		private HotKey hotKey;
 
 
 		public SettingsWindow()
@@ -31,13 +33,26 @@ namespace StatsDisplay
 			Title = $"HotsStats v{v.Major}.{v.Minor}";
 			if (Settings.SettingsWindowTop <= 0)
 				WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
 			var mon = new FileMonitor();
 			mon.BattleLobbyCreated += (o, e) => Dispatcher.BeginInvoke(new Action(() => { ProcessLobbyFile(e.Data); }));
-			mon.StartWatchingForLobby();
-			Closing += (o, e) => Settings.Save();
+			mon.RejoinFileCreated += (o,e) => Dispatcher.BeginInvoke(new Action(() => { ProcessRejoinFile(e.Data); }));
+			mon.ReplayFileCreated += (o, e) => Dispatcher.BeginInvoke(new Action(() => { ProcessReplayFile(e.Data); }));
+			mon.StartMonitoring();
+
+			hotKey = new HotKey(Key.Tab, KeyModifier.Shift | KeyModifier.NoRepeat);
+			hotKey.Pressed += (o, e) => {
+				if (currentWindow != null)
+					currentWindow.Visibility = currentWindow.IsVisible ? Visibility.Collapsed : Visibility.Visible;
+			};
+
+			Closing += (o, e) => {
+				Settings.Save();
+				Application.Current.Shutdown();
+			};
 		}
 
-		private async void ProcessLobbyFile(string path)
+		private async Task ProcessLobbyFile(string path)
 		{
 			if (!Settings.Enabled)
 				return;
@@ -45,12 +60,28 @@ namespace StatsDisplay
 			App.game = await FileProcessor.ProcessLobbyFile(path);
 			App.game.Me = App.game.Players.Where(p => p.BattleTag == Settings.BattleTag || p.Name == Settings.BattleTag).FirstOrDefault();
 
-			new ShortStatsWindow().Show();
+			currentWindow = new ShortStatsWindow();
+			if (Settings.AutoShow)
+				currentWindow.Show();
 		}
 
-		private void Button_Click(object sender, RoutedEventArgs e)
+		private void ProcessRejoinFile(string path)
 		{
-			ProcessLobbyFile(@"replay.server.battlelobby");
+			FileProcessor.ProcessRejoin(path, App.game);
+			currentWindow?.Close();
+			currentWindow = new FullStatsWindow();
+		}
+
+		private void ProcessReplayFile(string path)
+		{
+			
+		}
+
+		private async void Button_Click(object sender, RoutedEventArgs e)
+		{
+			await ProcessLobbyFile(@"replay.server.battlelobby");
+			ProcessRejoinFile(@"save.StormSave");
+			currentWindow.Show();
 		}
 	}
 }

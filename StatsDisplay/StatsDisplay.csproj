@@ -55,12 +55,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FullStatsWindow.xaml.cs">
+      <DependentUpon>FullStatsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\GenericValueConverter.cs" />
+    <Compile Include="Helpers\HotKey.cs" />
     <Compile Include="HeroesWindow.cs" />
     <Compile Include="MockViewModel.cs" />
+    <Compile Include="PlayerRowTemplateSelector.cs" />
+    <Compile Include="RecapStatsWindow.xaml.cs">
+      <DependentUpon>RecapStatsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Page Include="FullStatsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RecapStatsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ShortStatsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

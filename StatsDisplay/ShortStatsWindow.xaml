@@ -8,7 +8,6 @@
         mc:Ignorable="d"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
 		d:DataContext="{Binding Source={StaticResource DesignViewModel}}"
-        Title="MainWindow"
 		Top="{Binding Settings.ShortStatsWindowTop, Mode=TwoWay}" Left="{Binding Settings.ShortStatsWindowLeft, Mode=TwoWay}">
 	<Window.Resources>
 		<ResourceDictionary>
@@ -37,8 +36,8 @@
 					</StackPanel>
 				</DataTemplate>
 			</StackPanel.Resources>
-			<ItemsControl ItemsSource="{Binding Players}" ItemTemplate="{StaticResource BlueRow}" x:Name="Team1" />
-			<ItemsControl ItemsSource="{Binding Players}" Margin="20, 0, 0, 0" ItemTemplate="{StaticResource RedRow}" x:Name="Team2" />
+			<ItemsControl ItemsSource="{Binding game.Players}" ItemTemplate="{StaticResource BlueRow}" x:Name="Team1" />
+			<ItemsControl ItemsSource="{Binding game.Players}" Margin="20, 0, 0, 0" ItemTemplate="{StaticResource RedRow}" x:Name="Team2" />
 		</StackPanel>
 		<StackPanel Orientation="Horizontal" Margin="0, 8, 0, 0">
 			<DockPanel x:Name="mmr1_container" Style="{StaticResource BlueControl}" Width="246" Margin="0" LastChildFill="True">

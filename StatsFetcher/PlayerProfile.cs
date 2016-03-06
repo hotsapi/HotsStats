@@ -31,6 +31,7 @@ namespace StatsFetcher
 		public float? MapWinRate { get; set; }
 		public float? HeroWinRate { get; set; }
 		public int? HeroLevel { get; set; }
+		public int? GamesCount { get; set; }
 
 		public string Name { get { return BattleTag.Split('#')[0]; } }
 		public string Link { get { return HotslogsId == null ? null : $"http://www.hotslogs.com/Player/Profile?PlayerID={HotslogsId}"; } }

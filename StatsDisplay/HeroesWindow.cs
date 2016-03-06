@@ -21,8 +21,12 @@ namespace StatsDisplay
 {
 	public class HeroesWindow : Window
 	{
+		public Properties.Settings Settings { get { return Properties.Settings.Default; } }
+		public Game game { get; set; }
+
 		public HeroesWindow()
 		{
+			game = App.game;
 			Style = Application.Current.FindResource("HeroesWindow") as Style;
 		}
 
@@ -39,13 +43,20 @@ namespace StatsDisplay
 
 		protected void CloseClick(object sender, RoutedEventArgs e)
 		{
-			Close();
+			Hide();
 		}
 
 		protected void window_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			if (Mouse.LeftButton == MouseButtonState.Pressed)
 				DragMove();
+		}
+
+		protected void Image_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			var link = (sender as Image).Tag as string;
+			if (link != null)
+				System.Diagnostics.Process.Start(link);
 		}
 	}
 }

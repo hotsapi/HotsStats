@@ -6,30 +6,26 @@ using StatsFetcher;
 
 namespace StatsDisplay
 {
-
 	public class MockViewModel
 	{
-		public List<PlayerProfile> Players { get; set; }
-		public Region Region { get; set; }
-
-		public string MyAccount { get; set; } = "Player 4#123";
-		public int MyTeam { get; set; }
-		public PlayerProfile Me { get; set; }
+		public Game game { get; set; }
 
 		public MockViewModel()
 		{
-			Players = new List<PlayerProfile> {
-				new PlayerProfile(null, "Player 1#123", Region.EU),
-				new PlayerProfile(null, "Player 2#123", Region.EU),
-				new PlayerProfile(null, "Player 3#123", Region.EU),
-				new PlayerProfile(null, "Player 4#123", Region.EU),
-				new PlayerProfile(null, "Player 5#123", Region.EU),
+			game = new Game {
+				Region = Region.EU,
+				GameMode = GameMode.QuickMatch,
+				Map = "Cursed Hollow"
 			};
-			foreach (var p in Players) {
-				p.Ranks[GameMode.QuickMatch] = new PlayerProfile.MmrValue(GameMode.QuickMatch, 2200, null, null);
+			var players = new List<PlayerProfile>();
+			for (int i = 0; i < 10; i++) {
+				var p = new PlayerProfile(game, $"Player {i}#10{i}", Region.EU) { Hero = "Raynor", HeroLevel = 4 + i, MapWinRate = 48.7f + i, HeroWinRate = 35.2f + i, HotslogsId = 123 + i, GamesCount = 200 * i, Team = i >= 5 ? 1 : 0 };
+                p.Ranks[GameMode.QuickMatch] = new PlayerProfile.MmrValue(GameMode.QuickMatch, 2200, null, null);
+				players.Add(p);
 			}
-			Me = Players.Where(p => p.BattleTag == MyAccount).FirstOrDefault();
-			MyTeam = 0;
+			game.Players = players;
+			game.Me = players[3];
+			App.game = game;
 		}
 	}
 }

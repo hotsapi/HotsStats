@@ -23,8 +23,6 @@ namespace StatsDisplay
 	/// </summary>
 	public partial class ShortStatsWindow : HeroesWindow
 	{
-		public Properties.Settings Settings { get { return Properties.Settings.Default; } }
-
 		public ShortStatsWindow()
 		{
 			InitializeComponent();
@@ -32,7 +30,6 @@ namespace StatsDisplay
 			if (Settings.ShortStatsWindowTop <= 0)
 				WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-			var game = App.game;
 			var Me = game.Me;
 			var MyTeam = Me?.Team ?? 0;
 
@@ -60,15 +57,8 @@ namespace StatsDisplay
 			if (Settings.AutoClose)
 				ThreadPool.QueueUserWorkItem(a => {
 					Thread.Sleep(10000);
-					Dispatcher.BeginInvoke(new Action(() => { Close(); }));
+					Dispatcher.BeginInvoke(new Action(() => { Hide(); }));
 				});
-		}
-
-		private void Image_MouseDown(object sender, MouseButtonEventArgs e)
-		{
-			var link = (sender as Image).Tag as string;
-			if (link != null)
-				System.Diagnostics.Process.Start(link);
 		}
 	}
 }

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Settings" 
-		Height="191.4" Width="260.8" 
+		Height="209.344" Width="260.8" 
 		Top="{Binding Settings.SettingsWindowTop, Mode=TwoWay}" Left="{Binding Settings.SettingsWindowLeft, Mode=TwoWay}">
 	<Grid>
 		<StackPanel Margin="20">
@@ -17,7 +17,8 @@
 				<TextBox Text="{Binding Settings.BattleTag, UpdateSourceTrigger=PropertyChanged}" />
 			</DockPanel>
 			<TextBlock Text="So that app knows on which team you are" Margin="0, 0, 0, 8" FontSize="10" Foreground="DimGray" />
-			<CheckBox IsChecked="{Binding Settings.AutoClose}" Content="Close Automatically"/>
+			<CheckBox IsChecked="{Binding Settings.AutoShow}" Content="Show Automatically" Margin="0, 0, 0, 8" />
+			<CheckBox IsChecked="{Binding Settings.AutoClose}" Content="Close Automatically" Margin="0, 0, 0, 8" />
 		</StackPanel>
 		<Button Content="test" Click="Button_Click" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20" Padding="8, 0" />
 	</Grid>
