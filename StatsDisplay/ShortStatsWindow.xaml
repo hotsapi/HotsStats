@@ -15,6 +15,7 @@
 				<ResourceDictionary Source="Styles.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 			<local:MockViewModel x:Key="DesignViewModel"/>
+			<local:HasValueToVisibilityConverter x:Key="hasValueConverter" />
 		</ResourceDictionary>
 	</Window.Resources>
 	<StackPanel Margin="40, 50, 40, 40">
@@ -35,7 +36,7 @@
 						<Label Content="{Binding Name}" Style="{StaticResource RowLargeText}" Width="100" />
 						<Label Content="{Binding Ranks[QuickMatch].Mmr}" Width="80" />
 						<Label Content="{Binding GamesCount}" Width="80" />
-						<Image Source="{DynamicResource PlayerLink}" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center" Margin="0, 4, 10, 0" Tag="{Binding Link}" MouseDown="Image_MouseDown" />
+						<Image Source="{DynamicResource PlayerLink}" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center" Margin="0, 4, 10, 0" Visibility="{Binding Link, Converter={StaticResource hasValueConverter}}" Tag="{Binding Link}" MouseDown="Image_MouseDown" />
 					</StackPanel>
 				</DataTemplate>
 			</StackPanel.Resources>

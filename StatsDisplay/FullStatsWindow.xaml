@@ -16,6 +16,7 @@
 			</ResourceDictionary.MergedDictionaries>
 			<local:MockViewModel x:Key="DesignViewModel"/>
 			<local:PlayerRowTemplateSelector x:Key="RowTemplateSelector" />
+			<local:HasValueToVisibilityConverter x:Key="hasValueConverter" />
 		</ResourceDictionary>
 	</Window.Resources>
 	<StackPanel Margin="40, 50, 40, 40">
@@ -41,7 +42,7 @@
 						<Label Content="{Binding HeroLevel}" Width="60" />
 						<Label Content="{Binding HeroWinRate}" ContentStringFormat="{}{0}%" Width="80" />
 						<Label Content="{Binding MapWinRate}" ContentStringFormat="{}{0}%" Width="80" />
-						<Image Source="{DynamicResource PlayerLink}" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center" Margin="20, 4, 10, 0" Tag="{Binding Link}" MouseDown="Image_MouseDown" />
+						<Image Source="{DynamicResource PlayerLink}" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center" Margin="20, 4, 10, 0" Tag="{Binding Link}" Visibility="{Binding Link, Converter={StaticResource hasValueConverter}}" MouseDown="Image_MouseDown" />
 					</StackPanel>
 				</DataTemplate>
 			</StackPanel.Resources>
