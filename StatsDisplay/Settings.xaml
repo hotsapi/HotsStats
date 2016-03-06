@@ -20,6 +20,9 @@
 			<CheckBox IsChecked="{Binding Settings.AutoShow}" Content="Show Automatically" Margin="0, 0, 0, 8" />
 			<CheckBox IsChecked="{Binding Settings.AutoClose}" Content="Close Automatically" Margin="0, 0, 0, 8" />
 		</StackPanel>
-		<Button Content="test" Click="Button_Click" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20" Padding="8, 0" />
+		<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20">
+			<Button Content="Test 1" Click="Test1_Click" Padding="8, 0" Margin="8, 0" />
+			<Button Content="Test 2" Click="Test2_Click" Padding="8, 0" />
+		</StackPanel>
 	</Grid>
 </Window>

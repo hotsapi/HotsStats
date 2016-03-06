@@ -8,7 +8,7 @@
         mc:Ignorable="d"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
 		d:DataContext="{Binding Source={StaticResource DesignViewModel}}"
-		Top="{Binding Settings.ShortStatsWindowTop, Mode=TwoWay}" Left="{Binding Settings.ShortStatsWindowLeft, Mode=TwoWay}">
+		Top="{Binding Settings.ShortStatsWindowTop, Mode=TwoWay}" Left="{Binding Settings.ShortStatsWindowLeft, Mode=TwoWay}" d:DesignHeight="610.924">
 	<Window.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -21,9 +21,11 @@
 		<StackPanel Orientation="Horizontal" Margin="0, 0, 0, 4" Style="{StaticResource TableHeader}">
 			<Label Content="Player" Margin="26, 0, 0, 0" Width="100" HorizontalContentAlignment="Left" />
 			<Label Content="MMR" Width="80" />
+			<Label Content="Games #" Width="80" />
 			<Label Content="Link" Width="25" />
 			<Label Content="Player" Margin="50, 0, 0, 0" Width="100" HorizontalContentAlignment="Left" />
 			<Label Content="MMR" Width="80" />
+			<Label Content="Games #" Width="80" />
 			<Label Content="Link" Width="25" />
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
@@ -32,6 +34,7 @@
 					<StackPanel Orientation="Horizontal">
 						<Label Content="{Binding Name}" Style="{StaticResource RowLargeText}" Width="100" />
 						<Label Content="{Binding Ranks[QuickMatch].Mmr}" Width="80" />
+						<Label Content="{Binding GamesCount}" Width="80" />
 						<Image Source="{DynamicResource PlayerLink}" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center" Margin="0, 4, 10, 0" Tag="{Binding Link}" MouseDown="Image_MouseDown" />
 					</StackPanel>
 				</DataTemplate>
@@ -40,11 +43,11 @@
 			<ItemsControl ItemsSource="{Binding game.Players}" Margin="20, 0, 0, 0" ItemTemplate="{StaticResource RedRow}" x:Name="Team2" />
 		</StackPanel>
 		<StackPanel Orientation="Horizontal" Margin="0, 8, 0, 0">
-			<DockPanel x:Name="mmr1_container" Style="{StaticResource BlueControl}" Width="246" Margin="0" LastChildFill="True">
-				<Label x:Name="mmr1_label" Content="Average MMR: 1800" FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Center" />
+			<DockPanel x:Name="mmr1_container" Style="{StaticResource BlueControl}" Width="326" Margin="0" LastChildFill="True">
+				<Label x:Name="mmr1_label" Content="Average MMR: " FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Center" />
 			</DockPanel>
-			<DockPanel x:Name="mmr2_container" Style="{StaticResource RedControl}" Width="246" Margin="0" LastChildFill="True">
-				<Label x:Name="mmr2_label" Content="Average MMR: 2300" FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Center" />
+			<DockPanel x:Name="mmr2_container" Style="{StaticResource RedControl}" Width="326" Margin="0" LastChildFill="True">
+				<Label x:Name="mmr2_label" Content="Average MMR: " FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Center" />
 			</DockPanel>
 		</StackPanel>
 	</StackPanel>

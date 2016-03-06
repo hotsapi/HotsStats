@@ -57,7 +57,7 @@ namespace StatsDisplay
 			if (!Settings.Enabled)
 				return;
 
-			App.game = await FileProcessor.ProcessLobbyFile(path);
+			App.game = FileProcessor.ProcessLobbyFile(path);
 			App.game.Me = App.game.Players.Where(p => p.BattleTag == Settings.BattleTag || p.Name == Settings.BattleTag).FirstOrDefault();
 
 			currentWindow = new ShortStatsWindow();
@@ -77,9 +77,13 @@ namespace StatsDisplay
 			
 		}
 
-		private async void Button_Click(object sender, RoutedEventArgs e)
+		private async void Test1_Click(object sender, RoutedEventArgs e)
 		{
 			await ProcessLobbyFile(@"replay.server.battlelobby");
+		}
+
+		private async void Test2_Click(object sender, RoutedEventArgs e)
+		{
 			ProcessRejoinFile(@"save.StormSave");
 			currentWindow.Show();
 		}

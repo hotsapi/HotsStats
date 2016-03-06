@@ -10,11 +10,21 @@ namespace StatsFetcher
 {
 	public static class FileProcessor
 	{
-		public static async Task<Game> ProcessLobbyFile(string path)
+		public static Game ProcessLobbyFile(string path)
 		{
 			var game = new BattleLobbyParser(path).Parse();
-			await new ProfileFetcher(game).FetchBasicProfiles();
+			FetchProfiles(game);
 			return game;
+		}
+
+		public static async Task FetchProfiles(Game game)
+		{
+			var f = new ProfileFetcher(game);
+			await f.FetchBasicProfiles();
+			game.TriggerPropertyChanged();
+			await f.FetchFullProfiles();
+			ExtractBasicData(game);
+			game.TriggerPropertyChanged();
 		}
 
 		public static void ProcessRejoin(string path, Game game)
@@ -29,6 +39,7 @@ namespace StatsFetcher
 			}
 			game.Map = replay.Map;
 			game.GameMode = replay.GameMode;
+			ExtractFullData(game);
 		}
 
 		public static Replay ParseRejoin(string fileName)
@@ -40,7 +51,7 @@ namespace StatsFetcher
 				archive.AddListfileFilenames();
 
 				// Replay Details
-				ReplayDetails.Parse(replay, DataParser.GetMpqFile(archive, "save.details"));
+				ReplayDetails.Parse(replay, DataParser.GetMpqFile(archive, "save.details"), true);
 
 				// Player level is stored there
 				ReplayAttributeEvents.Parse(replay, DataParser.GetMpqFile(archive, "replay.attributes.events"));
@@ -50,6 +61,38 @@ namespace StatsFetcher
 			catch {
 				// todo: eating exceptions is bad
 				return null;
+			}
+		}
+
+		// Extract data from HotsLogs profile while we don't know Heroes and Map
+		public static void ExtractBasicData(Game game)
+		{
+			foreach (var p in game.Players) {
+				if (p.HotsLogsProfile == null)
+					continue;
+				try {
+					p.GamesCount = int.Parse(p.HotsLogsProfile.GetElementbyId("MainContent_tdTotalGamesPlayed").InnerText);
+				}
+				catch (Exception e) { /* some dirty exception swallow */ }
+			}
+		}
+
+		// Extract data from HotsLogs profile when we know Heroes and Map
+		public static void ExtractFullData(Game game)
+		{
+			foreach (var p in game.Players) {
+				if (p.HotsLogsProfile == null)
+					return;
+				// who wants to look at some dirty html parsing?
+				try {					
+					p.MapWinRate = float.Parse(p.HotsLogsProfile.GetElementbyId("mapStatistics").SelectSingleNode($".//tr/td[text()='{game.Map}']").SelectSingleNode("./../td[last()]").InnerText.Replace("%", ""));
+				}
+				catch { }
+				try {
+					p.HeroWinRate = float.Parse(p.HotsLogsProfile.GetElementbyId("heroStatistics").SelectSingleNode($".//tr/td/a[text()='{p.Hero}']").SelectSingleNode("./../../td[last()]").InnerText.Replace("%", ""));
+				}
+				catch { }
+				p.HotsLogsProfile = null; // release memory taken by large hotslogs page
 			}
 		}
 	}

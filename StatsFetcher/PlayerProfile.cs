@@ -2,10 +2,12 @@
 using System.Linq;
 using System.Collections.Generic;
 using Heroes.ReplayParser;
+using System.ComponentModel;
+using HtmlAgilityPack;
 
 namespace StatsFetcher
 {
-	public class PlayerProfile
+	public class PlayerProfile : INotifyPropertyChanged
 	{
 		public Game Game { get; private set; }
 		public PlayerProfile(Game game, string battleTag, Region region)
@@ -40,6 +42,14 @@ namespace StatsFetcher
 		public bool IsMe { get { return Game.Me == this; } }
 		public bool IsMyTeam { get { return Game.Me?.Team == Team; } }
 
+		public event PropertyChangedEventHandler PropertyChanged;
+		public void TriggerPropertyChanged()
+		{
+			// I'm too lazy to integrate this stuff for each property so we just trigger them all at once
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
+		}
+
+		public HtmlDocument HotsLogsProfile { get; set; }
 
 		public class MmrValue
 		{

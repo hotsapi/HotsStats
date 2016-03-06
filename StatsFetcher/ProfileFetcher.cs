@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Heroes.ReplayParser;
+using HtmlAgilityPack;
 
 namespace StatsFetcher
 {
@@ -33,6 +34,20 @@ namespace StatsFetcher
 			}
 		}
 
+		public async Task FetchFullProfiles()
+		{
+			var tasks = new List<Task>();
+
+			// start all requests in parallel
+			foreach (var p in game.Players) {
+				tasks.Add(FetchFullProfile(p));
+			}
+
+			foreach (var task in tasks) {
+				await task;
+			}
+		}
+
 		private async Task FetchBasicProfile(PlayerProfile p)
 		{
 			var url = $"https://www.hotslogs.com/API/Players/{(int)game.Region}/{p.BattleTag.Replace('#', '_')}";
@@ -50,6 +65,18 @@ namespace StatsFetcher
 			catch (Exception e) { /* some dirty exception swallow */ }
 		}
 
-		// todo: add ability to fetch full profile by parsing HTML
+		private async Task FetchFullProfile(PlayerProfile p)
+		{
+			if (p.HotslogsId == null)
+				return;
+			var url = $"http://www.hotslogs.com/Player/Profile?PlayerID={p.HotslogsId}";
+			var str = await web.GetStringAsync(url);
+			try {
+				var doc = new HtmlDocument();
+				doc.LoadHtml(str);
+				p.HotsLogsProfile = doc;
+			}
+			catch (Exception e) { /* some dirty exception swallow */ }
+		}
 	}
 }
