@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using StatsFetcher;
 using System.IO;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace StatsDisplay
 {
@@ -93,6 +94,12 @@ namespace StatsDisplay
 		{
 			ProcessRejoinFile(@"save.StormSave");
 			currentWindow.Show();
+		}
+
+		private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+		{
+			Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+			e.Handled = true;
 		}
 	}
 }
