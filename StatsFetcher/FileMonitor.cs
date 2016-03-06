@@ -7,7 +7,7 @@ namespace StatsFetcher
 {
 	public class FileMonitor
 	{
-		public readonly string BattleLobbyPath = Path.Combine(Path.GetTempPath(), @"Heroes of the Storm\TempWriteReplayP1");
+		public readonly string BattleLobbyPath = Path.Combine(Path.GetTempPath(), @"Heroes of the Storm\TempWriteReplayP1\replay.server.battlelobby");
 		public readonly string ProfilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"Heroes of the Storm\Accounts");
 		private FileSystemWatcher rejoinWatcher;
 		private FileSystemWatcher replayWatcher;

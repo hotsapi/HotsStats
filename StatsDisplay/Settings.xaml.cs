@@ -58,7 +58,7 @@ namespace StatsDisplay
 			};
 		}
 
-		private async Task ProcessLobbyFile(string path)
+		private void ProcessLobbyFile(string path)
 		{
 			if (!Settings.Enabled)
 				return;
@@ -66,6 +66,7 @@ namespace StatsDisplay
 			App.game = FileProcessor.ProcessLobbyFile(path);
 			App.game.Me = App.game.Players.Where(p => p.BattleTag == Settings.BattleTag || p.Name == Settings.BattleTag).FirstOrDefault();
 
+			currentWindow?.Close();
 			currentWindow = new ShortStatsWindow();
 			if (Settings.AutoShow)
 				currentWindow.Show();
@@ -83,9 +84,9 @@ namespace StatsDisplay
 			
 		}
 
-		private async void Test1_Click(object sender, RoutedEventArgs e)
+		private void Test1_Click(object sender, RoutedEventArgs e)
 		{
-			await ProcessLobbyFile(@"replay.server.battlelobby");
+			ProcessLobbyFile(@"replay.server.battlelobby");
 		}
 
 		private async void Test2_Click(object sender, RoutedEventArgs e)
