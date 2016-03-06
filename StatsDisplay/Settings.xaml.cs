@@ -28,6 +28,12 @@ namespace StatsDisplay
 
 		public SettingsWindow()
 		{
+			if (Settings.UpgradeRequired) {
+				Settings.Upgrade();
+				Settings.UpgradeRequired = false;
+				Settings.Save();
+			}
+
 			InitializeComponent();
 			var v = Assembly.GetExecutingAssembly().GetName().Version;
 			Title = $"HotsStats v{v.Major}.{v.Minor}";

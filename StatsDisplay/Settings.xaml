@@ -7,7 +7,7 @@
         mc:Ignorable="d"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Settings" 
-		Height="209.344" Width="260.8" 
+		Height="268.085" Width="260.8" 
 		Top="{Binding Settings.SettingsWindowTop, Mode=TwoWay}" Left="{Binding Settings.SettingsWindowLeft, Mode=TwoWay}">
 	<Grid>
 		<StackPanel Margin="20">
@@ -19,6 +19,7 @@
 			<TextBlock Text="So that app knows on which team you are" Margin="0, 0, 0, 8" FontSize="10" Foreground="DimGray" />
 			<CheckBox IsChecked="{Binding Settings.AutoShow}" Content="Show Automatically" Margin="0, 0, 0, 8" />
 			<CheckBox IsChecked="{Binding Settings.AutoClose}" Content="Close Automatically" Margin="0, 0, 0, 8" />
+			<TextBlock Text="Press Shift+Tab during game to show stats window. Full statistics is available after 1:00 during match" TextWrapping="Wrap" Margin="0, 0, 0, 8" Foreground="DimGray" />
 		</StackPanel>
 		<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20">
 			<Button Content="Test 1" Click="Test1_Click" Padding="8, 0" Margin="8, 0" />
