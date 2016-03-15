@@ -26,7 +26,7 @@
 			<CheckBox IsChecked="{Binding Settings.AutoClose}" Content="Close Automatically" Margin="0, 0, 0, 8" />
 			<TextBlock Text="Press Shift+Tab during game to show stats window. Full statistics is available after 1:00 during match" TextWrapping="Wrap" Margin="0, 0, 0, 8" Foreground="DimGray" />
 			<TextBlock TextWrapping="Wrap" Margin="0, 0, 0, 8" Foreground="DimGray" FontSize="10">
-				Data provided by <Hyperlink NavigateUri="http://www.hotslogs.com" RequestNavigate="Hyperlink_RequestNavigate">HotsLogs.com</Hyperlink>
+				Data is provided by <Hyperlink NavigateUri="http://www.hotslogs.com" RequestNavigate="Hyperlink_RequestNavigate">HotsLogs.com</Hyperlink>
 			</TextBlock>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20">
