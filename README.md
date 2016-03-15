@@ -2,8 +2,6 @@ HotsStats
 ===========
 This tool shows players MMR during the loading screen in Heroes of the Storm. Currently this is a buggy experimental version but it will significantly improve shortly. Of course you use this app at your own risk and I'm not responsible if Blizz bans you. That being said the app works by reading the partial replay file in temp folder and then displaying it's own window on top of HotS so you should be fine.
 
-![Screenshot](https://cloud.githubusercontent.com/assets/2109710/13773994/7893fdc6-eaad-11e5-99b9-d913f2551cd5.png)
-
 Installation
 ---------------------------
 - Requirements:
@@ -13,6 +11,11 @@ Installation
 - [__Download__](https://github.com/Poma/HotsStats/releases) the archive.
 - Extract the archive.
 - Run the "HotsStats.exe"
+
+Screenshots
+---------------------------
+![Screenshot1](https://cloud.githubusercontent.com/assets/2109710/13773994/7893fdc6-eaad-11e5-99b9-d913f2551cd5.png)
+![Screenshot2](https://cloud.githubusercontent.com/assets/2109710/13773945/35ccde54-eaad-11e5-8f35-79312addead6.png)
 
 Roadmap
 --------------------------
