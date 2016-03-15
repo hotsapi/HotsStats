@@ -40,6 +40,8 @@
 	<SolidColorBrush x:Key="TableHeaderBrush" Color="#5f6dc4" />
 	<SolidColorBrush x:Key="WindowBorderBrush" Color="#b4b1e6" />
 	<SolidColorBrush x:Key="WindowBackgroundBrush" Color="#140c24" />
+	<Color x:Key="WindowBackgroundTransparentBrush">#00140c24</Color>
+	<Color x:Key="WindowBackgroundGradientBrush">#281947</Color>
 
 	<SolidColorBrush x:Key="RowSideHighlightSelectedBrush" Color="#FEE854" />
 	<SolidColorBrush x:Key="RowBorderSelectedBrush" Color="#56483A" />
@@ -139,11 +141,31 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:HeroesWindow}">
-					<Border BorderThickness="2" BorderBrush="{StaticResource WindowBorderBrush}">
-						<Grid Background="{StaticResource WindowBackgroundBrush}">
-							<Image x:Name="closeButton" Source="Resources/close.png" Stretch="None" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Right" />
-							<ContentPresenter />
-						</Grid>
+					<Border BorderThickness="2" BorderBrush="{StaticResource WindowBorderBrush}" Background="{StaticResource WindowBackgroundBrush}">
+						<Border>
+							<Border.Background>
+								<RadialGradientBrush GradientOrigin="0.5, 0" Center="0.5, 0">
+									<RadialGradientBrush.GradientStops>
+										<GradientStop Color="{StaticResource WindowBackgroundGradientBrush}" Offset="0" />
+										<GradientStop Color="{StaticResource WindowBackgroundTransparentBrush}" Offset="1.0" />
+									</RadialGradientBrush.GradientStops>
+								</RadialGradientBrush>
+							</Border.Background>
+							<Border>
+								<Border.Background>
+									<RadialGradientBrush GradientOrigin="0.5, 1" Center="0.5, 1">
+										<RadialGradientBrush.GradientStops>
+											<GradientStop Color="{StaticResource WindowBackgroundGradientBrush}" Offset="0" />
+											<GradientStop Color="{StaticResource WindowBackgroundTransparentBrush}" Offset="1.0" />
+										</RadialGradientBrush.GradientStops>
+									</RadialGradientBrush>
+								</Border.Background>
+								<Grid>
+									<Image x:Name="closeButton" Source="Resources/close.png" Stretch="None" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Right" />
+									<ContentPresenter />
+								</Grid>
+							</Border>
+						</Border>
 					</Border>
 				</ControlTemplate>
 			</Setter.Value>
