@@ -9,6 +9,7 @@
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Settings" 
 		Height="auto" Width="260.8" SizeToContent="Height"
+		ResizeMode="CanMinimize" StateChanged="Window_StateChanged"
 		Top="{Binding Settings.SettingsWindowTop, Mode=TwoWay}" Left="{Binding Settings.SettingsWindowLeft, Mode=TwoWay}"
 		KeyDown="Window_KeyDown">
 	<Grid>
@@ -23,8 +24,9 @@
 				<TextBlock Text="Game mode " Margin="0, 4, 0, 0" DockPanel.Dock="Left" />
 				<ComboBox SelectedValue="{Binding Settings.MmrDisplayMode}" x:Name="GameModeCombo" DockPanel.Dock="Right"/>
 			</DockPanel>
-			<CheckBox IsChecked="{Binding Settings.AutoShow}" Content="Show Automatically" Margin="0, 0, 0, 8" />
-			<CheckBox IsChecked="{Binding Settings.AutoClose}" Content="Close Automatically" Margin="0, 0, 0, 8" />
+			<CheckBox IsChecked="{Binding Settings.AutoShow}" Content="Show automatically" Margin="0, 0, 0, 8" />
+			<CheckBox IsChecked="{Binding Settings.AutoClose}" Content="Close automatically" Margin="0, 0, 0, 8" />
+			<CheckBox IsChecked="{Binding Settings.MinimizeToTray}" Content="Minimize to tray" Margin="0, 0, 0, 8" />
 			<TextBlock Text="Press Shift+Tab during game to show stats window. Full statistics is available after 1:00 during match" TextWrapping="Wrap" Margin="0, 0, 0, 8" Foreground="DimGray" />
 			<TextBlock TextWrapping="Wrap" Margin="0, 0, 0, 8" Foreground="DimGray" FontSize="10">
 				Data is provided by <Hyperlink NavigateUri="http://www.hotslogs.com" RequestNavigate="Hyperlink_RequestNavigate">HotsLogs.com</Hyperlink>

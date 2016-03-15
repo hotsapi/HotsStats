@@ -26,6 +26,7 @@ namespace StatsDisplay
 		public Properties.Settings Settings { get { return Properties.Settings.Default; } }
 		private Window currentWindow;
 		private HotKey hotKey;
+		private System.Windows.Forms.NotifyIcon icon;
 
 
 		public SettingsWindow()
@@ -46,6 +47,15 @@ namespace StatsDisplay
 				GameMode.QuickMatch,
 				GameMode.HeroLeague,
 				GameMode.TeamLeague
+			};
+
+			icon = new System.Windows.Forms.NotifyIcon();
+			icon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location);
+			icon.Visible = false;
+			icon.Click += (o,e) => {
+				Show();
+				WindowState = WindowState.Normal;
+				icon.Visible = false;
 			};
 
 			var mon = new FileMonitor();
@@ -113,6 +123,14 @@ namespace StatsDisplay
 		{
 			if (e.Key == Key.T && Keyboard.Modifiers == ModifierKeys.Control) {
 				testButtons.Visibility = testButtons.IsVisible ? Visibility.Collapsed : Visibility.Visible;
+			}
+		}
+
+		private void Window_StateChanged(object sender, EventArgs e)
+		{
+			if (Settings.MinimizeToTray && WindowState == WindowState.Minimized) {
+				Hide();
+				icon.Visible = true;
 			}
 		}
 	}
