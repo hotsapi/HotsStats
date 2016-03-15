@@ -44,7 +44,7 @@ namespace StatsFetcher
 
 			var initialOffset = Find(Enumerable.Repeat<byte>(0, 32).ToArray());
 
-			var strings = GetStrings(initialOffset, 9, MaxTagByteLength);
+			var strings = GetStrings(initialOffset, 8, MaxTagByteLength);
 
 			foreach (var str in strings) {
 				string s;
