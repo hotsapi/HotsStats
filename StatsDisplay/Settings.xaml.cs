@@ -14,6 +14,7 @@ using StatsFetcher;
 using System.IO;
 using System.Reflection;
 using System.Diagnostics;
+using Heroes.ReplayParser;
 
 namespace StatsDisplay
 {
@@ -40,6 +41,12 @@ namespace StatsDisplay
 			Title = $"HotsStats v{v.Major}.{v.Minor}";
 			if (Settings.SettingsWindowTop <= 0)
 				WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+			GameModeCombo.ItemsSource = new List<GameMode> {
+				GameMode.QuickMatch,
+				GameMode.HeroLeague,
+				GameMode.TeamLeague
+			};
 
 			var mon = new FileMonitor();
 			mon.BattleLobbyCreated += (o, e) => Dispatcher.BeginInvoke(new Action(() => { ProcessLobbyFile(e.Data); }));

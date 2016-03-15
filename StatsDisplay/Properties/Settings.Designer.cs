@@ -178,5 +178,17 @@ namespace StatsDisplay.Properties {
                 this["UpgradeRequired"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("QuickMatch")]
+        public global::Heroes.ReplayParser.GameMode MmrDisplayMode {
+            get {
+                return ((global::Heroes.ReplayParser.GameMode)(this["MmrDisplayMode"]));
+            }
+            set {
+                this["MmrDisplayMode"] = value;
+            }
+        }
     }
 }

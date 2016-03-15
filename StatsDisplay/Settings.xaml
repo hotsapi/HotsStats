@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StatsDisplay"
+		xmlns:heroes="clr-namespace:Heroes.ReplayParser;assembly=Heroes.ReplayParser"
         mc:Ignorable="d"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Settings" 
-		Height="304.085" Width="260.8" 
+		Height="334.988" Width="260.8" 
 		Top="{Binding Settings.SettingsWindowTop, Mode=TwoWay}" Left="{Binding Settings.SettingsWindowLeft, Mode=TwoWay}">
 	<Grid>
 		<StackPanel Margin="20">
@@ -17,6 +18,10 @@
 				<TextBox Text="{Binding Settings.BattleTag, UpdateSourceTrigger=PropertyChanged}" />
 			</DockPanel>
 			<TextBlock Text="So that app knows on which team you are" Margin="0, 0, 0, 8" FontSize="10" Foreground="DimGray" />
+			<DockPanel LastChildFill="True" Margin="0, 0, 0, 8">
+				<TextBlock Text="Game mode " Margin="0, 4, 0, 0" DockPanel.Dock="Left" />
+				<ComboBox SelectedValue="{Binding Settings.MmrDisplayMode}" x:Name="GameModeCombo" DockPanel.Dock="Right"/>
+			</DockPanel>
 			<CheckBox IsChecked="{Binding Settings.AutoShow}" Content="Show Automatically" Margin="0, 0, 0, 8" />
 			<CheckBox IsChecked="{Binding Settings.AutoClose}" Content="Close Automatically" Margin="0, 0, 0, 8" />
 			<TextBlock Text="Press Shift+Tab during game to show stats window. Full statistics is available after 1:00 during match" TextWrapping="Wrap" Margin="0, 0, 0, 8" Foreground="DimGray" />

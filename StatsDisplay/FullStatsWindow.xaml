@@ -17,6 +17,7 @@
 			<local:MockViewModel x:Key="DesignViewModel"/>
 			<local:PlayerRowTemplateSelector x:Key="RowTemplateSelector" />
 			<local:HasValueToVisibilityConverter x:Key="hasValueConverter" />
+			<local:MmrValueConverter x:Key="mmrValueConverter" />
 		</ResourceDictionary>
 	</Window.Resources>
 	<StackPanel Margin="40, 50, 40, 40">
@@ -37,7 +38,7 @@
 							<Label Content="{Binding Hero}" Style="{StaticResource RowLargeText}" Margin="0" />
 							<Label Content="{Binding Name}" ContentStringFormat=" ({0})" Margin="0" />
 						</StackPanel>
-						<Label Content="{Binding Ranks[QuickMatch].Mmr}" Width="80" />
+						<Label Content="{Binding Ranks, Converter={StaticResource mmrValueConverter}}" Width="80" />
 						<Label Content="{Binding GamesCount}" Width="80" />
 						<Label Content="{Binding HeroLevel}" Width="60" />
 						<Label Content="{Binding HeroWinRate}" ContentStringFormat="{}{0}%" Width="80" />

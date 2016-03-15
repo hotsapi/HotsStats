@@ -61,6 +61,7 @@
     <Compile Include="Helpers\GenericValueConverter.cs" />
     <Compile Include="Helpers\HasValueToVisibilityConverter.cs" />
     <Compile Include="Helpers\HotKey.cs" />
+    <Compile Include="Helpers\MmrValueConverter.cs" />
     <Compile Include="HeroesWindow.cs" />
     <Compile Include="MockViewModel.cs" />
     <Compile Include="PlayerRowTemplateSelector.cs" />
