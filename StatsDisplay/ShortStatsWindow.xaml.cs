@@ -53,8 +53,8 @@ namespace StatsDisplay
 			mmr2_container.Style = this.Resources[MyTeam == 1 ? "BlueControl" : "RedControl"] as Style;
 
 			game.PropertyChanged += (o, e) => {
-				mmr1_label.Content = "Average MMR: " + (int?)team1.Average(p => p.Ranks[GameMode.QuickMatch]?.Mmr);
-				mmr2_label.Content = "Average MMR: " + (int?)team2.Average(p => p.Ranks[GameMode.QuickMatch]?.Mmr);
+				mmr1_label.Content = "Average MMR: " + (int?)team1.Average(p => p.Ranks[Settings.MmrDisplayMode]?.Mmr);
+				mmr2_label.Content = "Average MMR: " + (int?)team2.Average(p => p.Ranks[Settings.MmrDisplayMode]?.Mmr);
 			};
 
 			if (Settings.AutoClose)
