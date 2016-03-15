@@ -36,6 +36,7 @@ namespace StatsFetcher
 				var player = replay.Players.Where(p => p.Name == profile.Name).Single();
 				profile.Hero = player.Character;
 				profile.HeroLevel = player.CharacterLevel;
+				//profile.Team = player.Team; // this should fix possible mistakes made by battlelobby analyzer
 			}
 			game.Map = replay.Map;
 			game.GameMode = replay.GameMode;
