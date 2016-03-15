@@ -8,8 +8,9 @@
         mc:Ignorable="d"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Settings" 
-		Height="334.988" Width="260.8" 
-		Top="{Binding Settings.SettingsWindowTop, Mode=TwoWay}" Left="{Binding Settings.SettingsWindowLeft, Mode=TwoWay}">
+		Height="auto" Width="260.8" SizeToContent="Height"
+		Top="{Binding Settings.SettingsWindowTop, Mode=TwoWay}" Left="{Binding Settings.SettingsWindowLeft, Mode=TwoWay}"
+		KeyDown="Window_KeyDown">
 	<Grid>
 		<StackPanel Margin="20">
 			<CheckBox IsChecked="{Binding Settings.Enabled}" Content="Enabled" />
@@ -28,10 +29,10 @@
 			<TextBlock TextWrapping="Wrap" Margin="0, 0, 0, 8" Foreground="DimGray" FontSize="10">
 				Data is provided by <Hyperlink NavigateUri="http://www.hotslogs.com" RequestNavigate="Hyperlink_RequestNavigate">HotsLogs.com</Hyperlink>
 			</TextBlock>
-		</StackPanel>
-		<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20">
-			<Button Content="Test 1" Click="Test1_Click" Padding="8, 0" Margin="8, 0" />
-			<Button Content="Test 2" Click="Test2_Click" Padding="8, 0" />
+			<StackPanel Orientation="Horizontal" Margin="0, 0, 0, 8" x:Name="testButtons" Visibility="Collapsed">
+				<Button Content="Test 1" Click="Test1_Click" Padding="8, 0" Margin="0, 0, 8, 0" />
+				<Button Content="Test 2" Click="Test2_Click" Padding="8, 0" />
+			</StackPanel>
 		</StackPanel>
 	</Grid>
 </Window>

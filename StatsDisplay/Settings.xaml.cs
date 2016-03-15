@@ -108,5 +108,12 @@ namespace StatsDisplay
 			Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
 			e.Handled = true;
 		}
+
+		private void Window_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.T && Keyboard.Modifiers == ModifierKeys.Control) {
+				testButtons.Visibility = testButtons.IsVisible ? Visibility.Collapsed : Visibility.Visible;
+			}
+		}
 	}
 }
