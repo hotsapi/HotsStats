@@ -40,7 +40,7 @@ namespace StatsFetcher
 
 		// using this properties greatly simplifies style bingings in gui
 		public bool IsMe { get { return Game.Me == this; } }
-		public bool IsMyTeam { get { return Game.Me?.Team == Team; } }
+		public bool IsMyTeam { get { return (Game.Me?.Team ?? 0) == Team; } }
 
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void TriggerPropertyChanged()

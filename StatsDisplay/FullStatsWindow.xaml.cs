@@ -22,7 +22,7 @@ namespace StatsDisplay
 		public FullStatsWindow()
 		{
 			InitializeComponent();
-			playersTable.ItemsSource = game.Players.OrderBy(p => (game.Me?.Team == 0 ? 1 : -1) * p.Team); // My team is always on top
+			playersTable.ItemsSource = game.Players.OrderBy(p => ((game.Me?.Team ?? 0) == 0 ? 1 : -1) * p.Team); // My team is always on top
 		}
 	}
 }

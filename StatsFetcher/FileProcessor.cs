@@ -83,7 +83,7 @@ namespace StatsFetcher
 		{
 			foreach (var p in game.Players) {
 				if (p.HotsLogsProfile == null)
-					return;
+					continue;
 				// who wants to look at some dirty html parsing?
 				try {					
 					p.MapWinRate = float.Parse(p.HotsLogsProfile.GetElementbyId("mapStatistics").SelectSingleNode($".//tr/td[text()='{game.Map}']").SelectSingleNode("./../td[last()]").InnerText.Replace("%", ""));
