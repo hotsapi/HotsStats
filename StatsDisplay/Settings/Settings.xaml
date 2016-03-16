@@ -21,7 +21,7 @@
 			<TextBlock Text="So that app knows on which team you are" Margin="0, 0, 0, 8" FontSize="10" Foreground="DimGray" />
 			<DockPanel LastChildFill="True" Margin="0, 0, 0, 8">
 				<TextBlock Text="Game mode " Margin="0, 4, 0, 0" DockPanel.Dock="Left" />
-				<ComboBox SelectedValue="{Binding SelectedGameMode}" DockPanel.Dock="Right"/>
+				<ComboBox SelectedValue="{Binding SelectedGameMode}" ItemsSource="{Binding GameModes}" DockPanel.Dock="Right"/>
 			</DockPanel>
 			<CheckBox IsChecked="{Binding CanAutoShow}" Content="Show automatically" Margin="0, 0, 0, 8" />
 			<CheckBox IsChecked="{Binding CanAutoClose}" Content="Close automatically" Margin="0, 0, 0, 8" />

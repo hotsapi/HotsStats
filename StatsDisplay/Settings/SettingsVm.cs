@@ -13,6 +13,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using Heroes.ReplayParser;
 using StatsDisplay.Settings.Messages;
+using StatsDisplay.Stats;
 using StatsFetcher;
 
 namespace StatsDisplay.Settings
@@ -300,7 +301,7 @@ namespace StatsDisplay.Settings
 			App.game.Me = App.game.Players.FirstOrDefault(p => p.BattleTag == BattleTag || p.Name == BattleTag);
 
 			_currentWindow?.Close();
-			_currentWindow = new ShortStatsWindow();
+			_currentWindow = new Stats.ShortStatsWindow(_appSettings);
 			if (CanAutoShow)
 				_currentWindow.Show();
 		}

@@ -79,18 +79,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="FullStatsWindow.xaml.cs">
-      <DependentUpon>FullStatsWindow.xaml</DependentUpon>
+    <Compile Include="Helpers\TeamTypeConverter.cs" />
+    <Compile Include="Stats\FullStatsView.xaml.cs">
+      <DependentUpon>FullStatsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\GenericValueConverter.cs" />
     <Compile Include="Helpers\HasValueToVisibilityConverter.cs" />
     <Compile Include="Helpers\HotKey.cs" />
     <Compile Include="Helpers\MmrValueConverter.cs" />
-    <Compile Include="HeroesWindow.cs" />
-    <Compile Include="MockViewModel.cs" />
+    <Compile Include="Stats\HeroesWindow.cs" />
+    <Compile Include="Stats\MockViewModel.cs" />
     <Compile Include="Helpers\PlayerRowTemplateSelector.cs" />
-    <Compile Include="RecapStatsWindow.xaml.cs">
-      <DependentUpon>RecapStatsWindow.xaml</DependentUpon>
+    <Compile Include="Stats\Messages\HideShortStats.cs" />
+    <Compile Include="Stats\RecapStatsView.xaml.cs">
+      <DependentUpon>RecapStatsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\Messages\HideSettingsWindow.cs" />
     <Compile Include="Settings\Messages\ShowSettingsWindow.cs" />
@@ -98,15 +100,16 @@
     <Compile Include="Settings\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Page Include="FullStatsWindow.xaml">
+    <Compile Include="Stats\ShortStatsVm.cs" />
+    <Page Include="Stats\FullStatsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RecapStatsWindow.xaml">
+    <Page Include="Stats\RecapStatsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ShortStatsWindow.xaml">
+    <Page Include="Stats\ShortStatsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -114,8 +117,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ShortStatsWindow.xaml.cs">
-      <DependentUpon>ShortStatsWindow.xaml</DependentUpon>
+    <Compile Include="Stats\ShortStatsView.xaml.cs">
+      <DependentUpon>ShortStatsView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Settings\Settings.xaml">
@@ -186,6 +189,7 @@
   <ItemGroup>
     <None Include="Resources\icon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
