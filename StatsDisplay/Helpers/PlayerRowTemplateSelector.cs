@@ -1,11 +1,8 @@
-﻿using System;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using StatsFetcher;
 
-
-namespace StatsDisplay
+namespace StatsDisplay.Helpers
 {
 
 	public class PlayerRowTemplateSelector : DataTemplateSelector
@@ -14,8 +11,8 @@ namespace StatsDisplay
 		{
 			FrameworkElement element = container as FrameworkElement;
 
-			if (element != null && item != null && item is PlayerProfile) {
-				PlayerProfile p = item as PlayerProfile;
+			if (element != null && item is PlayerProfile) {
+				PlayerProfile p = (PlayerProfile) item;
 				return element.FindResource(p.IsMyTeam ? "BlueRow" : "RedRow") as DataTemplate;
 			}
 

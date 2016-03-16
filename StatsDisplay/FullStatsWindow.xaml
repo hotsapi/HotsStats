@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:fetcher="clr-namespace:StatsFetcher;assembly=StatsFetcher"
         xmlns:local="clr-namespace:StatsDisplay"
+        xmlns:helpers="clr-namespace:StatsDisplay.Helpers"
         mc:Ignorable="d"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
 		d:DataContext="{Binding Source={StaticResource DesignViewModel}}"
@@ -15,7 +16,7 @@
 				<ResourceDictionary Source="Styles.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 			<local:MockViewModel x:Key="DesignViewModel"/>
-			<local:PlayerRowTemplateSelector x:Key="RowTemplateSelector" />
+			<helpers:PlayerRowTemplateSelector x:Key="RowTemplateSelector" />
 			<local:HasValueToVisibilityConverter x:Key="hasValueConverter" />
 			<local:MmrValueConverter x:Key="mmrValueConverter" />
 		</ResourceDictionary>
