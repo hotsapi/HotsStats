@@ -39,7 +39,7 @@ namespace StatsDisplay
 
 			InitializeComponent();
 			var v = Assembly.GetExecutingAssembly().GetName().Version;
-			Title = $"HotsStats v{v.Major}.{v.Minor}";
+			Title = $"HotsStats v{v.Major}.{v.Minor}" + (v.Build == 0 ? "" : $".{v.Build}");
 			if (Settings.SettingsWindowTop <= 0)
 				WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
