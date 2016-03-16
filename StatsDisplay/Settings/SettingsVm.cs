@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -12,9 +13,12 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using Heroes.ReplayParser;
+using Squirrel;
 using StatsDisplay.Settings.Messages;
 using StatsDisplay.Stats;
 using StatsFetcher;
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
 
 namespace StatsDisplay.Settings
 {
@@ -227,6 +231,7 @@ namespace StatsDisplay.Settings
 		public SettingsVm(Properties.Settings appSettings)
 		{
 			_appSettings = appSettings;
+			SetExceptionHandlers();
 			_currentSyncContext = SynchronizationContext.Current;
 			GameModes = new List<GameMode> {
 				GameMode.QuickMatch,
@@ -237,8 +242,22 @@ namespace StatsDisplay.Settings
 			_currentAssembly = Assembly.GetExecutingAssembly();
 			var currentVersion = _currentAssembly.GetName().Version;
 			LoadSettings(appSettings);
-			Title = $"HotsStats v{currentVersion.Major}.{currentVersion.Minor}";
+			Title = $"HotsStats v{currentVersion.Major}.{currentVersion.Minor}" + (currentVersion.Build == 0 ? "" : $".{currentVersion.Build}");
 			NavigateToHotsLogs = new RelayCommand(() => OnNavigate(LogHotsUri));
+			if (!App.Debug && appSettings.AutoUpdate)
+			{
+				CheckForUpdates();
+			}
+		}
+
+		private async void CheckForUpdates()
+		{
+			try
+			{
+				var mgr = await UpdateManager.GitHubUpdateManager(_appSettings.UpdateRepository);
+				await mgr.UpdateApp();
+			}
+			catch { /* quietly eat some errors */ }
 		}
 
 		/// <summary>
@@ -277,7 +296,15 @@ namespace StatsDisplay.Settings
 			_hotKey = new HotKey(Key.Tab, KeyModifier.Shift | KeyModifier.NoRepeat);
 			_hotKey.Pressed += (o, e) =>
 			{
-				IsVisible = !IsVisible;
+				if (_currentWindow?.IsVisible != null && (_currentWindow?.IsVisible).Value)
+				{
+					_currentWindow?.Hide();
+				}
+				else
+				{
+					_currentWindow?.Show();
+				}
+				
 			};
 		}
 
@@ -367,6 +394,27 @@ namespace StatsDisplay.Settings
 				SendMessage<HideSettingsWindow>();
 				_trayIcon.Visible = true;
 			}
+		}
+
+		private void SetExceptionHandlers()
+		{
+			Application.Current.DispatcherUnhandledException += (o, e) => {
+				File.AppendAllText("log.txt", $"[{DateTime.Now}] Unhandled exception: {e.Exception}");
+				try
+				{
+					MessageBox.Show(e.Exception.ToString(), "Unhandled exception");
+				}
+				catch { /* probably not gui thread */ }
+			};
+
+			AppDomain.CurrentDomain.UnhandledException += (o, e) => {
+				File.AppendAllText("log.txt", $"[{DateTime.Now}] Critical exception: {e.ExceptionObject}");
+				try
+				{
+					MessageBox.Show(e.ExceptionObject.ToString(), "Critical exception");
+				}
+				catch { /* probably not gui thread */ }
+			};
 		}
 	}
 }

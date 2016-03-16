@@ -17,5 +17,10 @@ namespace StatsDisplay
 		// introduce some spaghetti with static globals
 		public static Game game { get; set; }
 		public Properties.Settings Settings { get { return StatsDisplay.Properties.Settings.Default; } }
+#if DEBUG
+		public const bool Debug = true;
+#else
+		public const bool Debug = false;
+#endif
 	}
 }
