@@ -32,6 +32,8 @@ namespace StatsDisplay
 
 		public SettingsWindow()
 		{
+			SetExceptionHandlers();
+
 			if (Settings.UpgradeRequired) {
 				Settings.Upgrade();
 				Settings.UpgradeRequired = false;
@@ -146,6 +148,25 @@ namespace StatsDisplay
 				Hide();
 				icon.Visible = true;
 			}
+		}
+
+		private void SetExceptionHandlers()
+		{
+			Application.Current.DispatcherUnhandledException += (o, e) => {
+				File.AppendAllText("log.txt", $"[{DateTime.Now}] Unhandled exception: {e.Exception}");
+				try {
+					MessageBox.Show(e.Exception.ToString(), "Unhandled exception");
+				}
+				catch { /* probably not gui thread */ }
+			};
+
+			AppDomain.CurrentDomain.UnhandledException += (o, e) => {
+				File.AppendAllText("log.txt", $"[{DateTime.Now}] Critical exception: {e.ExceptionObject}");
+				try {
+					MessageBox.Show(e.ExceptionObject.ToString(), "Critical exception");
+				}
+				catch { /* probably not gui thread */ }
+			};
 		}
 	}
 }
