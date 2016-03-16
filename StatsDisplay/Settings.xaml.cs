@@ -15,6 +15,7 @@ using System.IO;
 using System.Reflection;
 using System.Diagnostics;
 using Heroes.ReplayParser;
+using Squirrel;
 
 namespace StatsDisplay
 {
@@ -74,6 +75,19 @@ namespace StatsDisplay
 				Settings.Save();
 				Application.Current.Shutdown();
 			};
+
+			if (!App.Debug && Settings.AutoUpdate) {
+				CheckForUpdates();
+			}
+		}
+
+		private async void CheckForUpdates()
+		{
+			try {
+				var mgr = await UpdateManager.GitHubUpdateManager(Settings.UpdateRepository);
+				await mgr.UpdateApp();
+			}
+			catch { /* quietly eat some errors */ }
 		}
 
 		private void ProcessLobbyFile(string path)
