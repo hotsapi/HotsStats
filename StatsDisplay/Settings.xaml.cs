@@ -63,18 +63,7 @@ namespace StatsDisplay
 
 			var mon = new FileMonitor();
 			mon.BattleLobbyCreated += (o, e) => Dispatcher.BeginInvoke(new Action(() => { ProcessLobbyFile(e.Data); }));
-			mon.RejoinFileCreated += (o,e) => Dispatcher.BeginInvoke(new Action(async () =>
-			{
-				try
-				{
-					await ProcessRejoinFileAsync(e.Data);
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show(ex.ToString());
-				}
-
-			}));
+			mon.RejoinFileCreated += (o,e) => Dispatcher.BeginInvoke(new Action(() => { ProcessRejoinFile(e.Data); }));
 			mon.ReplayFileCreated += (o, e) => Dispatcher.BeginInvoke(new Action(() => { ProcessReplayFile(e.Data); }));
 			mon.StartMonitoring();
 
@@ -98,8 +87,8 @@ namespace StatsDisplay
 		{
 			try {
 				using (var mgr = await UpdateManager.GitHubUpdateManager(Settings.UpdateRepository)) {
-				await mgr.UpdateApp();
-			}
+					await mgr.UpdateApp();
+				}
 			}
 			catch { /* quietly eat some errors */ }
 		}
@@ -118,9 +107,9 @@ namespace StatsDisplay
 				currentWindow.Show();
 		}
 
-		private async Task ProcessRejoinFileAsync(string path)
+		private async void ProcessRejoinFile(string path)
 		{
-			await	FileProcessor.ProcessRejoinAsync(path, App.game);
+			await FileProcessor.ProcessRejoin(path, App.game);
 			currentWindow?.Close();
 			currentWindow = new FullStatsWindow();
 		}
@@ -135,9 +124,9 @@ namespace StatsDisplay
 			ProcessLobbyFile(@"replay.server.battlelobby");
 		}
 
-		private  async void Test2_Click(object sender, RoutedEventArgs e)
+		private void Test2_Click(object sender, RoutedEventArgs e)
 		{
-			await ProcessRejoinFileAsync(@"save.StormSave");
+			ProcessRejoinFile(@"save.StormSave");
 			currentWindow.Show();
 		}
 
