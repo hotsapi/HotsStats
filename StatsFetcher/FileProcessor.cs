@@ -31,12 +31,23 @@ namespace StatsFetcher
 		public static void ProcessRejoin(string path, Game game)
 		{
 			var tmpPath = Path.GetTempFileName();
-			try {
-				File.Copy(path, tmpPath, overwrite: true);
+
+			// probably client is still writing this file so we retry a few times
+			for (int i = 0; i < 5; i++) {
+				try {
+					File.Copy(path, tmpPath, overwrite: true);
+					break;
+				}
+				catch (IOException e) {
+					File.AppendAllText("log.txt", $"[{DateTime.Now}] Replay copy error ({i}): {e}\n\n");
+					if (i < 4) {
+						System.Threading.Thread.Sleep(1000); // todo: don't block UI thread
+					} else {
+						throw new ApplicationException("Can't access replay file", e);
+					}
+				}
 			}
-			catch (IOException e) {
-				File.AppendAllText("log.txt", $"[{DateTime.Now}] Replay copy error: {e}\n\n");
-			}
+
 			var replay = ParseRejoin(tmpPath);
 			foreach (var profile in game.Players) {
 				var player = replay.Players.Where(p => p.Name == profile.Name).Single();
