@@ -34,7 +34,7 @@ namespace StatsFetcher
 			await SafeCopy(path, tmpPath, true);
 
 			var replay = ParseRejoin(tmpPath);
-				foreach (var profile in game.Players){
+			foreach (var profile in game.Players){
 				var player = replay.Players.Single(p => p.Name == profile.Name);
 				profile.Hero = player.Character;
 				profile.HeroLevel = player.CharacterLevel;
