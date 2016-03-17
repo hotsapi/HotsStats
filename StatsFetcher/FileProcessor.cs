@@ -28,7 +28,7 @@ namespace StatsFetcher
 			game.TriggerPropertyChanged();
 		}
 
-		public static void ProcessRejoin(string path, Game game)
+		public static async Task ProcessRejoin(string path, Game game)
 		{
 			var tmpPath = Path.GetTempFileName();
 
@@ -39,10 +39,10 @@ namespace StatsFetcher
 					break;
 				}
 				catch (IOException e) {
-					File.AppendAllText("log.txt", $"[{DateTime.Now}] Replay copy error ({i}): {e}\n\n");
 					if (i < 4) {
-						System.Threading.Thread.Sleep(1000); // todo: don't block UI thread
+						await Task.Delay(1000);
 					} else {
+						File.AppendAllText("log.txt", $"[{DateTime.Now}] Replay copy error ({i}): {e}\n\n");
 						throw new ApplicationException("Can't access replay file", e);
 					}
 				}

@@ -107,9 +107,9 @@ namespace StatsDisplay
 				currentWindow.Show();
 		}
 
-		private void ProcessRejoinFile(string path)
+		private async void ProcessRejoinFile(string path)
 		{
-			FileProcessor.ProcessRejoin(path, App.game);
+			await FileProcessor.ProcessRejoin(path, App.game);
 			currentWindow?.Close();
 			currentWindow = new FullStatsWindow();
 		}
