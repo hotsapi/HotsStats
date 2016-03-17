@@ -97,8 +97,9 @@ namespace StatsDisplay
 		private async void CheckForUpdates()
 		{
 			try {
-				var mgr = await UpdateManager.GitHubUpdateManager(Settings.UpdateRepository);
+				using (var mgr = await UpdateManager.GitHubUpdateManager(Settings.UpdateRepository)) {
 				await mgr.UpdateApp();
+			}
 			}
 			catch { /* quietly eat some errors */ }
 		}
@@ -117,7 +118,7 @@ namespace StatsDisplay
 				currentWindow.Show();
 		}
 
-		private  async Task ProcessRejoinFileAsync(string path)
+		private async Task ProcessRejoinFileAsync(string path)
 		{
 			await	FileProcessor.ProcessRejoinAsync(path, App.game);
 			currentWindow?.Close();
@@ -134,7 +135,7 @@ namespace StatsDisplay
 			ProcessLobbyFile(@"replay.server.battlelobby");
 		}
 
-		private async void Test2_Click(object sender, RoutedEventArgs e)
+		private  async void Test2_Click(object sender, RoutedEventArgs e)
 		{
 			await ProcessRejoinFileAsync(@"save.StormSave");
 			currentWindow.Show();
@@ -164,7 +165,7 @@ namespace StatsDisplay
 		private void SetExceptionHandlers()
 		{
 			Application.Current.DispatcherUnhandledException += (o, e) => {
-				File.AppendAllText("log.txt", $"[{DateTime.Now}] Unhandled exception: {e.Exception}");
+				File.AppendAllText("log.txt", $"[{DateTime.Now}] Unhandled exception: {e.Exception}\n\n");
 				try {
 					MessageBox.Show(e.Exception.ToString(), "Unhandled exception");
 				}
@@ -172,7 +173,7 @@ namespace StatsDisplay
 			};
 
 			AppDomain.CurrentDomain.UnhandledException += (o, e) => {
-				File.AppendAllText("log.txt", $"[{DateTime.Now}] Critical exception: {e.ExceptionObject}");
+				File.AppendAllText("log.txt", $"[{DateTime.Now}] Critical exception: {e.ExceptionObject}\n\n");
 				try {
 					MessageBox.Show(e.ExceptionObject.ToString(), "Critical exception");
 				}

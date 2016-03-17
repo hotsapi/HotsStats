@@ -36,14 +36,13 @@ namespace StatsFetcher
 			var replay = ParseRejoin(tmpPath);
 				foreach (var profile in game.Players){
 				var player = replay.Players.Single(p => p.Name == profile.Name);
-					profile.Hero = player.Character;
-					profile.HeroLevel = player.CharacterLevel;
-					//profile.Team = player.Team; // this should fix possible mistakes made by battlelobby analyzer
-				}
-				game.Map = replay.Map;
-				game.GameMode = replay.GameMode;
-				ExtractFullData(game);
-					
+				profile.Hero = player.Character;
+				profile.HeroLevel = player.CharacterLevel;
+				//profile.Team = player.Team; // this should fix possible mistakes made by battlelobby analyzer
+			}
+			game.Map = replay.Map;
+			game.GameMode = replay.GameMode;
+			ExtractFullData(game);
 		}
 
 
@@ -56,6 +55,7 @@ namespace StatsFetcher
 				try
 				{
 					File.Copy(source, dest, overwrite);
+					retry = false;
 				}
 				catch (Exception ex)
 				{

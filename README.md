@@ -8,9 +8,8 @@ Installation
   - Windows Vista or higher
   - .NET Framework 4.5 or higher
 - Set HotS video mode to Windowed (Fullscreen) to allow other windows to be displayed on top of HotS client
-- [__Download__](https://github.com/Poma/HotsStats/releases) the archive.
-- Extract the archive.
-- Run the "HotsStats.exe"
+- [__Download__](https://github.com/Poma/HotsStats/releases) **"Setup.exe"** from [Releases](https://github.com/Poma/HotsStats/releases) page (you don't need to download other files listed there)
+- Run the "Setup.exe"
 
 Screenshots
 ---------------------------
