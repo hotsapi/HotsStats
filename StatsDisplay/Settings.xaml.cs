@@ -123,7 +123,7 @@ namespace StatsDisplay
 			ProcessLobbyFile(@"replay.server.battlelobby");
 		}
 
-		private async void Test2_Click(object sender, RoutedEventArgs e)
+		private void Test2_Click(object sender, RoutedEventArgs e)
 		{
 			ProcessRejoinFile(@"save.StormSave");
 			currentWindow.Show();
