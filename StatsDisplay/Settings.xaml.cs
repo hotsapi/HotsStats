@@ -86,8 +86,9 @@ namespace StatsDisplay
 		private async void CheckForUpdates()
 		{
 			try {
-				var mgr = await UpdateManager.GitHubUpdateManager(Settings.UpdateRepository);
-				await mgr.UpdateApp();
+				using (var mgr = await UpdateManager.GitHubUpdateManager(Settings.UpdateRepository)) {
+					await mgr.UpdateApp();
+				}
 			}
 			catch { /* quietly eat some errors */ }
 		}
