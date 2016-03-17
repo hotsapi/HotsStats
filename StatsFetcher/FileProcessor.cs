@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,29 +28,14 @@ namespace StatsFetcher
 			game.TriggerPropertyChanged();
 		}
 
-		public static async Task ProcessRejoin(string path, Game game)
+		public static async Task ProcessRejoinAsync(string path, Game game)
 		{
 			var tmpPath = Path.GetTempFileName();
-
-			// probably client is still writing this file so we retry a few times
-			for (int i = 0; i < 5; i++) {
-				try {
-					File.Copy(path, tmpPath, overwrite: true);
-					break;
-				}
-				catch (IOException e) {
-					if (i < 4) {
-						await Task.Delay(1000);
-					} else {
-						File.AppendAllText("log.txt", $"[{DateTime.Now}] Replay copy error ({i}): {e}\n\n");
-						throw new ApplicationException("Can't access replay file", e);
-					}
-				}
-			}
+			await SafeCopy(path, tmpPath, true);
 
 			var replay = ParseRejoin(tmpPath);
-			foreach (var profile in game.Players) {
-				var player = replay.Players.Where(p => p.Name == profile.Name).Single();
+				foreach (var profile in game.Players){
+				var player = replay.Players.Single(p => p.Name == profile.Name);
 				profile.Hero = player.Character;
 				profile.HeroLevel = player.CharacterLevel;
 				//profile.Team = player.Team; // this should fix possible mistakes made by battlelobby analyzer
@@ -58,6 +43,31 @@ namespace StatsFetcher
 			game.Map = replay.Map;
 			game.GameMode = replay.GameMode;
 			ExtractFullData(game);
+		}
+
+
+		private static async Task SafeCopy(string source, string dest , bool overwrite)
+		{
+			var watchdog = 10;
+			var retry = false;
+			do
+			{
+				try
+				{
+					File.Copy(source, dest, overwrite);
+					retry = false;
+				}
+				catch (Exception ex)
+				{
+					Debug.WriteLine($"Failed to copy ${source} to ${dest}. Counter at ${watchdog} CAUSED BY ${ex}");
+					if (watchdog <= 0)
+					{
+						throw;
+					}
+					retry = true;
+				}
+				await Task.Delay(1000);
+			} while (watchdog-- > 0 && retry);
 		}
 
 		public static Replay ParseRejoin(string fileName)
@@ -76,8 +86,9 @@ namespace StatsFetcher
 
 				return replay;
 			}
-			catch (Exception e) {
-				// todo: eating exceptions is bad
+			catch (Exception ex) {
+				//TODO: WE REALLY DON't want to do this
+				Debug.WriteLine(ex);
 				return null;
 			}
 		}

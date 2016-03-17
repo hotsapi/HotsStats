@@ -109,9 +109,16 @@ namespace StatsDisplay
 
 		private async void ProcessRejoinFile(string path)
 		{
-			await FileProcessor.ProcessRejoin(path, App.game);
-			currentWindow?.Close();
-			currentWindow = new FullStatsWindow();
+			try
+			{
+				await FileProcessor.ProcessRejoinAsync(path, App.game);
+				currentWindow?.Close();
+				currentWindow = new FullStatsWindow();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.ToString());
+			}
 		}
 
 		private void ProcessReplayFile(string path)
