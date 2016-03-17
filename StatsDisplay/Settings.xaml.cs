@@ -153,7 +153,7 @@ namespace StatsDisplay
 		private void SetExceptionHandlers()
 		{
 			Application.Current.DispatcherUnhandledException += (o, e) => {
-				File.AppendAllText("log.txt", $"[{DateTime.Now}] Unhandled exception: {e.Exception}");
+				File.AppendAllText("log.txt", $"[{DateTime.Now}] Unhandled exception: {e.Exception}\n\n");
 				try {
 					MessageBox.Show(e.Exception.ToString(), "Unhandled exception");
 				}
@@ -161,7 +161,7 @@ namespace StatsDisplay
 			};
 
 			AppDomain.CurrentDomain.UnhandledException += (o, e) => {
-				File.AppendAllText("log.txt", $"[{DateTime.Now}] Critical exception: {e.ExceptionObject}");
+				File.AppendAllText("log.txt", $"[{DateTime.Now}] Critical exception: {e.ExceptionObject}\n\n");
 				try {
 					MessageBox.Show(e.ExceptionObject.ToString(), "Critical exception");
 				}

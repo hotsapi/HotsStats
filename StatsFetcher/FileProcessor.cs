@@ -31,7 +31,12 @@ namespace StatsFetcher
 		public static void ProcessRejoin(string path, Game game)
 		{
 			var tmpPath = Path.GetTempFileName();
-			File.Copy(path, tmpPath, overwrite: true);
+			try {
+				File.Copy(path, tmpPath, overwrite: true);
+			}
+			catch (IOException e) {
+				File.AppendAllText("log.txt", $"[{DateTime.Now}] Replay copy error: {e}\n\n");
+			}
 			var replay = ParseRejoin(tmpPath);
 			foreach (var profile in game.Players) {
 				var player = replay.Players.Where(p => p.Name == profile.Name).Single();
@@ -60,7 +65,7 @@ namespace StatsFetcher
 
 				return replay;
 			}
-			catch {
+			catch (Exception e) {
 				// todo: eating exceptions is bad
 				return null;
 			}
