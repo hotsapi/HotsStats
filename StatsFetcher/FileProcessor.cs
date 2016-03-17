@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,20 +28,46 @@ namespace StatsFetcher
 			game.TriggerPropertyChanged();
 		}
 
-		public static void ProcessRejoin(string path, Game game)
+		public static async Task ProcessRejoinAsync(string path, Game game)
 		{
 			var tmpPath = Path.GetTempFileName();
-			File.Copy(path, tmpPath, overwrite: true);
+			await SafeCopy(path, tmpPath, true);
+
 			var replay = ParseRejoin(tmpPath);
-			foreach (var profile in game.Players) {
-				var player = replay.Players.Where(p => p.Name == profile.Name).Single();
-				profile.Hero = player.Character;
-				profile.HeroLevel = player.CharacterLevel;
-				//profile.Team = player.Team; // this should fix possible mistakes made by battlelobby analyzer
-			}
-			game.Map = replay.Map;
-			game.GameMode = replay.GameMode;
-			ExtractFullData(game);
+				foreach (var profile in game.Players){
+				var player = replay.Players.Single(p => p.Name == profile.Name);
+					profile.Hero = player.Character;
+					profile.HeroLevel = player.CharacterLevel;
+					//profile.Team = player.Team; // this should fix possible mistakes made by battlelobby analyzer
+				}
+				game.Map = replay.Map;
+				game.GameMode = replay.GameMode;
+				ExtractFullData(game);
+					
+		}
+
+
+		private static async Task SafeCopy(string source, string dest , bool overwrite)
+		{
+			var watchdog = 10;
+			var retry = false;
+			do
+			{
+				try
+				{
+					File.Copy(source, dest, overwrite);
+				}
+				catch (Exception ex)
+				{
+					Debug.WriteLine($"Failed to copy ${source} to ${dest}. Counter at ${watchdog} CAUSED BY ${ex}");
+					if (watchdog <= 0)
+					{
+						throw;
+					}
+					retry = true;
+				}
+				await Task.Delay(1000);
+			} while (watchdog-- > 0 && retry);
 		}
 
 		public static Replay ParseRejoin(string fileName)
@@ -60,8 +86,9 @@ namespace StatsFetcher
 
 				return replay;
 			}
-			catch {
-				// todo: eating exceptions is bad
+			catch (Exception ex) {
+				//TODO: WE REALLY DON't want to do this
+				Debug.WriteLine(ex);
 				return null;
 			}
 		}

@@ -63,7 +63,18 @@ namespace StatsDisplay
 
 			var mon = new FileMonitor();
 			mon.BattleLobbyCreated += (o, e) => Dispatcher.BeginInvoke(new Action(() => { ProcessLobbyFile(e.Data); }));
-			mon.RejoinFileCreated += (o,e) => Dispatcher.BeginInvoke(new Action(() => { ProcessRejoinFile(e.Data); }));
+			mon.RejoinFileCreated += (o,e) => Dispatcher.BeginInvoke(new Action(async () =>
+			{
+				try
+				{
+					await ProcessRejoinFileAsync(e.Data);
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show(ex.ToString());
+				}
+
+			}));
 			mon.ReplayFileCreated += (o, e) => Dispatcher.BeginInvoke(new Action(() => { ProcessReplayFile(e.Data); }));
 			mon.StartMonitoring();
 
@@ -106,9 +117,9 @@ namespace StatsDisplay
 				currentWindow.Show();
 		}
 
-		private void ProcessRejoinFile(string path)
+		private  async Task ProcessRejoinFileAsync(string path)
 		{
-			FileProcessor.ProcessRejoin(path, App.game);
+			await	FileProcessor.ProcessRejoinAsync(path, App.game);
 			currentWindow?.Close();
 			currentWindow = new FullStatsWindow();
 		}
@@ -125,7 +136,7 @@ namespace StatsDisplay
 
 		private async void Test2_Click(object sender, RoutedEventArgs e)
 		{
-			ProcessRejoinFile(@"save.StormSave");
+			await ProcessRejoinFileAsync(@"save.StormSave");
 			currentWindow.Show();
 		}
 
