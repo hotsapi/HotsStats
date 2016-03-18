@@ -73,9 +73,8 @@ namespace StatsDisplay
 					currentWindow.Visibility = currentWindow.IsVisible ? Visibility.Collapsed : Visibility.Visible;
 			};
 
-			Closing += (o, e) => {
+			Closed += (o, e) => {
 				Settings.Save();
-				Application.Current.Shutdown();
 			};
 
 			if (!App.Debug && Settings.AutoUpdate) {
