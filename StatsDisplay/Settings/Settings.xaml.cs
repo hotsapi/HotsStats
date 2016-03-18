@@ -22,7 +22,7 @@ namespace StatsDisplay.Settings
 			Messenger.Default.Register(this, (HideSettingsWindow _) => Hide());
 
 			Closing += (o, e) => {
-		      _viewModel.SaveSettings();
+		      _viewModel.OnShutdown();
 				Application.Current.Shutdown();
 			};
 			Loaded += (_, __) => _viewModel.OnActivated();

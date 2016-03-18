@@ -13,6 +13,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using Heroes.ReplayParser;
+using NLog;
 using Squirrel;
 using StatsDisplay.Settings.Messages;
 using StatsDisplay.Stats;
@@ -28,7 +29,7 @@ namespace StatsDisplay.Settings
 	public class SettingsVm : ViewModelBase
 	{
 		private readonly Properties.Settings _appSettings;
-
+		private static Logger logger = LogManager.GetCurrentClassLogger();
 		private string _battleTAg;
 		private bool _isEnabled;
 		private GameMode _selectedGameMode;
@@ -254,8 +255,9 @@ namespace StatsDisplay.Settings
 		{
 			try
 			{
-				var mgr = await UpdateManager.GitHubUpdateManager(_appSettings.UpdateRepository);
-				await mgr.UpdateApp();
+				using (var mgr = await UpdateManager.GitHubUpdateManager(_appSettings.UpdateRepository)){
+					await mgr.UpdateApp();
+				}
 			}
 			catch { /* quietly eat some errors */ }
 		}
@@ -263,7 +265,13 @@ namespace StatsDisplay.Settings
 		/// <summary>
 		/// Saves the current settings
 		/// </summary>
-		public void SaveSettings()
+		public void OnShutdown()
+		{
+			
+			SaveSettings();
+		}
+
+		private void SaveSettings()
 		{
 			_appSettings.MmrDisplayMode = SelectedGameMode;
 			_appSettings.AutoShow = CanAutoShow;
@@ -286,6 +294,7 @@ namespace StatsDisplay.Settings
 		/// </summary>
 		public void OnActivated()
 		{
+			logger.Info("App started");
 			SetupTrayIcon();
 			SetupFileMonitor();
 			SetupHotkeys();
@@ -346,11 +355,19 @@ namespace StatsDisplay.Settings
 			WindowLeft = appSettings.SettingsWindowLeft;
 		}
 
-		private void ProcessRejoinFile(string path)
+		private async void ProcessRejoinFile(string path)
 		{
-			FileProcessor.ProcessRejoin(path, App.game);
-			_currentWindow?.Close();
-			_currentWindow = new FullStatsWindow();
+			try
+			{
+				 await FileProcessor.ProcessRejoinAsync(path, App.game);
+				_currentWindow?.Close();
+				_currentWindow = new FullStatsWindow();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.ToString());
+			}
+			
 		}
 
 		private void SetupTrayIcon()
@@ -399,7 +416,7 @@ namespace StatsDisplay.Settings
 		private void SetExceptionHandlers()
 		{
 			Application.Current.DispatcherUnhandledException += (o, e) => {
-				File.AppendAllText("log.txt", $"[{DateTime.Now}] Unhandled exception: {e.Exception}");
+				logger.Error(e.Exception, "Dispatcher unhandled exception");
 				try
 				{
 					MessageBox.Show(e.Exception.ToString(), "Unhandled exception");
@@ -408,7 +425,7 @@ namespace StatsDisplay.Settings
 			};
 
 			AppDomain.CurrentDomain.UnhandledException += (o, e) => {
-				File.AppendAllText("log.txt", $"[{DateTime.Now}] Critical exception: {e.ExceptionObject}");
+				logger.Fatal(e.ExceptionObject as Exception, "Domain unhandled exception");
 				try
 				{
 					MessageBox.Show(e.ExceptionObject.ToString(), "Critical exception");
