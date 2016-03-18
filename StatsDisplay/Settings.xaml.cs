@@ -30,6 +30,7 @@ namespace StatsDisplay
 		private Window currentWindow;
 		private HotKey hotKey;
 		private System.Windows.Forms.NotifyIcon icon;
+		private IUpdateManager updateManager;
 
 
 		public SettingsWindow()
@@ -79,6 +80,7 @@ namespace StatsDisplay
 
 			Closed += (o, e) => {
 				Settings.Save();
+				updateManager?.Dispose();
 			};
 
 			if (!App.Debug && Settings.AutoUpdate) {
@@ -90,7 +92,11 @@ namespace StatsDisplay
 		{
 			try {
 				using (var mgr = await UpdateManager.GitHubUpdateManager(Settings.UpdateRepository)) {
-					await mgr.UpdateApp();
+					// for some reason "using" do not correctly dispose update manager if app exits before release check finishes (1-2 sec after starting)
+					// which causes AbandonedMutexException at app exit
+					// promoting it to private field and ensuring that dispose is called on app close seems to fix the problem
+					updateManager = mgr;
+					var release = await mgr.UpdateApp();
 				}
 			}
 			catch { /* quietly eat some errors */ }
