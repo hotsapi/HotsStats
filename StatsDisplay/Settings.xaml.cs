@@ -16,6 +16,7 @@ using System.Reflection;
 using System.Diagnostics;
 using Heroes.ReplayParser;
 using Squirrel;
+using NLog;
 
 namespace StatsDisplay
 {
@@ -25,6 +26,7 @@ namespace StatsDisplay
 	public partial class SettingsWindow : Window
 	{
 		public Properties.Settings Settings { get { return Properties.Settings.Default; } }
+		private static Logger logger = LogManager.GetCurrentClassLogger();
 		private Window currentWindow;
 		private HotKey hotKey;
 		private System.Windows.Forms.NotifyIcon icon;
@@ -33,6 +35,8 @@ namespace StatsDisplay
 		public SettingsWindow()
 		{
 			SetExceptionHandlers();
+
+			logger.Info("App started");
 
 			if (Settings.UpgradeRequired) {
 				Settings.Upgrade();
@@ -160,7 +164,7 @@ namespace StatsDisplay
 		private void SetExceptionHandlers()
 		{
 			Application.Current.DispatcherUnhandledException += (o, e) => {
-				File.AppendAllText("log.txt", $"[{DateTime.Now}] Unhandled exception: {e.Exception}\n\n");
+				logger.Error(e.Exception, "Dispatcher unhandled exception");
 				try {
 					MessageBox.Show(e.Exception.ToString(), "Unhandled exception");
 				}
@@ -168,7 +172,7 @@ namespace StatsDisplay
 			};
 
 			AppDomain.CurrentDomain.UnhandledException += (o, e) => {
-				File.AppendAllText("log.txt", $"[{DateTime.Now}] Critical exception: {e.ExceptionObject}\n\n");
+				logger.Fatal(e.ExceptionObject as Exception, "Domain unhandled exception");
 				try {
 					MessageBox.Show(e.ExceptionObject.ToString(), "Critical exception");
 				}
