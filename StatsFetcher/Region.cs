@@ -8,6 +8,7 @@ namespace StatsFetcher
 		US = 1,
 		EU = 2,
 		KR = 3,
-		CN = 5
+		CN = 5,
+		XX = -1 // PTR
 	}
 }
