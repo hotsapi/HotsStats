@@ -123,6 +123,13 @@ namespace StatsDisplay
 				await FileProcessor.ProcessRejoinAsync(path, App.game);
 				currentWindow?.Close();
 				currentWindow = new FullStatsWindow();
+
+				if (App.Debug) {
+					var path1 = Path.Combine(@"saves", Path.GetRandomFileName());
+					Directory.CreateDirectory(path1);
+					File.Copy(path, path1 + "\\save.StormSave");
+					File.Copy(Path.Combine(Path.GetTempPath(), @"Heroes of the Storm\TempWriteReplayP1\replay.server.battlelobby"), path1 + "\\replay.server.battlelobby");
+				}
 			}
 			catch (Exception ex)
 			{

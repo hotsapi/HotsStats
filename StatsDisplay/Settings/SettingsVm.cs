@@ -148,7 +148,7 @@ namespace StatsDisplay.Settings
 		/// <summary>
 		/// Gets the  hotslogs home url
 		/// </summary>
-		public string LogHotsUri => "http://www.hotslogs.com";
+		public string LogHotsUri => "http://www.hotslogs.com/Default?utm_source=HotsStats&amp;utm_medium=link";
 
 		public bool IsVisible
 		{

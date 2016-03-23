@@ -50,7 +50,7 @@ namespace StatsFetcher
 
 		private async Task FetchBasicProfile(PlayerProfile p)
 		{
-			var url = $"https://www.hotslogs.com/API/Players/{(int)game.Region}/{p.BattleTag.Replace('#', '_')}";
+			var url = $"https://www.hotslogs.com/API/Players/{(int)game.Region}/{p.BattleTag.Replace('#', '_')}?utm_source=HotsStats&utm_medium=api";
 			var str = await web.GetStringAsync(url);
 			if (string.IsNullOrWhiteSpace(str) || str == "null")
 				return;
@@ -69,7 +69,7 @@ namespace StatsFetcher
 		{
 			if (p.HotslogsId == null)
 				return;
-			var url = $"http://www.hotslogs.com/Player/Profile?PlayerID={p.HotslogsId}";
+			var url = $"http://www.hotslogs.com/Player/Profile?PlayerID={p.HotslogsId}&utm_source=HotsStats&utm_medium=api";
 			var str = await web.GetStringAsync(url);
 			try {
 				var doc = new HtmlDocument();
