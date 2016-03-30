@@ -28,7 +28,7 @@ namespace StatsFetcher
 		{
 			var game = new Game();
 			game.Region = ExtractRegion();
-			var tags = ExtractBattleTags();
+			var tags = ExtractBattleTagsNoboundaries();
 			game.Players = tags.Select(tag => new PlayerProfile(game, tag, game.Region)).ToList();
 			for (int i = 0; i < game.Players.Count; i++) {
 				game.Players[i].Team = i >= 5 ? 1 : 0;
@@ -38,7 +38,7 @@ namespace StatsFetcher
 
 		// Since we don't know structure of this file we will search for anything that looks like BattleTag
 		// We know that BattleTags reside at file end after large '0' padding
-		public List<string> ExtractBattleTags()
+		public List<string> ExtractBattleTagsRegex()
 		{
 			var result = new List<string>();
 
@@ -67,6 +67,25 @@ namespace StatsFetcher
 			return result;
 		}
 
+		// Look for '#' symbol with digits on the right and letters to the left, prefixed with string length
+		public List<string> ExtractBattleTagsNoboundaries()
+		{
+			var result = new List<string>();
+
+			var offset = Find(Enumerable.Repeat<byte>(0, 32).ToArray());
+
+			while (true) {
+				offset = Find(new byte[] { (byte)'#' }, offset + 1);
+				if (offset == -1)
+					break;
+				var tag = TryExtractBattleTag(offset);
+				if (tag != null)
+					result.Add(tag);
+			}
+
+			return result;
+		}
+
 		/// <summary>
 		/// Extract region
 		/// </summary>
@@ -83,6 +102,39 @@ namespace StatsFetcher
 					throw new ApplicationException("Can't parse region");
 				return result;
 			}
+		}
+
+		/// <summary>
+		/// Try to extract BattleTag given position of '#' symbol
+		/// </summary>
+		private string TryExtractBattleTag(int offset)
+		{
+			var tag = new List<byte> { data[offset] };
+
+			// look for digits to the right
+			for (int i = 1; i < 10; i++) {
+				var c = data[offset + i];
+				if (char.IsDigit((char)c))
+					tag.Add(c);
+				else
+					break;
+			}
+
+			// 3 digits for tag is too short and 9 is too much
+			if (tag.Count < 5 || tag.Count > 9)
+				return null;
+
+			// look for player name to the right
+			for (int i = 1; i < MaxTagByteLength + 2; i++) {
+				var c = data[offset - i];
+				tag.Insert(0, c);
+				if (!char.IsLetterOrDigit((char)data[offset - i - 1]))
+					break;
+				if (i == MaxTagByteLength) // we exceeded max Name length
+					return null;
+			}
+
+			return Encoding.UTF8.GetString(tag.ToArray());
 		}
 
 		/// <summary>
