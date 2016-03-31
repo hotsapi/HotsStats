@@ -18,6 +18,19 @@ namespace StatsFetcher
 			return game;
 		}
 
+		public static Game ProcessReplayFile(string path, Game game)
+		{
+			var tmpPath = Path.GetTempFileName();
+			File.Copy(path, tmpPath);
+			var replay = DataParser.ParseReplay(tmpPath, true, true).Item2;
+
+			foreach (var profile in game.Players) {
+				var player = replay.Players.Single(p => p.Name == profile.Name);
+				profile.Stats = player.;
+			}
+			return game;
+		}
+
 		public static async Task FetchProfiles(Game game)
 		{
 			var f = new ProfileFetcher(game);

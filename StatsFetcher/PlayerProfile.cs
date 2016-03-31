@@ -42,6 +42,8 @@ namespace StatsFetcher
 		public bool IsMe { get { return Game.Me == this; } }
 		public bool IsMyTeam { get { return (Game.Me?.Team ?? 0) == Team; } }
 
+		public ScoreResult Stats { get; set; }
+
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void TriggerPropertyChanged()
 		{
