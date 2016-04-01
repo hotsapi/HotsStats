@@ -48,7 +48,9 @@ namespace StatsFetcher
 
 			var replay = ParseRejoin(tmpPath);
 			foreach (var profile in game.Players){
-				var player = replay.Players.Single(p => p.Name == profile.Name);
+				var player = replay.Players.FirstOrDefault(p => p.Name == profile.Name);
+				if (player == null)
+					continue;
 				profile.Hero = player.Character;
 				profile.HeroLevel = player.CharacterLevel;
 				//profile.Team = player.Team; // this should fix possible mistakes made by battlelobby analyzer
