@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace StatsFetcher
 {
@@ -43,8 +44,13 @@ namespace StatsFetcher
 
 		public void StartMonitoring(int interval = 1000)
 		{
-			// In out case it's cheaper to poll this file instead of monitoring the whole Temp dir with all subfolders
-			ThreadPool.QueueUserWorkItem(q => {
+			/*
+			TODO : Avoid using the threadpool directly.
+			Instead, for long running operations, it is recommended to use a long running task. This way the task scheduler will 
+			alocate a dedicated thread for it and keep teh threadpool working smoothly
+			*/
+
+			Task.Factory.StartNew(() => {
 				while (true) {
 					if (File.Exists(BattleLobbyPath) && File.GetLastWriteTime(BattleLobbyPath) != lobbyLastModified) {
 						lobbyLastModified = File.GetLastWriteTime(BattleLobbyPath);
@@ -52,7 +58,7 @@ namespace StatsFetcher
 					}
 					Thread.Sleep(interval);
 				}
-			});
+			},TaskCreationOptions.LongRunning);
 
 			rejoinWatcher = new FileSystemWatcher();
 			rejoinWatcher.Path = ProfilePath;

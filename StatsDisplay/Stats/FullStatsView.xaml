@@ -1,0 +1,56 @@
+﻿<stats:HeroesWindow x:Class="StatsDisplay.Stats.FullStatsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:fetcher="clr-namespace:StatsFetcher;assembly=StatsFetcher"
+        xmlns:local="clr-namespace:StatsDisplay"
+        xmlns:helpers="clr-namespace:StatsDisplay.Helpers"
+        xmlns:stats="clr-namespace:StatsDisplay.Stats"
+        mc:Ignorable="d"
+		DataContext="{Binding RelativeSource={RelativeSource Self}}"
+		d:DataContext="{Binding Source={StaticResource DesignViewModel}}"
+		Top="{Binding Settings.FullStatsWindowTop, Mode=TwoWay}" Left="{Binding Settings.FullStatsWindowLeft, Mode=TwoWay}">
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/Styles.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<stats:MockViewModel x:Key="DesignViewModel"/>
+			<helpers:PlayerRowTemplateSelector x:Key="RowTemplateSelector" />
+			<local:HasValueToVisibilityConverter x:Key="hasValueConverter" />
+			<local:MmrValueConverter x:Key="mmrValueConverter" />
+		</ResourceDictionary>
+	</Window.Resources>
+	<StackPanel Margin="40, 50, 40, 40">
+		<StackPanel Orientation="Horizontal" Margin="0, 0, 0, 4" Style="{StaticResource TableHeader}">
+			<Label Content="Player" Margin="26, 0, 0, 0" Width="150" HorizontalContentAlignment="Left" />
+			<Label Content="MMR" Width="80" />
+			<Label Content="Games #" Width="80" />
+			<Label Content="Hero lvl" Width="60" />
+			<Label Content="Hero win%" Width="80" />
+			<Label Content="Map win%" Width="80" />
+			<Label Content="Link" Width="30" Margin="15, 0, 0, 0" />
+		</StackPanel>
+		<StackPanel Orientation="Horizontal">
+			<StackPanel.Resources>
+				<DataTemplate DataType="{x:Type fetcher:PlayerProfile}">
+					<StackPanel Orientation="Horizontal">
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Width="150" Margin="20, 0, 0, 0">
+							<Label Content="{Binding Hero}" Style="{StaticResource RowLargeText}" Margin="0" />
+							<Label Content="{Binding Name}" ContentStringFormat=" ({0})" Margin="0" />
+						</StackPanel>
+						<Label Content="{Binding Ranks, Converter={StaticResource mmrValueConverter}}" Width="80" />
+						<Label Content="{Binding GamesCount}" Width="80" />
+						<Label Content="{Binding HeroLevel}" Width="60" />
+						<Label Content="{Binding HeroWinRate}" ContentStringFormat="{}{0}%" Width="80" />
+						<Label Content="{Binding MapWinRate}" ContentStringFormat="{}{0}%" Width="80" />
+						<Image Source="{DynamicResource PlayerLink}" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center" Margin="20, 4, 10, 0" Tag="{Binding Link}" Visibility="{Binding Link, Converter={StaticResource hasValueConverter}}" MouseDown="Image_MouseDown" />
+					</StackPanel>
+				</DataTemplate>
+			</StackPanel.Resources>
+			<ItemsControl ItemsSource="{Binding game.Players}" ItemTemplateSelector="{StaticResource RowTemplateSelector}" x:Name="playersTable" />
+		</StackPanel>
+	</StackPanel>
+</stats:HeroesWindow>
+
