@@ -19,8 +19,8 @@
 			</ResourceDictionary.MergedDictionaries>
 			<stats:MockViewModel x:Key="DesignViewModel"/>
 			<helpers:PlayerRowTemplateSelector x:Key="RowTemplateSelector" />
-			<local:HasValueToVisibilityConverter x:Key="hasValueConverter" />
-			<local:MmrValueConverter x:Key="mmrValueConverter" />
+			<helpers:HasValueToVisibilityConverter x:Key="hasValueConverter" />
+			<helpers:MmrValueConverter x:Key="mmrValueConverter" />
 		</ResourceDictionary>
 	</Window.Resources>
 	<StackPanel Margin="40, 50, 40, 40">

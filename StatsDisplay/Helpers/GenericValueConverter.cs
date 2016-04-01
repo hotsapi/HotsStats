@@ -7,7 +7,7 @@ using System.Windows.Data;
 using System.Windows.Markup;
 using System.Windows;
 
-namespace StatsDisplay
+namespace StatsDisplay.Helpers
 {
 	public abstract class GenericValueConverter<V, T, P> : MarkupExtension, IValueConverter
 	{

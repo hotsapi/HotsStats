@@ -4,7 +4,7 @@ using System.Linq;
 using Heroes.ReplayParser;
 using StatsFetcher;
 
-namespace StatsDisplay
+namespace StatsDisplay.Helpers
 {
 	// There is no way to use bindings as array indexers in WPF so we have to create a converter
 	public class MmrValueConverter : GenericValueConverter<Dictionary<GameMode, PlayerProfile.MmrValue>, int?>

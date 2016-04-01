@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows;
 
-namespace StatsDisplay
+namespace StatsDisplay.Helpers
 {
 
 	public class HasValueToVisibilityConverter : GenericValueConverter<object, Visibility>

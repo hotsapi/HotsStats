@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Input;
 using System.Windows.Interop;
 
-namespace StatsDisplay
+namespace StatsDisplay.Helpers
 {
 	// Let's do some P/Invoke magic
 	public class HotKey : IDisposable

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using NLog;
 using Squirrel;
+using StatsDisplay.Helpers;
 using StatsDisplay.Stats;
 using StatsFetcher;
 
