@@ -33,8 +33,8 @@
 			<Label Content="Map win%" Width="80" />
 			<Label Content="Link" Width="30" Margin="15, 0, 0, 0" />
 		</StackPanel>
-		<StackPanel Orientation="Horizontal">
-			<StackPanel.Resources>
+		<ItemsControl ItemsSource="{Binding Game.Players}" ItemTemplateSelector="{StaticResource RowTemplateSelector}" x:Name="playersTable">
+			<ItemsControl.Resources>
 				<DataTemplate DataType="{x:Type fetcher:PlayerProfile}">
 					<StackPanel Orientation="Horizontal">
 						<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Width="150" Margin="20, 0, 0, 0">
@@ -49,9 +49,8 @@
 						<Image Source="{DynamicResource PlayerLink}" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center" Margin="20, 4, 10, 0" Tag="{Binding Link}" Visibility="{Binding Link, Converter={StaticResource hasValueConverter}}" MouseDown="Image_MouseDown" />
 					</StackPanel>
 				</DataTemplate>
-			</StackPanel.Resources>
-			<ItemsControl ItemsSource="{Binding Game.Players}" ItemTemplateSelector="{StaticResource RowTemplateSelector}" x:Name="playersTable" />
-		</StackPanel>
+			</ItemsControl.Resources>
+		</ItemsControl>
 	</StackPanel>
 </stats:HeroesWindow>
 

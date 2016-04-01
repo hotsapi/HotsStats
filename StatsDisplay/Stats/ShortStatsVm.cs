@@ -13,12 +13,12 @@ namespace StatsDisplay.Stats
 	{
 		protected Game Game => App.Game;
 		protected Properties.Settings Settings => App.Settings;
-		private string _teamOneAverageMmr;
-		private string _teamTwoAverageMmr;
+		private int? _teamOneAverageMmr;
+		private int? _teamTwoAverageMmr;
 		private TeamVm _teamOne;
 		private TeamVm _teamTwo;
 
-		public string TeamTwoAverageMmr
+		public int? TeamTwoAverageMmr
 		{
 			get { return _teamTwoAverageMmr; }
 			set
@@ -31,7 +31,7 @@ namespace StatsDisplay.Stats
 			}
 		}
 
-		public string TeamOneAverageMmr
+		public int? TeamOneAverageMmr
 		{
 			get { return _teamOneAverageMmr; }
 			set
@@ -101,8 +101,8 @@ namespace StatsDisplay.Stats
 
 			Game.PropertyChanged += (o, e) =>
 			{
-				TeamOneAverageMmr = "Average MMR: " + (int?)TeamOne.AverageMmr(Settings.MmrDisplayMode);
-				TeamTwoAverageMmr = "Average MMR: " + (int?)TeamTwo.AverageMmr(Settings.MmrDisplayMode);			
+				TeamOneAverageMmr = TeamOne.AverageMmr(Settings.MmrDisplayMode);
+				TeamTwoAverageMmr = TeamTwo.AverageMmr(Settings.MmrDisplayMode);			
 			};
 
 			if (Settings.AutoClose)
@@ -140,9 +140,9 @@ namespace StatsDisplay.Stats
 		public string Style { get; set; }
 		public List<PlayerProfile> Members { get; set; }
 
-		public double? AverageMmr(GameMode mmrMode)
+		public int? AverageMmr(GameMode mmrMode)
 		{
-			return Members.Average(p => p.Ranks[mmrMode]?.Mmr);
+			return (int?)Members.Average(p => p.Ranks[mmrMode]?.Mmr);
 		}
 	}
 

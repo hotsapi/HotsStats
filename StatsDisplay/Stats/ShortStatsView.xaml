@@ -52,10 +52,12 @@
 		</StackPanel>
 		<StackPanel Orientation="Horizontal" Margin="0, 8, 0, 0">
 			<DockPanel Style="{Binding TeamOne.TeamType,Converter={StaticResource mmrRowStyleConverer}}" Width="326" Margin="0" LastChildFill="True">
-				<Label Content="{Binding TeamOneAverageMmr}" FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Center" />
+				<Label Content="{Binding TeamOneAverageMmr, StringFormat=Average MMR: {0}}" FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Left" MinWidth="140" DockPanel.Dock="Right" />
+				<Label Content="Average MMR: " FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Right" DockPanel.Dock="Left" />
 			</DockPanel>
 			<DockPanel Style="{Binding TeamTwo.TeamType,Converter={StaticResource mmrRowStyleConverer}}" Width="326" Margin="0" LastChildFill="True">
-				<Label Content="{Binding TeamTwoAverageMmr}" FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Center" />
+				<Label Content="{Binding TeamTwoAverageMmr, StringFormat=Average MMR: {0}}" FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Left" MinWidth="140" DockPanel.Dock="Right" />
+				<Label Content="Average MMR: " FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Right" DockPanel.Dock="Left" />
 			</DockPanel>
 		</StackPanel>
 	</StackPanel>
