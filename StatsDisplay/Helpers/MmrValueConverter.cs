@@ -11,7 +11,7 @@ namespace StatsDisplay
 	{
 		protected override int? Convert(Dictionary<GameMode, PlayerProfile.MmrValue> value)
 		{
-			return value[Properties.Settings.Default.MmrDisplayMode]?.Mmr;
+			return value[App.Settings.MmrDisplayMode]?.Mmr;
 		}
 	}
 }

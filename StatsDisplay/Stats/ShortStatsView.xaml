@@ -1,20 +1,25 @@
-﻿<local:HeroesWindow x:Class="StatsDisplay.ShortStatsWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:StatsDisplay"
+﻿<stats:HeroesWindow 
+		x:Class="StatsDisplay.Stats.ShortStatsWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:StatsDisplay"
 		xmlns:fetcher="clr-namespace:StatsFetcher;assembly=StatsFetcher"
-        mc:Ignorable="d"
-		DataContext="{Binding RelativeSource={RelativeSource Self}}"
+		xmlns:stats="clr-namespace:StatsDisplay.Stats"
+		xmlns:helpers="clr-namespace:StatsDisplay.Helpers"
+		mc:Ignorable="d"
 		d:DataContext="{Binding Source={StaticResource DesignViewModel}}"
 		Top="{Binding Settings.ShortStatsWindowTop, Mode=TwoWay}" Left="{Binding Settings.ShortStatsWindowLeft, Mode=TwoWay}" d:DesignHeight="610.924">
 	<Window.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="Styles.xaml" />
+				<ResourceDictionary Source="/Styles.xaml" />
 			</ResourceDictionary.MergedDictionaries>
-			<local:MockViewModel x:Key="DesignViewModel"/>
+			<helpers:TeamTypeConverter x:Key="heroRowConverter" EnemyTeamStyle="{StaticResource RedRow}" FriendlyTeamStyle="{StaticResource BlueRow}"/>
+			<helpers:TeamTypeConverter x:Key="mmrRowStyleConverer"   EnemyTeamStyle="{StaticResource RedControl}" FriendlyTeamStyle="{StaticResource BlueControl}"   />
+				
+			<stats:MockViewModel x:Key="DesignViewModel"/>
 			<local:HasValueToVisibilityConverter x:Key="hasValueConverter" />
 			<local:MmrValueConverter x:Key="mmrValueConverter" />
 		</ResourceDictionary>
@@ -41,16 +46,17 @@
 					</StackPanel>
 				</DataTemplate>
 			</StackPanel.Resources>
-			<ItemsControl ItemsSource="{Binding game.Players}" ItemTemplate="{StaticResource BlueRow}" x:Name="Team1" />
-			<ItemsControl ItemsSource="{Binding game.Players}" Margin="20, 0, 0, 0" ItemTemplate="{StaticResource RedRow}" x:Name="Team2" />
+			<ItemsControl ItemsSource="{Binding TeamOne.Members}" ItemTemplate="{Binding TeamOne.TeamType,Converter={StaticResource heroRowConverter}}" x:Name="Team1" />
+			<ItemsControl ItemsSource="{Binding TeamTwo.Members}" Margin="20, 0, 0, 0" ItemTemplate="{Binding TeamTwo.TeamType,Converter={StaticResource heroRowConverter}}" x:Name="Team2" />
 		</StackPanel>
 		<StackPanel Orientation="Horizontal" Margin="0, 8, 0, 0">
-			<DockPanel x:Name="mmr1_container" Style="{StaticResource BlueControl}" Width="326" Margin="0" LastChildFill="True">
-				<Label x:Name="mmr1_label" Content="Average MMR: " FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Center" />
+			<DockPanel Style="{Binding TeamOne.TeamType,Converter={StaticResource mmrRowStyleConverer}}" Width="326" Margin="0" LastChildFill="True">
+				<Label Content="{Binding TeamOneAverageMmr}" FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Center" />
 			</DockPanel>
-			<DockPanel x:Name="mmr2_container" Style="{StaticResource RedControl}" Width="326" Margin="0" LastChildFill="True">
-				<Label x:Name="mmr2_label" Content="Average MMR: " FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Center" />
+			<DockPanel Style="{Binding TeamTwo.TeamType,Converter={StaticResource mmrRowStyleConverer}}" Width="326" Margin="0" LastChildFill="True">
+				<Label Content="{Binding TeamTwoAverageMmr}" FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Center" />
 			</DockPanel>
 		</StackPanel>
 	</StackPanel>
-</local:HeroesWindow>
+</stats:HeroesWindow>
+

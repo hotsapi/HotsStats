@@ -1,32 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using StatsFetcher;
-using System.Threading;
-using Heroes.ReplayParser;
 
-
-namespace StatsDisplay
+namespace StatsDisplay.Stats
 {
 	public class HeroesWindow : Window
 	{
-		public Properties.Settings Settings { get { return Properties.Settings.Default; } }
-		public Game game { get; set; }
+		public Properties.Settings Settings { get { return App.Settings; } }
+		public Game Game { get { return App.Game; } }
 
 		public HeroesWindow()
 		{
-			game = App.game;
 			Style = Application.Current.FindResource("HeroesWindow") as Style;
 		}
 

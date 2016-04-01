@@ -15,8 +15,8 @@ namespace StatsDisplay
 	public partial class App : Application
 	{
 		// introduce some spaghetti with static globals
-		public static Game game { get; set; }
-		public Properties.Settings Settings { get { return StatsDisplay.Properties.Settings.Default; } }
+		public static Game Game { get; set; }
+		public static Properties.Settings Settings { get { return StatsDisplay.Properties.Settings.Default; } }
 #if DEBUG
 		public const bool Debug = true;
 #else

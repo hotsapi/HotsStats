@@ -1,10 +1,12 @@
-﻿<local:HeroesWindow x:Class="StatsDisplay.FullStatsWindow"
+﻿<stats:HeroesWindow x:Class="StatsDisplay.Stats.FullStatsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:fetcher="clr-namespace:StatsFetcher;assembly=StatsFetcher"
         xmlns:local="clr-namespace:StatsDisplay"
+        xmlns:helpers="clr-namespace:StatsDisplay.Helpers"
+        xmlns:stats="clr-namespace:StatsDisplay.Stats"
         mc:Ignorable="d"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
 		d:DataContext="{Binding Source={StaticResource DesignViewModel}}"
@@ -12,10 +14,10 @@
 	<Window.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="Styles.xaml" />
+				<ResourceDictionary Source="/Styles.xaml" />
 			</ResourceDictionary.MergedDictionaries>
-			<local:MockViewModel x:Key="DesignViewModel"/>
-			<local:PlayerRowTemplateSelector x:Key="RowTemplateSelector" />
+			<stats:MockViewModel x:Key="DesignViewModel"/>
+			<helpers:PlayerRowTemplateSelector x:Key="RowTemplateSelector" />
 			<local:HasValueToVisibilityConverter x:Key="hasValueConverter" />
 			<local:MmrValueConverter x:Key="mmrValueConverter" />
 		</ResourceDictionary>
@@ -47,7 +49,8 @@
 					</StackPanel>
 				</DataTemplate>
 			</StackPanel.Resources>
-			<ItemsControl ItemsSource="{Binding game.Players}" ItemTemplateSelector="{StaticResource RowTemplateSelector}" x:Name="playersTable" />
+			<ItemsControl ItemsSource="{Binding Game.Players}" ItemTemplateSelector="{StaticResource RowTemplateSelector}" x:Name="playersTable" />
 		</StackPanel>
 	</StackPanel>
-</local:HeroesWindow>
+</stats:HeroesWindow>
+
