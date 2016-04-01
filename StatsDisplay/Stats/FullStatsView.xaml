@@ -8,6 +8,7 @@
         xmlns:helpers="clr-namespace:StatsDisplay.Helpers"
         xmlns:stats="clr-namespace:StatsDisplay.Stats"
         mc:Ignorable="d"
+		Title="HotsStats"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
 		d:DataContext="{Binding Source={StaticResource DesignViewModel}}"
 		Top="{Binding Settings.FullStatsWindowTop, Mode=TwoWay}" Left="{Binding Settings.FullStatsWindowLeft, Mode=TwoWay}">

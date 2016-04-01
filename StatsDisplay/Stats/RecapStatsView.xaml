@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:StatsDisplay"
         xmlns:stats="clr-namespace:StatsDisplay.Stats"
         mc:Ignorable="d"
+		Title="HotsStats"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
 		d:DataContext="{Binding Source={StaticResource DesignViewModel}}"
 		Top="{Binding Settings.RecapStatsWindowTop, Mode=TwoWay}" Left="{Binding Settings.RecapStatsWindowLeft, Mode=TwoWay}">
