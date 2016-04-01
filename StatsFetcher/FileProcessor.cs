@@ -26,7 +26,7 @@ namespace StatsFetcher
 
 			foreach (var profile in game.Players) {
 				var player = replay.Players.Single(p => p.Name == profile.Name);
-				profile.Stats = player.;
+				profile.Stats = player.ScoreResult;
 			}
 			return game;
 		}
