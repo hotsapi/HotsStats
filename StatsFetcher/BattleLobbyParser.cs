@@ -62,6 +62,9 @@ namespace StatsFetcher
 					continue;
 
 				result.Add(s);
+
+				if (result.Count == 10)
+					break; // do not parse observers
 			}
 
 			return result;
@@ -81,6 +84,8 @@ namespace StatsFetcher
 				var tag = TryExtractBattleTag(offset);
 				if (tag != null)
 					result.Add(tag);
+				if (result.Count == 10)
+					break; // do not parse observers
 			}
 
 			return result;
