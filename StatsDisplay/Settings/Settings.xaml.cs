@@ -20,8 +20,7 @@ namespace StatsDisplay.Settings
 
 			Messenger.Default.Register(this, (ShowSettingsWindow _) => Show());
 			Messenger.Default.Register(this, (HideSettingsWindow _) => Hide());
-
-			Closed += (_, __) => _viewModel.OnShutdown();
+			
 			Loaded += (_, __) => _viewModel.OnActivated();
 
 			if (App.Settings.SettingsWindowTop <= 0) {

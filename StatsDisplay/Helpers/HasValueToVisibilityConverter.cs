@@ -5,7 +5,7 @@ using System.Windows;
 namespace StatsDisplay
 {
 
-	public class HasValueToVisibilityConverter:GenericValueConverter<object, Visibility>
+	public class HasValueToVisibilityConverter : GenericValueConverter<object, Visibility>
 	{
 		protected override Visibility Convert(object value)
 		{

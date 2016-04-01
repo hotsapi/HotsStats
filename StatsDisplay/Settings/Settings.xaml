@@ -9,6 +9,10 @@
 		Height="auto" Width="270" SizeToContent="Height"
 		ResizeMode="CanMinimize" StateChanged="Window_StateChanged"
 		Top="{Binding Settings.SettingsWindowTop, Mode=TwoWay}" Left="{Binding Settings.SettingsWindowLeft, Mode=TwoWay}">
+
+	<Window.Resources>
+		<BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+	</Window.Resources>
 	
 	<Grid>
 		<StackPanel Margin="20, 16, 20, 20">
@@ -31,7 +35,7 @@
 			<TextBlock TextWrapping="Wrap" Margin="0, 8, 0, 0" Foreground="DimGray" FontSize="10">
 				Data is provided by <Hyperlink NavigateUri="{Binding HostLogUri}" Command="{Binding NavigateToHotsLogs}" >HotsLogs.com</Hyperlink>
 			</TextBlock>
-			<StackPanel Orientation="Horizontal" Margin="0, 8, 0, 0" Visibility="Collapsed">
+			<StackPanel Orientation="Horizontal" Margin="0, 8, 0, 0" Visibility="{Binding IsTestButtonVisible, Converter={StaticResource booleanToVisibilityConverter}}">
 				<Button Content="Test 1" Command="{Binding Test1}" Padding="8, 0" Margin="0, 0, 8, 0" />
 				<Button Content="Test 2" Command="{Binding Test2}" Padding="8, 0" />
 			</StackPanel>

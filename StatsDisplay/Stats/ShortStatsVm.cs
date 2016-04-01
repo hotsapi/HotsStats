@@ -11,8 +11,8 @@ namespace StatsDisplay.Stats
 {
 	public class ShortStatsVm : ViewModelBase
 	{
-		protected Game Game { get { return App.Game; } }
-		protected Properties.Settings Settings { get { return App.Settings; } }
+		protected Game Game => App.Game;
+		protected Properties.Settings Settings => App.Settings;
 		private string _teamOneAverageMmr;
 		private string _teamTwoAverageMmr;
 		private TeamVm _teamOne;

@@ -7,8 +7,8 @@ namespace StatsDisplay.Stats
 {
 	public class HeroesWindow : Window
 	{
-		public Properties.Settings Settings { get { return App.Settings; } }
-		public Game Game { get { return App.Game; } }
+		public Properties.Settings Settings => App.Settings;
+		public Game Game => App.Game;
 
 		public HeroesWindow()
 		{
