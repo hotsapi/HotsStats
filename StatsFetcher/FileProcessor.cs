@@ -126,7 +126,7 @@ namespace StatsFetcher
 				if (p.HotsLogsProfile == null)
 					continue;
 				// who wants to look at some dirty html parsing?
-				try {					
+				try {
 					p.MapWinRate = float.Parse(p.HotsLogsProfile.GetElementbyId("mapStatistics").SelectSingleNode($".//tr/td[text()='{game.Map}']").SelectSingleNode("./../td[last()]").InnerText.Replace("%", ""), CultureInfo.InvariantCulture);
 				}
 				catch { }
