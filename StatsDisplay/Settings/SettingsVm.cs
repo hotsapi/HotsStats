@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -15,12 +11,8 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using Heroes.ReplayParser;
 using NLog;
-using Squirrel;
 using StatsDisplay.Settings.Messages;
-using StatsDisplay.Stats;
-using StatsFetcher;
 using Application = System.Windows.Application;
-using MessageBox = System.Windows.MessageBox;
 
 namespace StatsDisplay.Settings
 {
@@ -40,7 +32,7 @@ namespace StatsDisplay.Settings
 		public ICommand Test1 { get; set; }
 		public ICommand Test2 { get; set; }
 
-		public String Title { get; private set; }
+		public string Title { get; private set; }
 		public string LogHotsUri => "http://www.hotslogs.com/Default?utm_source=HotsStats&amp;utm_medium=link";
 		public bool IsTestButtonVisible => App.Debug;
 

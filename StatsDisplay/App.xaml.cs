@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using NLog;
 using Squirrel;
-using StatsFetcher;
 using StatsDisplay.Stats;
-using System.Windows.Input;
+using StatsFetcher;
 
 namespace StatsDisplay
 {
@@ -20,14 +16,15 @@ namespace StatsDisplay
 	/// </summary>
 	public partial class App : Application
 	{
-		// introduce some spaghetti with static globals
-		public static Game Game { get; set; }
-		public static Properties.Settings Settings { get { return StatsDisplay.Properties.Settings.Default; } }
 #if DEBUG
 		public const bool Debug = true;
 #else
 		public const bool Debug = false;
 #endif
+
+		// introduce some spaghetti with static globals
+		public static Game Game { get; set; }
+		public static Properties.Settings Settings { get { return StatsDisplay.Properties.Settings.Default; } }
 		private static Logger _logger = LogManager.GetCurrentClassLogger();
 		private IUpdateManager _updateManager;
 		private static HotKey _hotKey;
@@ -46,7 +43,7 @@ namespace StatsDisplay
 				Settings.Save();
 			}
 
-			if (!App.Debug && Settings.AutoUpdate) {
+			if (!Debug && Settings.AutoUpdate) {
 				CheckForUpdates();
 			}
 
@@ -90,11 +87,11 @@ namespace StatsDisplay
 				return;
 
 			//TODO: remove global state
-			App.Game = FileProcessor.ProcessLobbyFile(path);
-			App.Game.Me = App.Game.Players.FirstOrDefault(p => p.BattleTag == Settings.BattleTag || p.Name == Settings.BattleTag);
+			Game = FileProcessor.ProcessLobbyFile(path);
+			Game.Me = Game.Players.FirstOrDefault(p => p.BattleTag == Settings.BattleTag || p.Name == Settings.BattleTag);
 
 			_currentWindow?.Close();
-			_currentWindow = new Stats.ShortStatsWindow();
+			_currentWindow = new ShortStatsWindow();
 			if (Settings.AutoShow)
 				_currentWindow.Show();
 		}
@@ -102,11 +99,11 @@ namespace StatsDisplay
 		internal async void ProcessRejoinFile(string path)
 		{
 			try {
-				await FileProcessor.ProcessRejoinAsync(path, App.Game);
+				await FileProcessor.ProcessRejoinAsync(path, Game);
 				_currentWindow?.Close();
 				_currentWindow = new FullStatsWindow();
 
-				if (App.Debug) {
+				if (Debug) {
 					try {
 						var path1 = Path.Combine(@"saves", Path.GetRandomFileName());
 						Directory.CreateDirectory(path1);
@@ -124,7 +121,7 @@ namespace StatsDisplay
 
 		internal void ProcessReplayFile(string path)
 		{
-			// not implemented
+			FileProcessor.ProcessReplayFile(path, Game);
 		}
 
 		private async void CheckForUpdates()
@@ -152,7 +149,7 @@ namespace StatsDisplay
 
 		private void SetExceptionHandlers()
 		{
-			Application.Current.DispatcherUnhandledException += (o, e) => {
+			DispatcherUnhandledException += (o, e) => {
 				_logger.Error(e.Exception, "Dispatcher unhandled exception");
 				try {
 					MessageBox.Show(e.Exception.ToString(), "Unhandled exception");
