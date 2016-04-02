@@ -41,8 +41,8 @@
 				<DataTemplate DataType="{x:Type fetcher:PlayerProfile}">
 					<StackPanel Orientation="Horizontal">
 						<Label Content="{Binding Name}" Style="{StaticResource RowLargeText}" Width="100" />
-						<Label Content="{Binding Ranks, Converter={StaticResource mmrValueConverter}}" Width="80" />
-						<Label Content="{Binding GamesCount}" Width="80" />
+						<Label Content="{Binding Ranks, Converter={StaticResource mmrValueConverter}}" ContentStringFormat="{}{0:N0}"  Width="80" />
+						<Label Content="{Binding GamesCount}" ContentStringFormat="{}{0:N0}" Width="80" />
 						<Image Source="{DynamicResource PlayerLink}" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center" Margin="0, 4, 10, 0" Visibility="{Binding Link, Converter={StaticResource hasValueConverter}}" Tag="{Binding Link}" MouseDown="Image_MouseDown" />
 					</StackPanel>
 				</DataTemplate>
@@ -51,13 +51,11 @@
 			<ItemsControl ItemsSource="{Binding TeamTwo.Members}" Margin="20, 0, 0, 0" ItemTemplate="{Binding TeamTwo.TeamType,Converter={StaticResource heroRowConverter}}" x:Name="Team2" />
 		</StackPanel>
 		<StackPanel Orientation="Horizontal" Margin="0, 8, 0, 0">
-			<DockPanel Style="{Binding TeamOne.TeamType,Converter={StaticResource mmrRowStyleConverer}}" Width="326" Margin="0" LastChildFill="True">
-				<Label Content="{Binding TeamOneAverageMmr, StringFormat=Average MMR: {0}}" FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Left" MinWidth="140" DockPanel.Dock="Right" />
-				<Label Content="Average MMR: " FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Right" DockPanel.Dock="Left" />
+			<DockPanel Style="{Binding TeamOne.TeamType, Converter={StaticResource mmrRowStyleConverer}}" Width="326" Margin="0" LastChildFill="True">
+				<Label Content="{Binding TeamOneAverageMmr, TargetNullValue={}}" ContentStringFormat="Average MMR: {0:N0}" FontSize="16" Style="{StaticResource RowLargeText}" Margin="80, 0, 0, 0" HorizontalContentAlignment="Left" />
 			</DockPanel>
-			<DockPanel Style="{Binding TeamTwo.TeamType,Converter={StaticResource mmrRowStyleConverer}}" Width="326" Margin="0" LastChildFill="True">
-				<Label Content="{Binding TeamTwoAverageMmr, StringFormat=Average MMR: {0}}" FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Left" MinWidth="140" DockPanel.Dock="Right" />
-				<Label Content="Average MMR: " FontSize="16" Style="{StaticResource RowLargeText}" Margin="0" HorizontalContentAlignment="Right" DockPanel.Dock="Left" />
+			<DockPanel Style="{Binding TeamTwo.TeamType, Converter={StaticResource mmrRowStyleConverer}}" Width="326" Margin="0" LastChildFill="True">
+				<Label Content="{Binding TeamTwoAverageMmr, TargetNullValue={}}" ContentStringFormat="Average MMR: {0:N0}" FontSize="16" Style="{StaticResource RowLargeText}" Margin="80, 0, 0, 0" HorizontalContentAlignment="Left" />
 			</DockPanel>
 		</StackPanel>
 	</StackPanel>
