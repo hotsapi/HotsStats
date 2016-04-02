@@ -87,6 +87,20 @@
 		</Style.Resources>
 	</Style>
 	
+	<Style x:Key="TableHeaderVertical">
+		<Style.Resources>
+			<Style TargetType="Label">
+				<Setter Property="Padding" Value="0" />
+				<Setter Property="FontSize" Value="12" />
+				<Setter Property="FontWeight" Value="Bold" />
+				<Setter Property="VerticalAlignment" Value="Center" />
+				<Setter Property="HorizontalContentAlignment" Value="Left" />
+				<Setter Property="Foreground" Value="{StaticResource TableHeaderBrush}" />
+				<Setter Property="Effect" Value="{StaticResource ResourceKey=TextShadow}" />
+			</Style>
+		</Style.Resources>
+	</Style>
+	
 	<DataTemplate DataType="{x:Type fetcher:PlayerProfile}" x:Key="RowTemplate">
 		<StackPanel Orientation="Horizontal">
 			<Border BorderThickness="3, 0, 0, 0" CornerRadius="3" Margin="0, 1, 3, 1">

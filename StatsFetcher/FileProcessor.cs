@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using System.IO;
 using Heroes.ReplayParser;
 using Foole.Mpq;
+using NLog;
 
 namespace StatsFetcher
 {
 	public static class FileProcessor
 	{
+		private static Logger _logger = LogManager.GetCurrentClassLogger();
+
 		public static Game ProcessLobbyFile(string path)
 		{
 			var game = new BattleLobbyParser(path).Parse();
@@ -18,17 +21,21 @@ namespace StatsFetcher
 			return game;
 		}
 
-		public static Game ProcessReplayFile(string path, Game game)
+		public static async Task ProcessReplayFile(string path, Game game)
 		{
 			var tmpPath = Path.GetTempFileName();
-			File.Copy(path, tmpPath);
+			// todo: we need a way to detect when HotS finished writing this file
+			// For now we will just wait 1 sec and hope it is enough
+			await Task.Delay(1000);
+			File.Copy(path, tmpPath, true);
 			var replay = DataParser.ParseReplay(tmpPath, true, true).Item2;
 
 			foreach (var profile in game.Players) {
-				var player = replay.Players.Single(p => p.Name == profile.Name);
+				var player = replay.Players.FirstOrDefault(p => p.Name == profile.Name);
+				if (player == null)
+					continue;
 				profile.Stats = player.ScoreResult;
 			}
-			return game;
 		}
 
 		public static async Task FetchProfiles(Game game)
@@ -61,7 +68,7 @@ namespace StatsFetcher
 		}
 
 
-		private static async Task SafeCopy(string source, string dest , bool overwrite)
+		private static async Task SafeCopy(string source, string dest, bool overwrite)
 		{
 			var watchdog = 10;
 			var retry = false;

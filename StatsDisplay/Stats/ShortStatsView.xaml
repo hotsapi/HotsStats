@@ -10,7 +10,7 @@
 		xmlns:helpers="clr-namespace:StatsDisplay.Helpers"
 		mc:Ignorable="d"
 		Title="HotsStats"
-		d:DataContext="{Binding Source={StaticResource DesignViewModel}}"
+		d:DataContext="{Binding Source={d:DesignInstance Type=stats:MockViewModel, IsDesignTimeCreatable=True}}"
 		Top="{Binding Settings.ShortStatsWindowTop, Mode=TwoWay}" Left="{Binding Settings.ShortStatsWindowLeft, Mode=TwoWay}" d:DesignHeight="610.924">
 	<Window.Resources>
 		<ResourceDictionary>

@@ -31,6 +31,7 @@ namespace StatsDisplay.Settings
 		public ICommand NavigateToHotsLogs { get; set; }
 		public ICommand Test1 { get; set; }
 		public ICommand Test2 { get; set; }
+		public ICommand Test3 { get; set; }
 
 		public string Title { get; private set; }
 		public string LogHotsUri => "http://www.hotslogs.com/Default?utm_source=HotsStats&amp;utm_medium=link";
@@ -68,6 +69,7 @@ namespace StatsDisplay.Settings
 			NavigateToHotsLogs = new RelayCommand(() => OnNavigate(LogHotsUri));
 			Test1 = new RelayCommand(() => OnTest1());
 			Test2 = new RelayCommand(() => OnTest2());
+			Test3 = new RelayCommand(() => OnTest3());
 		}
 
 		private void OnNavigate(string uri)
@@ -84,7 +86,12 @@ namespace StatsDisplay.Settings
 		{
 			(Application.Current as App).ProcessRejoinFile(@"save.StormSave");
 		}
-		
+
+		private void OnTest3()
+		{
+			(Application.Current as App).ProcessReplayFile(@"replay.StormReplay");
+		}
+
 		public void OnActivated()
 		{
 			SetupTrayIcon();

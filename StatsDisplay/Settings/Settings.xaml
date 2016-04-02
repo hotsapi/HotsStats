@@ -37,7 +37,8 @@
 			</TextBlock>
 			<StackPanel Orientation="Horizontal" Margin="0, 8, 0, 0" Visibility="{Binding IsTestButtonVisible, Converter={StaticResource booleanToVisibilityConverter}}">
 				<Button Content="Test 1" Command="{Binding Test1}" Padding="8, 0" Margin="0, 0, 8, 0" />
-				<Button Content="Test 2" Command="{Binding Test2}" Padding="8, 0" />
+				<Button Content="Test 2" Command="{Binding Test2}" Padding="8, 0" Margin="0, 0, 8, 0" />
+				<Button Content="Test 3" Command="{Binding Test3}" Padding="8, 0" />
 			</StackPanel>
 		</StackPanel>
 	</Grid>

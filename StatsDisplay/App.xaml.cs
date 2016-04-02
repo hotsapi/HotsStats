@@ -124,9 +124,13 @@ namespace StatsDisplay
 
 		}
 
-		internal void ProcessReplayFile(string path)
+		internal async void ProcessReplayFile(string path)
 		{
-			FileProcessor.ProcessReplayFile(path, Game);
+			await FileProcessor.ProcessReplayFile(path, Game);
+			_currentWindow?.Close();
+			_currentWindow = new RecapStatsWindow();
+			if (Settings.AutoShow)
+				_currentWindow.Show();
 		}
 
 		private async void CheckForUpdates()
@@ -145,7 +149,7 @@ namespace StatsDisplay
 		}
 
 		/// <summary>
-		/// Curry function to allow execution of an action on the main thread using the synchronizatio context
+		/// Curry function to allow execution of an action on the main thread using the synchronization context
 		/// </summary>
 		/// <param name="action"></param>
 		private void RunOnMainThread(Action action)
