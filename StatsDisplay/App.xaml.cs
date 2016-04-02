@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using NLog;
 using Squirrel;
 using StatsDisplay.Helpers;
@@ -26,6 +27,7 @@ namespace StatsDisplay
 		// introduce some spaghetti with static globals
 		public static Game Game { get; set; }
 		public static Properties.Settings Settings { get { return StatsDisplay.Properties.Settings.Default; } }
+
 		private static Logger _logger = LogManager.GetCurrentClassLogger();
 		private IUpdateManager _updateManager;
 		private static HotKey _hotKey;
@@ -44,9 +46,11 @@ namespace StatsDisplay
 				Settings.Save();
 			}
 
-			if (!Debug && Settings.AutoUpdate) {
-				CheckForUpdates();
-			}
+			new DispatcherTimer() {
+				Interval = TimeSpan.FromHours(1),
+				IsEnabled = true
+			}.Tick += (_, __) => CheckForUpdates();
+			CheckForUpdates();
 
 			SetupFileMonitor();
 			SetupHotkeys();
@@ -127,14 +131,15 @@ namespace StatsDisplay
 
 		private async void CheckForUpdates()
 		{
+			if (Debug || !Settings.AutoUpdate)
+				return;
+
 			try {
-				using (var mgr = await UpdateManager.GitHubUpdateManager(Settings.UpdateRepository)) {
-					// for some reason "using" do not correctly dispose update manager if app exits before release check finishes (1-2 sec after starting)
-					// which causes AbandonedMutexException at app exit
-					// promoting it to private field and ensuring that dispose is called on app close seems to fix the problem
-					_updateManager = mgr;
-					var release = await mgr.UpdateApp();
+				if (_updateManager == null) {
+					_updateManager = await UpdateManager.GitHubUpdateManager(Settings.UpdateRepository);
 				}
+
+				var release = await _updateManager.UpdateApp();
 			}
 			catch { /* quietly eat some errors */ }
 		}
