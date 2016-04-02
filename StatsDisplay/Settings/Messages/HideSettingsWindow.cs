@@ -1,6 +1,6 @@
 ﻿namespace StatsDisplay.Settings.Messages
 {
-	class HideSettingsWindow
-	{
-	}
+    class HideSettingsWindow
+    {
+    }
 }

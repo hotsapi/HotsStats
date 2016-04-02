@@ -3,95 +3,95 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:fetcher="clr-namespace:StatsFetcher;assembly=StatsFetcher"
+        xmlns:fetcher="clr-namespace:StatsFetcher;assembly=StatsFetcher"
         xmlns:local="clr-namespace:StatsDisplay"
         xmlns:stats="clr-namespace:StatsDisplay.Stats"
         mc:Ignorable="d"
-		Title="HotsStats"
-		d:DataContext="{Binding Source={d:DesignInstance Type=stats:MockViewModel, IsDesignTimeCreatable=True}}"
-		DataContext="{Binding RelativeSource={RelativeSource Self}}" Top="{Binding Settings.RecapStatsWindowTop, Mode=TwoWay}" Left="{Binding Settings.RecapStatsWindowLeft, Mode=TwoWay}">
-	<Window.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Styles.xaml" />
-			</ResourceDictionary.MergedDictionaries>
-		</ResourceDictionary>
-	</Window.Resources>
-	<StackPanel Margin="40, 50, 40, 40" Orientation="Horizontal">
-		<StackPanel Orientation="Vertical" Width="160" Style="{StaticResource TableHeaderVertical}">
-			<Label Content="Hero" />
-			<Label Content="Player" />
-			<Label Content="" />
-			<Label Content="Takedowns" />
-			<Label Content="Kills" />
-			<Label Content="Assists" />
-			<Label Content="Deaths" />
-			<Label Content="" />
-			<Label Content="Hero damage" />
-			<Label Content="Siege damage" />
-			<Label Content="Structure damage" />
-			<Label Content="Minion damage" />
-			<Label Content="Creep damage" />
-			<Label Content="Summon damage" />
-			<Label Content="" />
-			<Label Content="Healing" />
-			<Label Content="Self healing" />
-			<Label Content="Damage taken" />
-			<Label Content="" />
-			<Label Content="Time CCd enemy heroes" />
-			<Label Content="Time spent dead" />
-			<Label Content="" />
-			<Label Content="Experience contribution" />
-			<Label Content="Town kills" />
-			<Label Content="Merc camp captures" />
-			<Label Content="Watch Tower captures" />
-		</StackPanel>
-		<ItemsControl ItemsSource="{Binding Game.Players}" Style="{StaticResource TableHeader}">
-			<ItemsControl.ItemsPanel>
-				<ItemsPanelTemplate>
-					<StackPanel Orientation="Horizontal"/>
-				</ItemsPanelTemplate>
-			</ItemsControl.ItemsPanel>
-			<ItemsControl.Resources>
-				<DataTemplate DataType="{x:Type fetcher:PlayerProfile}">
-					<StackPanel Orientation="Vertical" Width="120">
-						<!-- TargetNullValue is used to prevent lavel from collapsing when content is null -->
-						<StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-							<Label Content="{Binding Hero, TargetNullValue={}}" />
-							<Label Content="{Binding Name, TargetNullValue={}}" />
-						</StackPanel>
-						<Label Content="" />
-						<Label Content="{Binding Stats.Takedowns, TargetNullValue={}}" />
-						<Label Content="{Binding Stats.SoloKills, TargetNullValue={}}" />
-						<Label Content="{Binding Stats.Assists, TargetNullValue={}}" />
-						<Label Content="{Binding Stats.Deaths, TargetNullValue={}}" />
-						<Label Content="" />
-						
-						<Label Content="{Binding Stats.HeroDamage, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
-						<Label Content="{Binding Stats.SiegeDamage, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
-						<Label Content="{Binding Stats.StructureDamage, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
-						<Label Content="{Binding Stats.MinionDamage, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
-						<Label Content="{Binding Stats.CreepDamage, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
-						<Label Content="{Binding Stats.SummonDamage, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
-						<Label Content="" />
-						
-						<Label Content="{Binding Stats.Healing, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
-						<Label Content="{Binding Stats.SelfHealing, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
-						<Label Content="{Binding Stats.DamageTaken, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
-						<Label Content="" />
-						
-						<Label Content="{Binding Stats.TimeCCdEnemyHeroes, TargetNullValue={}}" ContentStringFormat="{}{0:m\:ss}" />
-						<Label Content="{Binding Stats.TimeSpentDead, TargetNullValue={}}" ContentStringFormat="{}{0:m\:ss}" />
-						<Label Content="" />
-						
-						<Label Content="{Binding Stats.ExperienceContribution, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
-						<Label Content="{Binding Stats.TownKills, TargetNullValue={}}" />
-						<Label Content="{Binding Stats.MercCampCaptures, TargetNullValue={}}" />
-						<Label Content="{Binding Stats.WatchTowerCaptures, TargetNullValue={}}" />
-					</StackPanel>
-				</DataTemplate>
-			</ItemsControl.Resources>
-		</ItemsControl>
-	</StackPanel>
+        Title="HotsStats"
+        d:DataContext="{Binding Source={d:DesignInstance Type=stats:MockViewModel, IsDesignTimeCreatable=True}}"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" Top="{Binding Settings.RecapStatsWindowTop, Mode=TwoWay}" Left="{Binding Settings.RecapStatsWindowLeft, Mode=TwoWay}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <StackPanel Margin="40, 50, 40, 40" Orientation="Horizontal">
+        <StackPanel Orientation="Vertical" Width="160" Style="{StaticResource TableHeaderVertical}">
+            <Label Content="Hero" />
+            <Label Content="Player" />
+            <Label Content="" />
+            <Label Content="Takedowns" />
+            <Label Content="Kills" />
+            <Label Content="Assists" />
+            <Label Content="Deaths" />
+            <Label Content="" />
+            <Label Content="Hero damage" />
+            <Label Content="Siege damage" />
+            <Label Content="Structure damage" />
+            <Label Content="Minion damage" />
+            <Label Content="Creep damage" />
+            <Label Content="Summon damage" />
+            <Label Content="" />
+            <Label Content="Healing" />
+            <Label Content="Self healing" />
+            <Label Content="Damage taken" />
+            <Label Content="" />
+            <Label Content="Time CCd enemy heroes" />
+            <Label Content="Time spent dead" />
+            <Label Content="" />
+            <Label Content="Experience contribution" />
+            <Label Content="Town kills" />
+            <Label Content="Merc camp captures" />
+            <Label Content="Watch Tower captures" />
+        </StackPanel>
+        <ItemsControl ItemsSource="{Binding Game.Players}" Style="{StaticResource TableHeader}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.Resources>
+                <DataTemplate DataType="{x:Type fetcher:PlayerProfile}">
+                    <StackPanel Orientation="Vertical" Width="120">
+                        <!-- TargetNullValue is used to prevent lavel from collapsing when content is null -->
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                            <Label Content="{Binding Hero, TargetNullValue={}}" />
+                            <Label Content="{Binding Name, TargetNullValue={}}" />
+                        </StackPanel>
+                        <Label Content="" />
+                        <Label Content="{Binding Stats.Takedowns, TargetNullValue={}}" />
+                        <Label Content="{Binding Stats.SoloKills, TargetNullValue={}}" />
+                        <Label Content="{Binding Stats.Assists, TargetNullValue={}}" />
+                        <Label Content="{Binding Stats.Deaths, TargetNullValue={}}" />
+                        <Label Content="" />
+                        
+                        <Label Content="{Binding Stats.HeroDamage, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
+                        <Label Content="{Binding Stats.SiegeDamage, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
+                        <Label Content="{Binding Stats.StructureDamage, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
+                        <Label Content="{Binding Stats.MinionDamage, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
+                        <Label Content="{Binding Stats.CreepDamage, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
+                        <Label Content="{Binding Stats.SummonDamage, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
+                        <Label Content="" />
+                        
+                        <Label Content="{Binding Stats.Healing, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
+                        <Label Content="{Binding Stats.SelfHealing, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
+                        <Label Content="{Binding Stats.DamageTaken, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
+                        <Label Content="" />
+                        
+                        <Label Content="{Binding Stats.TimeCCdEnemyHeroes, TargetNullValue={}}" ContentStringFormat="{}{0:m\:ss}" />
+                        <Label Content="{Binding Stats.TimeSpentDead, TargetNullValue={}}" ContentStringFormat="{}{0:m\:ss}" />
+                        <Label Content="" />
+                        
+                        <Label Content="{Binding Stats.ExperienceContribution, TargetNullValue={}}" ContentStringFormat="{}{0:N0}" />
+                        <Label Content="{Binding Stats.TownKills, TargetNullValue={}}" />
+                        <Label Content="{Binding Stats.MercCampCaptures, TargetNullValue={}}" />
+                        <Label Content="{Binding Stats.WatchTowerCaptures, TargetNullValue={}}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.Resources>
+        </ItemsControl>
+    </StackPanel>
 </stats:HeroesWindow>
 

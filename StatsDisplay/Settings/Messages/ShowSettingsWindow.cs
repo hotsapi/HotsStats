@@ -1,6 +1,6 @@
 ﻿namespace StatsDisplay.Settings.Messages
 {
-	public class ShowSettingsWindow
-	{
-	}
+    public class ShowSettingsWindow
+    {
+    }
 }

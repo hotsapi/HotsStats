@@ -1,6 +1,6 @@
 ﻿namespace StatsDisplay.Stats.Messages
 {
-	class HideShortStats
-	{
-	}
+    class HideShortStats
+    {
+    }
 }
