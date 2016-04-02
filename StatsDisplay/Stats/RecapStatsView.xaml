@@ -20,7 +20,7 @@
 	<StackPanel Margin="40, 50, 40, 40" Orientation="Horizontal">
 		<StackPanel Orientation="Vertical" Width="160" Style="{StaticResource TableHeaderVertical}">
 			<Label Content="Hero" />
-			<Label Content="Palyer" />
+			<Label Content="Player" />
 			<Label Content="" />
 			<Label Content="Takedowns" />
 			<Label Content="Kills" />
