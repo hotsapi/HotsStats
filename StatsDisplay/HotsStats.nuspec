@@ -11,6 +11,7 @@
     <dependencies />
   </metadata>
   <files>
-    <file src="*.*" target="lib\net45\" exclude="*.nupkg;*.vshost.*"/>
+    <file src="*.*" target="lib\net45\" exclude="*.nupkg;*.vshost.*;*.xml;*.pdb" />
+		<file src="HotsStats.pdb;StatsFetcher.pdb;Heroes.ReplayParser.pdb" target="lib\net45\" />
   </files>
 </package>
