@@ -83,13 +83,11 @@ namespace StatsDisplay.Stats
             // time for some quick ugly hacks
             var teamOneMmebers = Game.Players.Where(p => p.Team == 0).ToList();
             var teamTwoMembers = Game.Players.Where(p => p.Team == 1).ToList();
-            if (teamOneMmebers.Contains(me))
-            {
+            if (teamOneMmebers.Contains(me)) {
                 teamOneMmebers.Remove(me);
                 teamOneMmebers.Insert(0, me);
             }
-            else
-            {
+            if (teamTwoMembers.Contains(me)) {
                 teamTwoMembers.Remove(me);
                 teamTwoMembers.Insert(0, me);
             }
