@@ -50,11 +50,11 @@ namespace StatsFetcher
 
         private async Task FetchBasicProfile(PlayerProfile p)
         {
-            var url = $"https://www.hotslogs.com/API/Players/{(int)game.Region}/{p.BattleTag.Replace('#', '_')}?utm_source=HotsStats&utm_medium=api";
-            var str = await web.GetStringAsync(url);
-            if (string.IsNullOrWhiteSpace(str) || str == "null")
-                return;
             try {
+                var url = $"https://www.hotslogs.com/API/Players/{(int)game.Region}/{p.BattleTag.Replace('#', '_')}?utm_source=HotsStats&utm_medium=api";
+                var str = await web.GetStringAsync(url);
+                if (string.IsNullOrWhiteSpace(str) || str == "null")
+                    return;
                 dynamic json = JObject.Parse(str);
                 p.HotslogsId = json.PlayerID;
                 foreach (var r in json.LeaderboardRankings) {
