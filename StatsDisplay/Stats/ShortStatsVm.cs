@@ -23,8 +23,7 @@ namespace StatsDisplay.Stats
             get { return _teamTwoAverageMmr; }
             set
             {
-                if (_teamTwoAverageMmr != value)
-                {
+                if (_teamTwoAverageMmr != value) {
                     _teamTwoAverageMmr = value;
                     RaisePropertyChanged();
                 }
@@ -36,8 +35,7 @@ namespace StatsDisplay.Stats
             get { return _teamOneAverageMmr; }
             set
             {
-                if (_teamOneAverageMmr != value)
-                {
+                if (_teamOneAverageMmr != value) {
                     _teamOneAverageMmr = value;
                     RaisePropertyChanged();
                 }
@@ -49,8 +47,7 @@ namespace StatsDisplay.Stats
             get { return _teamOne; }
             set
             {
-                if (_teamOne != value)
-                {
+                if (_teamOne != value) {
                     _teamOne = value;
                     RaisePropertyChanged();
                 }
@@ -62,8 +59,7 @@ namespace StatsDisplay.Stats
             get { return _teamTwo; }
             set
             {
-                if (_teamTwo != value)
-                {
+                if (_teamTwo != value) {
                     _teamTwo = value;
                     RaisePropertyChanged();
                 }
@@ -72,7 +68,7 @@ namespace StatsDisplay.Stats
 
         public ShortStatsVm()
         {
-            
+
         }
 
         public async void OnActivated()
@@ -97,19 +93,16 @@ namespace StatsDisplay.Stats
             TeamOne.TeamType = myTeam == 0 ? TeamTypes.Friendly : TeamTypes.Enemy;
             TeamTwo.TeamType = myTeam == 1 ? TeamTypes.Friendly : TeamTypes.Enemy;
 
-            Game.PropertyChanged += (o, e) =>
-            {
+            Game.PropertyChanged += (o, e) => {
                 TeamOneAverageMmr = TeamOne.AverageMmr(Settings.MmrDisplayMode);
-                TeamTwoAverageMmr = TeamTwo.AverageMmr(Settings.MmrDisplayMode);            
+                TeamTwoAverageMmr = TeamTwo.AverageMmr(Settings.MmrDisplayMode);
             };
 
-            if (Settings.AutoClose)
-            {
+            if (Settings.AutoClose) {
                 await Task.Delay(10000);
                 Messenger.Default.Send(new HideShortStats());
             }
         }
-
     }
 
     public class TeamVm : ViewModelBase
