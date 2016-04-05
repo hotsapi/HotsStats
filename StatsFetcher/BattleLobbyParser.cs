@@ -114,32 +114,39 @@ namespace StatsFetcher
         /// </summary>
         private string TryExtractBattleTag(int offset)
         {
-            var tag = new List<byte> { data[offset] };
+            string tag = "#";
 
             // look for digits to the right
             for (int i = 1; i < 10; i++) {
-                var c = data[offset + i];
-                if (char.IsDigit((char)c))
-                    tag.Add(c);
+                var c = (char)data[offset + i];
+                if (char.IsDigit(c))
+                    tag += c;
                 else
                     break;
             }
 
             // 3 digits for tag is too short and 9 is too much
-            if (tag.Count < 5 || tag.Count > 9)
+            if (tag.Length < 5 || tag.Length > 9)
                 return null;
 
-            // look for player name to the right
-            for (int i = 1; i < MaxTagByteLength + 2; i++) {
-                var c = data[offset - i];
-                tag.Insert(0, c);
-                if (!char.IsLetterOrDigit((char)data[offset - i - 1]))
+            string name = null;
+            for (int i = MaxTagByteLength - 1; i >= 3; i--) {
+                try {
+                    name = Encoding.UTF8.GetString(data, offset - i, i);
                     break;
-                if (i == MaxTagByteLength) // we exceeded max Name length
-                    return null;
+                }
+                catch (ArgumentException) {
+                    // continue;
+                }
             }
-
-            return Encoding.UTF8.GetString(tag.ToArray());
+            if (name == null)
+                return null;
+            var m = Regex.Match(name, @"\w{3,12}$");
+            if (m.Success) {
+                return m.Value + tag;
+            } else {
+                return null;
+            }
         }
 
         /// <summary>
