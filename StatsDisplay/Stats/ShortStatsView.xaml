@@ -41,7 +41,14 @@
                 <DataTemplate DataType="{x:Type fetcher:PlayerProfile}">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="{Binding Name}" Style="{StaticResource RowLargeText}" Width="100" />
-                        <Label Content="{Binding Ranks, Converter={StaticResource mmrValueConverter}}" ContentStringFormat="{}{0:N0}"  Width="80" />
+                        <Label ContentStringFormat="{}{0:N0}"  Width="80">
+                            <Label.Content>
+                                <MultiBinding Converter="{StaticResource mmrValueConverter}">
+                                    <Binding Path="Ranks" />
+                                    <Binding Path="Settings.MmrDisplayMode" RelativeSource="{RelativeSource AncestorType=stats:HeroesWindow}" />
+                                </MultiBinding>
+                            </Label.Content>
+                        </Label>
                         <Label Content="{Binding GamesCount}" ContentStringFormat="{}{0:N0}" Width="80" />
                         <Image Source="{DynamicResource PlayerLink}" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center" Margin="0, 4, 10, 0" Visibility="{Binding Link, Converter={StaticResource hasValueConverter}}" Tag="{Binding Link}" MouseDown="Image_MouseDown" />
                     </StackPanel>

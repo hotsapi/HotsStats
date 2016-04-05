@@ -97,6 +97,12 @@ namespace StatsDisplay.Stats
                 TeamOneAverageMmr = TeamOne.AverageMmr(Settings.MmrDisplayMode);
                 TeamTwoAverageMmr = TeamTwo.AverageMmr(Settings.MmrDisplayMode);
             };
+            Settings.PropertyChanged += (o, e) => {
+                if (e.PropertyName == nameof(Settings.MmrDisplayMode)) {
+                    TeamOneAverageMmr = TeamOne.AverageMmr(Settings.MmrDisplayMode);
+                    TeamTwoAverageMmr = TeamTwo.AverageMmr(Settings.MmrDisplayMode);
+                }
+            };
 
             if (Settings.AutoClose) {
                 await Task.Delay(10000);

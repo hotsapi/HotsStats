@@ -41,8 +41,15 @@
                             <Label Content="{Binding Hero}" Style="{StaticResource RowLargeText}" Margin="0" />
                             <Label Content="{Binding Name}" ContentStringFormat=" ({0})" Margin="0" />
                         </StackPanel>
-                        <Label Content="{Binding Ranks, Converter={StaticResource mmrValueConverter}}" Width="80" />
-                        <Label Content="{Binding GamesCount}" Width="80" />
+                        <Label ContentStringFormat="{}{0:N0}" Width="80">
+                            <Label.Content>
+                                <MultiBinding Converter="{StaticResource mmrValueConverter}">
+                                    <Binding Path="Ranks" />
+                                    <Binding Path="Settings.MmrDisplayMode" RelativeSource="{RelativeSource AncestorType=stats:HeroesWindow}" />
+                                </MultiBinding>
+                            </Label.Content>
+                        </Label>
+                        <Label Content="{Binding GamesCount}" ContentStringFormat="{}{0:N0}" Width="80" />
                         <Label Content="{Binding HeroLevel}" Width="60" />
                         <Label Content="{Binding HeroWinRate}" ContentStringFormat="{}{0}%" Width="80" />
                         <Label Content="{Binding MapWinRate}" ContentStringFormat="{}{0}%" Width="80" />
