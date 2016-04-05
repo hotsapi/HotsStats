@@ -15,8 +15,9 @@ Screenshots
 ---------------------------
 ![Screenshot1](https://cloud.githubusercontent.com/assets/2109710/13773994/7893fdc6-eaad-11e5-99b9-d913f2551cd5.png)
 ![Screenshot2](https://cloud.githubusercontent.com/assets/2109710/13773945/35ccde54-eaad-11e5-8f35-79312addead6.png)
+![Screenshot3](https://cloud.githubusercontent.com/assets/2109710/14224392/f1ad449e-f8a2-11e5-8d95-6c4a2a83d5ef.png)
 
-Roadmap
+Available stats
 --------------------------
 #### Stage 1 - loading screen
 At this point we are able to extract only the current region and BattleTags. We don't know the current map or the heroes being played. So we can show only general stats:
@@ -33,7 +34,7 @@ This is when the well documented replay file is created. Now we know current map
 * Win rate with current role and sub-role
 * Current team composition win rate (yay less whining about comps!)
 
-I'm going to make this window function like built-in stats that can be shown while you are holding Shift-Tab hotkey. I'd be happy to move those stats to loading screen if we find a way to get map and heroes data from battlelobby file (or maybe use OCR).
+This window functions like built-in stats that can be shown with Shift-Tab hotkey. I'd be happy to move those stats to loading screen if we find a way to get map and heroes data from battlelobby file (or maybe use OCR).
 
 **- What about advanced stats during match?**
 
@@ -46,15 +47,8 @@ Development details
 ------------------
 Here's how the app currently works. During loading screen the game creates the battlelobby and tracker files. Battlelobby is one of a few replay files not documented by Blizzard. Since I have no idea about the file structure I just search for anything that looks like a battle tag. If anyone finds how to extract current map and heroes from this file it would be awesome. Detailed info about replay files can be found on [wiki page](https://github.com/poma/HotsStats/wiki/Details-on-partial-replays)
 
-Then I get MMR from HotsLogs JSON API. If we want more stats such as total games count and heroes win rate we will need to parse HTML profile.
+Then I get MMR from HotsLogs JSON API. For more stats such as total games count and heroes win rate we have to parse HTML profile.
 
 Code style
 -------------------
-While I'm the only one actively developing this project I use coding style that I like. Later on if there will be more contributors I plan to convert it to common conventions. Currently I use tabs for indentation and C style brackets.
-
-Current To Do list
----------------------
-* Error reporting
-* Rework GUI to use proper MVVM pattern
-* Make stats window look more like hots stats
-* Rework ugly settings window
+While I'm the only one actively developing this project I use coding style that I like. Later on if there will be more contributors I plan to convert it to common conventions. Currently I use ~~tabs~~ spaces for indentation and C style brackets.
