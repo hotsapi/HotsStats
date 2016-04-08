@@ -27,7 +27,7 @@ namespace StatsFetcher
             // todo: we need a way to detect when HotS finished writing this file
             // For now we will just wait 1 sec and hope it is enough
             await Task.Delay(1000);
-            File.Copy(path, tmpPath, true);
+            await SafeCopy(path, tmpPath, true);
             var replay = DataParser.ParseReplay(tmpPath, true, true).Item2;
 
             foreach (var profile in game.Players) {
