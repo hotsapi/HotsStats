@@ -126,11 +126,13 @@ namespace StatsDisplay
 
         internal async void ProcessReplayFile(string path)
         {
-            await FileProcessor.ProcessReplayFile(path, Game);
-            _currentWindow?.Close();
-            _currentWindow = new RecapStatsWindow();
-            if (Settings.AutoShow)
-                _currentWindow.Show();
+            if (Settings.ShowRecap) {
+                await FileProcessor.ProcessReplayFile(path, Game);
+                _currentWindow?.Close();
+                _currentWindow = new RecapStatsWindow();
+                if (Settings.AutoShow)
+                    _currentWindow.Show();
+            }
         }
 
         private async void CheckForUpdates()

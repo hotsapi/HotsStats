@@ -53,5 +53,8 @@
     <Setting Name="UpdateRepository" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://github.com/poma/HotsStats</Value>
     </Setting>
+    <Setting Name="ShowRecap" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

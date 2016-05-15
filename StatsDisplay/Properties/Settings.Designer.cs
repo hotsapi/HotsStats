@@ -226,5 +226,17 @@ namespace StatsDisplay.Properties {
                 this["UpdateRepository"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowRecap {
+            get {
+                return ((bool)(this["ShowRecap"]));
+            }
+            set {
+                this["ShowRecap"] = value;
+            }
+        }
     }
 }

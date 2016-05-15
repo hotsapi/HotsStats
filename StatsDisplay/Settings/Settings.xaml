@@ -29,6 +29,7 @@
             </DockPanel>
             <CheckBox IsChecked="{Binding Settings.AutoShow}" Content="Show automatically" Margin="0, 8, 0, 0" />
             <CheckBox IsChecked="{Binding Settings.AutoClose}" Content="Close automatically" Margin="0, 8, 0, 0" />
+            <CheckBox IsChecked="{Binding Settings.ShowRecap}" Content="Show stats after match" Margin="0, 8, 0, 0" />
             <CheckBox IsChecked="{Binding Settings.MinimizeToTray}" Content="Minimize to tray" Margin="0, 8, 0, 0" />
             <CheckBox IsChecked="{Binding Settings.AutoUpdate}" Content="Update automatically " Margin="0, 8, 0, 0" />
             <TextBlock Text="Press Shift+Tab during game to show stats window. Full statistics is available after 1:00 during match" TextWrapping="Wrap" Margin="0, 8, 0, 0" Foreground="DimGray" />
