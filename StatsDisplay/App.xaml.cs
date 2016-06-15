@@ -66,7 +66,11 @@ namespace StatsDisplay
         {
             _hotKey = new HotKey(Key.Tab, KeyModifier.Shift | KeyModifier.NoRepeat);
             _hotKey.Pressed += (o, e) => {
-                if (_currentWindow?.IsVisible ?? false) {
+                if (_currentWindow == null) {
+                    return;
+                }
+                    
+                if (_currentWindow.IsVisible) {
                     _currentWindow.Hide();
                 } else {
                     _currentWindow.Show();
