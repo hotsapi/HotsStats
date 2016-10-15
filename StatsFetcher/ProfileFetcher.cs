@@ -11,41 +11,26 @@ namespace StatsFetcher
 {
     public class ProfileFetcher
     {
-        private Game game;
-        private HttpClient web;
+        private readonly Game game;
+        private readonly HttpClient web = new HttpClient();
 
         public ProfileFetcher(Game game)
         {
             this.game = game;
-            this.web = new HttpClient();
         }
 
         public async Task FetchBasicProfiles()
         {
-            var tasks = new List<Task>();
-
             // start all requests in parallel
-            foreach (var p in game.Players) {
-                tasks.Add(FetchBasicProfile(p));
-            }
 
-            foreach (var task in tasks) {
-                await task;
-            }
+            await Task.WhenAll(game.Players.Select(FetchBasicProfile)).ConfigureAwait(false);
         }
 
         public async Task FetchFullProfiles()
         {
-            var tasks = new List<Task>();
-
             // start all requests in parallel
-            foreach (var p in game.Players) {
-                tasks.Add(FetchFullProfile(p));
-            }
 
-            foreach (var task in tasks) {
-                await task;
-            }
+            await Task.WhenAll(game.Players.Select(FetchFullProfile)).ConfigureAwait(false);
         }
 
         private async Task FetchBasicProfile(PlayerProfile p)
