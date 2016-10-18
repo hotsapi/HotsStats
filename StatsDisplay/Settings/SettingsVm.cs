@@ -59,6 +59,7 @@ namespace StatsDisplay.Settings
         {
             GameModes = new List<GameMode> {
                 GameMode.QuickMatch,
+                GameMode.UnrankedDraft,
                 GameMode.HeroLeague,
                 GameMode.TeamLeague
             };
