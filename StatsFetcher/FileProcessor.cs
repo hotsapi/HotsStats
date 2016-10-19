@@ -17,7 +17,11 @@ namespace StatsFetcher
         public static Game ProcessLobbyFile(string path)
         {
             var game = new BattleLobbyParser(path).Parse();
-            FetchProfiles(game);
+            FetchProfiles(game).ContinueWith(t => {
+                if (t.Exception != null) {
+                    throw t.Exception;
+                }
+            });
             return game;
         }
 
@@ -95,18 +99,21 @@ namespace StatsFetcher
         public static Replay ParseRejoin(string fileName)
         {
             try {
-                var replay = new Replay();
+                using (var archive = new MpqArchive(fileName)) {
+                    archive.AddListfileFilenames();
+                    var replay = new Replay();
 
-                var archive = new MpqArchive(fileName);
-                archive.AddListfileFilenames();
+                    // Replay Details
+                    ReplayDetails.Parse(replay, DataParser.GetMpqFile(archive, "save.details"), true);
 
-                // Replay Details
-                ReplayDetails.Parse(replay, DataParser.GetMpqFile(archive, "save.details"), true);
+                    // Player level is stored there
+                    // does not exist in brawl
+                    if (archive.FileExists("replay.attributes.events")) {
+                        ReplayAttributeEvents.Parse(replay, DataParser.GetMpqFile(archive, "replay.attributes.events"));
+                    }
 
-                // Player level is stored there
-                ReplayAttributeEvents.Parse(replay, DataParser.GetMpqFile(archive, "replay.attributes.events"));
-
-                return replay;
+                    return replay;
+                }
             }
             catch (Exception ex) {
                 //TODO: WE REALLY DON't want to do this

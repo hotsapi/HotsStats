@@ -17,6 +17,7 @@ namespace StatsFetcher
             Game = game;
             Ranks = new Dictionary<GameMode, MmrValue> {
                 { GameMode.QuickMatch, null },
+                { GameMode.UnrankedDraft, null },
                 { GameMode.HeroLeague, null },
                 { GameMode.TeamLeague, null }
             };
