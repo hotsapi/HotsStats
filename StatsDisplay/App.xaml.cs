@@ -108,7 +108,10 @@ namespace StatsDisplay
         internal async void ProcessRejoinFile(string path)
         {
             try {
-                await FileProcessor.ProcessRejoinAsync(path, Game);
+				if (Game == null) {
+					return;
+				}
+				await FileProcessor.ProcessRejoinAsync(path, Game);
                 _currentWindow?.Close();
                 _currentWindow = new FullStatsWindow();
 
@@ -131,6 +134,9 @@ namespace StatsDisplay
         internal async void ProcessReplayFile(string path)
         {
             if (Settings.ShowRecap) {
+				if (Game == null) {
+					return;
+				}
                 await FileProcessor.ProcessReplayFile(path, Game);
                 _currentWindow?.Close();
                 _currentWindow = new RecapStatsWindow();

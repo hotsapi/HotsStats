@@ -246,3 +246,4 @@ _Pvt_Extensions
 .idea/
 *.sln.iml
 /replay.server.battlelobby
+/packages
