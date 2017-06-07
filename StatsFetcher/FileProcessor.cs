@@ -35,8 +35,8 @@ namespace StatsFetcher
 			var replayData = DataParser.ParseReplay(tmpPath, true, true);
 			var replay = replayData.Item2;
 
-			if (replayData.Item1 != DataParser.ReplayParseResult.Success) {
-				throw new Exception("Unable to parse replay: " + replayData.Item1);
+			if (replayData.Item2 == null) {
+				throw new Exception($"Unable to parse replay: {replayData.Item1}");
 			}
 
 			foreach (var profile in game.Players) {
