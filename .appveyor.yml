@@ -40,5 +40,5 @@ deploy:
 
 cache:
   - packages -> **\packages.config
-  - '%USERPROFILE%\.nuget\packages -> **\*.csproj'
+#  - '%USERPROFILE%\.nuget\packages -> **\*.csproj'
   - Releases
