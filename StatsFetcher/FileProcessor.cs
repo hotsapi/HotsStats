@@ -14,14 +14,12 @@ namespace StatsFetcher
 	{
 		private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-		public static Game ProcessLobbyFile(string path)
+		public static async Task<Game> ProcessLobbyFile(string path)
 		{
-			var game = new BattleLobbyParser(path).Parse();
-			FetchProfiles(game).ContinueWith(t => {
-				if (t.Exception != null) {
-					throw t.Exception;
-				}
-			});
+            var tmpPath = Path.GetTempFileName();
+            await SafeCopy(path, tmpPath, true);
+            var game = new BattleLobbyParser(tmpPath).Parse();
+            await FetchProfiles(game);
 			return game;
 		}
 
