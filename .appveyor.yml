@@ -1,0 +1,44 @@
+environment:
+  core_version: 0.7.0
+  GitHubToken:
+    secure: Hq962a6/5Qpa9d37AJuVplk7sYc4AYRn9b5dg4eLi1jXBkdvbj2zRsG+8r+4nNE3
+image: Visual Studio 2017
+configuration: Release
+version: '$(core_version)+{branch}.{build}'
+install:
+  - cmd: git submodule update --init --recursive
+  - cmd: nuget.exe restore
+  - cmd: 'packages\squirrel.windows.1.2.5\tools\SyncReleases.exe --url=https://github.com/poma/HotsStats --token=%GitHubToken%'
+
+assembly_info:
+  patch: true
+  file: StatsDisplay\Properties\AssemblyInfo.cs
+  assembly_version: '$(core_version)'
+  assembly_file_version: '$(core_version)'
+  assembly_informational_version: '{version}'
+
+build:
+  project: HotsStats.sln
+  verbosity: minimal
+
+artifacts:
+  - path: Releases\HotsStatsSetup.exe
+  - path: Releases\RELEASES
+  - path: Releases\HotsStats-$(core_version)-full.nupkg
+  - path: Releases\HotsStats-$(core_version)-delta.nupkg
+
+deploy:
+  - provider: GitHub
+    auth_token:
+      secure: Hq962a6/5Qpa9d37AJuVplk7sYc4AYRn9b5dg4eLi1jXBkdvbj2zRsG+8r+4nNE3
+    repository: poma/HotsStats
+    artifact: '/.*/'
+    draft: true
+    on:
+      branch: /^v\d+\.\d+\.\d+/
+      appveyor_repo_tag: true
+
+cache:
+  - packages -> **\packages.config
+  - '%USERPROFILE%\.nuget\packages -> **\*.csproj'
+  - Releases
