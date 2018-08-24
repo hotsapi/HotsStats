@@ -1,5 +1,5 @@
 environment:
-  core_version: 0.7.0
+  core_version: 0.7.1
   GitHubToken:
     secure: Hq962a6/5Qpa9d37AJuVplk7sYc4AYRn9b5dg4eLi1jXBkdvbj2zRsG+8r+4nNE3
 image: Visual Studio 2017
@@ -8,7 +8,7 @@ version: '$(core_version)+{branch}.{build}'
 install:
   - cmd: git submodule update --init --recursive
   - cmd: nuget.exe restore
-  - cmd: 'packages\squirrel.windows.1.2.5\tools\SyncReleases.exe --url=https://github.com/poma/HotsStats --token=%GitHubToken%'
+  - cmd: 'packages\squirrel.windows.1.7.8\tools\SyncReleases.exe --url=https://github.com/poma/HotsStats --token=%GitHubToken%'
 
 assembly_info:
   patch: true
