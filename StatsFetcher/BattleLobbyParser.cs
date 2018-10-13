@@ -11,7 +11,7 @@ namespace StatsFetcher
     public class BattleLobbyParser
     {
         private readonly int MaxTagByteLength = 32; // Longest player name is 12 letters. Unicode is allowed so 25 bytes + 7 for digits seems reasonable (but technically could be much more)
-        private readonly string TagRegex = @"^\w{3,12}#\d{4,8}$";
+        private readonly string TagRegex = @"^\w{2,12}#\d{4,8}$";
         private readonly byte[] data;
 
         public BattleLobbyParser(string file) : this(File.ReadAllBytes(file))
@@ -141,7 +141,7 @@ namespace StatsFetcher
             }
             if (name == null)
                 return null;
-            var m = Regex.Match(name, @"\w{3,12}$");
+            var m = Regex.Match(name, @"\w{2,12}$");
             if (m.Success) {
                 return m.Value + tag;
             } else {
