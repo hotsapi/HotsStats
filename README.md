@@ -1,7 +1,7 @@
 HotsStats [![Build status](https://ci.appveyor.com/api/projects/status/l28bqoc2yvx1420q?svg=true)](https://ci.appveyor.com/project/poma/hotsstats/branch/master)
 ===========
 This tool shows players MMR and other useful stats during the loading screen in Heroes of the Storm. [Blizzard commented](https://www.reddit.com/r/heroesofthestorm/comments/4ahsxj/hotsstats_version_03_is_out/d10p5k1) that they are not going to ban players for using this app.
-
+1
 Installation
 ---------------------------
 - Requirements:
