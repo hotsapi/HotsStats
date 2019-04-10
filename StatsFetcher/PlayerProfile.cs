@@ -19,7 +19,8 @@ namespace StatsFetcher
                 { GameMode.QuickMatch, null },
                 { GameMode.UnrankedDraft, null },
                 { GameMode.HeroLeague, null },
-                { GameMode.TeamLeague, null }
+                { GameMode.TeamLeague, null },
+                { GameMode.StormLeague, null },
             };
         }
 

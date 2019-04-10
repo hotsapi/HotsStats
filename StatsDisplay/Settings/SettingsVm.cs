@@ -61,7 +61,8 @@ namespace StatsDisplay.Settings
                 GameMode.QuickMatch,
                 GameMode.UnrankedDraft,
                 GameMode.HeroLeague,
-                GameMode.TeamLeague
+                GameMode.TeamLeague,
+                GameMode.StormLeague,
             };
 
             _currentAssembly = Assembly.GetExecutingAssembly();
