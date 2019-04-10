@@ -1,5 +1,5 @@
 environment:
-  core_version: 0.7.1
+  core_version: 0.8.0
   GitHubToken:
     secure: Hq962a6/5Qpa9d37AJuVplk7sYc4AYRn9b5dg4eLi1jXBkdvbj2zRsG+8r+4nNE3
 image: Visual Studio 2017
