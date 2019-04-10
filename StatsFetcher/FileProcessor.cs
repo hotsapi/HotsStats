@@ -134,7 +134,7 @@ namespace StatsFetcher
 				try {
 					p.GamesCount = int.Parse(p.HotsLogsProfile.GetElementbyId("ctl00_MainContent_RadGridGeneralInformation").SelectSingleNode(".//td[text()='Total Games Played']/../td[2]").InnerText);
 				}
-				catch (Exception e) { /* some dirty exception swallow */ }
+				catch (Exception) { /* some dirty exception swallow */ }
 			}
 		}
 

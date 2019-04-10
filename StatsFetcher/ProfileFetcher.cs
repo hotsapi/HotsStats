@@ -47,7 +47,7 @@ namespace StatsFetcher
                     p.Ranks[mode] = new PlayerProfile.MmrValue(mode, (int)r.CurrentMMR, (PlayerProfile.League?)(int?)r.LeagueID, (int?)r.LeagueRank);
                 }
             }
-            catch (Exception e) { /* some dirty exception swallow */ }
+            catch (Exception) { /* some dirty exception swallow */ }
         }
 
         private async Task FetchFullProfile(PlayerProfile p)
@@ -61,7 +61,7 @@ namespace StatsFetcher
                 doc.LoadHtml(str);
                 p.HotsLogsProfile = doc;
             }
-            catch (Exception e) { /* some dirty exception swallow */ }
+            catch (Exception) { /* some dirty exception swallow */ }
         }
     }
 }
