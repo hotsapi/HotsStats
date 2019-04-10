@@ -93,6 +93,9 @@ namespace StatsDisplay.Stats
             TeamOne.TeamType = myTeam == 0 ? TeamTypes.Friendly : TeamTypes.Enemy;
             TeamTwo.TeamType = myTeam == 1 ? TeamTypes.Friendly : TeamTypes.Enemy;
 
+            TeamOneAverageMmr = TeamOne.AverageMmr(Settings.MmrDisplayMode);
+            TeamTwoAverageMmr = TeamTwo.AverageMmr(Settings.MmrDisplayMode);
+
             Game.PropertyChanged += (o, e) => {
                 TeamOneAverageMmr = TeamOne.AverageMmr(Settings.MmrDisplayMode);
                 TeamTwoAverageMmr = TeamTwo.AverageMmr(Settings.MmrDisplayMode);
