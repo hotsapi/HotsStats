@@ -30,7 +30,7 @@ namespace StatsFetcher
 			// For now we will just wait 1 sec and hope it is enough
 			await Task.Delay(1000);
 			await SafeCopy(path, tmpPath, true);
-			var replayData = DataParser.ParseReplay(tmpPath, true, true);
+			var replayData = DataParser.ParseReplay(tmpPath, true, true, skipUnitParsing: true, skipMouseMoveEvents: true);
 			var replay = replayData.Item2;
 
 			if (replayData.Item2 == null) {
